@@ -25,6 +25,16 @@
   color: #ffffff;
 }
 
+.field {
+  text-align: left;
+  font-weight: bold;
+  padding-right:20px;
+}
+
+.value {
+  text-align: right;
+}
+
 .mattributes {
   list-style: none;
   margin: 0;
@@ -39,15 +49,15 @@
   color: #fff;
   opacity: 0.75;
 }
-.mattributes .mattribute.battery-level.battery-level-ok .value {
+.battery-level-ok {
   color: lightgreen;
 }
 
-.mattributes .mattribute.battery-level.battery-level-warning .value {
+.battery-level-warning {
   color: orange;
 }
 
-.mattributes .mattribute.battery-level.battery-level-danger .value {
+.battery-level-danger {
   color: lightcoral;
 }
 

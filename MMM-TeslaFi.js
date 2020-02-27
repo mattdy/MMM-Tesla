@@ -18,13 +18,21 @@ Module.register('MMM-TeslaFi', {
 		batteryWarning: 50,
 		apiBase: 'https://www.teslafi.com/feed.php?token=',
 		apiQuery: '&command=lastGood',
+		items: [ 'battery', 'range', 'range-estimated', 'power-connected', 'charge-time', 'charge-added', 'locked', 'odometer', 'temperature', 'data-time' ],
 	},
 	// Define required scripts.
 	getScripts: function() {
-		return ['https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js', ];
+		return [
+			'https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.min.js',
+			'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js',
+			'moment.js'
+			];
 	},
 	getStyles: function() {
-		return ['https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css', 'MMM-TeslaFi.css'];
+		return [
+			'https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css',
+			'MMM-TeslaFi.css'
+			];
 	},
 	start: function() {
 		Log.info('Starting module: ' + this.name);
@@ -66,74 +74,157 @@ Module.register('MMM-TeslaFi', {
 				return 'ok';
 			}
 		}
-		const carName = t.display_name;
-		const state = t.carState;
-		const latitude = t.latitude;
-		const longitude = t.longitude;
-		const battery = t.usable_battery_level;
-		const idealRange = t.ideal_battery_range ? (!this.config.imperial ? (t.ideal_battery_range * 1.0).toFixed(0) : (t.ideal_battery_range / 1.609).toFixed(0)) : 0;
-		const estRange = t.est_battery_range ? (!this.config.imperial ? (t.est_battery_range * 1.0).toFixed(0) : (t.est_battery_range / 1.609).toFixed(0)) : 0;
-		const pluggedIn = t.charging_state;
-		const chargeLimitSOC = t.charge_limit_soc;
-		const chargeStartTime = t.charge_current_request;
-		const timeToFull = t.time_to_full_charge;
-		const energyAdded = t.charge_energy_added;
-		const speed = t.speed ? (!this.config.imperial ? (t.speed * 1.0).toFixed(1) : (t.speed / 1.609).toFixed(1)) : 0;
-		const outside_temp = t.outside_temp ? (!this.config.imperial ? (t.outside_temp * 1.0).toFixed(1) : (t.outside_temp * 9 / 5 + 32).toFixed(1)) : 0;
-		const inside_temp = t.inside_temp ? (!this.config.imperial ? (t.inside_temp * 1.0).toFixed(1) : (t.inside_temp * 9 / 5 + 32).toFixed(1)) : 0;
-		const odometer = t.odometer ? (!this.config.imperial ? (t.odometer * 1.0).toFixed(1) : (t.odometer / 1.609).toFixed(0)) : 0;
-		const locked = t.locked;
+
 		content.innerHTML = "";
-		wrapper.innerHTML = `
-		    <h2 class="mqtt-title">
-		    <span class="zmdi zmdi-car zmdi-hc-1x icon"></span> ${carName}</h2>
-				<ul class="mattributes">
-			    <li class="mattribute battery-level battery-level-${getBatteryLevelClass(
-			        battery, this.config.batteryWarning, this.config.batteryDanger
-			      )}">
-			      <span class="icon zmdi zmdi-battery zmdi-hc-fw"></span>
-			      <span class="name">Current Battery Level</span>
-			      <span class="value">${battery}%</span>
-			    </li>
-			    <li class="mattribute battery-level battery-level-${getBatteryLevelClass(
-			      chargeLimitSOC, this.config.batteryWarning, this.config.batteryDanger
-			    )}">
-			    <span class="icon zmdi zmdi-battery zmdi-hc-fw"></span>
-			    <span class="name">Max Battery Level</span>
-			    <span class="value">${chargeLimitSOC}%</span>
-			  	</li>
-			    <li class="mattribute">
-			      <span class="icon zmdi zmdi-car zmdi-hc-fw"></span>
-			      <span class="name">Ideal v. Est. Range</span>
-			      <span class="value">${idealRange} v. ${estRange} ${!this.config.imperial ? `Km` : `Mi`}</span>
-			    </li>
-			    ${pluggedIn ? `
-			    <li class="mattribute">
-			      <span class="icon zmdi zmdi-input-power zmdi-hc-fw"></span>
-			      <span class="name">Charge Added</span>
-			      <span class="value">${energyAdded} kWh</span>
-			    </li>
-			    <li class="mattribute">
-			      <span class="icon zmdi zmdi-time zmdi-hc-fw"></span>
-			      <span class="name">Time to Full Charge</span>
-			      <span class="value">${timeToFull} Hours</span>
-			    </li>
-			    `: ``}
-			    <li class="mattribute">
-			      <span class="icon zmdi zmdi-lock zmdi-hc-fw"></span>
-			      <span class="name">Lock</span>
-			      <span class="value">${ locked ?
-			        '<span class="zmdi zmdi-lock"></span> Locked' :
-			        '<span class="zmdi zmdi-lock-open"></span> Unlocked'}
-			      </span>
-			    </li>
-			    <li class="mattribute">
-			      <span class="icon zmdi zmdi-dot-circle-alt zmdi-hc-fw"></span>
-			      <span class="name">Odometer</span>
-			      <span class="value">${odometer} ${!this.config.imperial ? `Km` : `Mi`}</s$
-			    </li>
-				  </ul>
-						`;
+		var table = `
+		<h2 class="mqtt-title"><span class="zmdi zmdi-car zmdi-hc-1x icon"></span> ${t.display_name}</h2>
+		<table class="small">
+		`;
+
+		for(field in this.config.items) {
+
+		switch (this.config.items[field]) {
+			case 'battery':
+				table += `
+				   <tr>
+				      <td class="icon"><span class="zmdi zmdi-battery zmdi-hc-fw"></span></td>
+				      <td class="field">Battery</td>
+				      <td class="value">
+				         <span class="battery-level-${getBatteryLevelClass(t.usable_battery_level, this.config.batteryWarning, this.config.batteryDanger)}">${t.usable_battery_level}%</span>
+                                         /
+                                         <span class="battery-level-${getBatteryLevelClass(t.charge_limit_soc, this.config.batteryWarning, this.config.batteryDanger)}">${t.charge_limit_soc}%</span>
+				      </td>
+				   </tr>
+				`;
+			break;
+
+			case 'range':
+				table += `
+				   <tr>
+				      <td class="icon"><span class="zmdi zmdi-gas-station zmdi-hc-fw"></span></td>
+				      <td class="field">Range</td>
+				      <td class="value">${t.ideal_battery_range} miles</td>
+				   </tr>
+				`;
+			break;
+
+			case 'range-estimated':
+				table += `
+				   <tr>
+				      <td class="icon"><span class="zmdi zmdi-gas-station zmdi-hc-fw"></span></td>
+				      <td class="field">Range</td>
+				      <td class="value">${t.est_battery_range} miles (estimated)</td>
+				   </tr>
+				`;
+			break;
+
+			case 'charge-time':
+				if(!t.charging_state || t.time_to_full_charge==0) { break; }
+
+				table += `
+				   <tr>
+				      <td class="icon"><span class="zmdi zmdi-battery-flash zmdi-hc-fw"></span></td>
+				      <td class="field">Charging</td>
+				      <td class="value">${moment().add(t.time_to_full_charge, "hours").fromNow()}</td>
+				   </tr>
+				`;
+			break;
+
+			case 'charge-added':
+				if(!t.charging_state) { break; }
+
+				table += `
+				   <tr>
+				      <td class="icon"><span class="zmdi zmdi-flash zmdi-hc-fw"></span></td>
+				      <td class="field">Charge Added</td>
+				      <td class="value">${t.charge_energy_added} kWh</td>
+				   </tr>
+				`;
+
+			break;
+
+			case 'locked':
+				if(t.locked) {
+
+				table += `
+				   <tr>
+				      <td class="icon"><span class="zmdi zmdi-lock-outline zmdi-hc-fw"></span></td>
+				      <td class="field" colspan="2">Locked</td>
+				   </tr>
+				`;
+
+				} else {
+
+				table += `
+				   <tr>
+				      <td class="icon"><span class="zmdi zmdi-lock-open zmdi-hc-fw"></span></td>
+				      <td class="field" colspan="2">Unlocked</td>
+				   </tr>
+				`;
+
+				}
+			break;
+
+			case 'odometer':
+				table += `
+				   <tr>
+				      <td class="icon"><span class="zmdi zmdi-globe zmdi-hc-fw"></span></td>
+				      <td class="field">Odometer</td>
+				      <td class="value">${parseFloat(t.odometer).toFixed(1)} miles</td>
+				   </tr>
+				`;
+			break;
+
+			case 'temperature':
+				if(!t.outside_temp || !t.inside_temp) { break; }
+
+				table += `
+				   <tr>
+				      <td class="icon"><span class="zmdi zmdi-sun zmdi-hc-fw"></span></td>
+				      <td class="field">Temperature</td>
+				      <td class="value">${t.outside_temp}&deg;C / ${t.inside_temp}&deg;C</td>
+				   </tr>
+				`;
+			break;
+
+			case 'power-connected':
+				if(t.charging_state) {
+
+				table += `
+				   <tr>
+				      <td class="icon"><span class="zmdi zmdi-input-power zmdi-hc-fw"></span></td>
+				      <td class="field">Connected</td>
+				      <td class="value">${t.charging_state}</td>
+				   </tr>
+				`;
+
+				} else {
+
+				table += `
+				   <tr>
+				      <td class="icon"><span class="zmdi zmdi-input-power zmdi-hc-fw"></span></td>
+				      <td class="field" colspan="2">Disconnected</td>
+				   </tr>
+				`;
+
+				}
+			break;
+
+			case 'data-time':
+				table += `
+				   <tr>
+				      <td class="icon"><span class="zmdi zmdi-time zmdi-hc-fw"></span></td>
+				      <td class="field" colspan="2">${moment(t.Date).fromNow()}</td>
+				   </tr>
+				`;
+			break;
+		} // switch
+
+		} // end foreach loop of items
+
+		table += "</table>";
+
+		wrapper.innerHTML = table;
 		wrapper.className = "dimmed light small";
 		wrapper.appendChild(content);
 		return wrapper;
