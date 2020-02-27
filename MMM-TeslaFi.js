@@ -17,6 +17,7 @@ Module.register('MMM-TeslaFi', {
 		batteryDanger: 30,
 		batteryWarning: 50,
 		apiBase: 'https://www.teslafi.com/feed.php?token=',
+		apiQuery: '&command=lastGood',
 	},
 	// Define required scripts.
 	getScripts: function() {
