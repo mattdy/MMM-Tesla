@@ -3,7 +3,9 @@
 /* Magic Mirror
  * Module: MMM-TeslaFi
  *
- * By Adrian Chrysanthou
+ * Originally By Adrian Chrysanthou
+ * Updated by Matt Dyson
+ *
  * MIT Licensed.
  */
 
