@@ -1,10 +1,10 @@
 {
   "name": "Magic-Mirror-Module-TeslaFi",
-  "version": "1.0.1",
+  "version": "2.0",
   "description": "MagicMirror2 Module to display Tesla Stats.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/f00d4tehg0dz/MMM-TeslaFi"
+    "url": "git+https://github.com/mattdy/MMM-TeslaFi"
   },
   "keywords": [
     "magic mirror",
@@ -13,13 +13,13 @@
     "teslafi",
     "module",
   ],
-  "author": "Adrian Chrysanthou",
-  "contributors": "https://github.com/f00d4tehg0dz/MMM-TeslaFi/graphs/contributors",
+  "author": "Matt Dyson / Adrian Chrysanthou",
+  "contributors": "https://github.com/mattdy/MMM-TeslaFi/graphs/contributors",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/f00d4tehg0dz/MMM-TeslaFI/issues"
+    "url": "https://github.com/mattdy/MMM-TeslaFI/issues"
   },
-  "homepage": "https://github.com/f00d4tehg0dz/MMM-TeslaFi#readme",
+  "homepage": "https://github.com/mattdy/MMM-TeslaFi#readme",
   "dependencies": {
     }
 }
