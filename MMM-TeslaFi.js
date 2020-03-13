@@ -132,7 +132,7 @@ Module.register('MMM-TeslaFi', {
 			break;
 
 			case 'charge-added':
-				if(!t.charging_state) { break; }
+				if(t.charging_state=="Disconnected") { break; }
 
 				table += `
 				   <tr>
@@ -189,7 +189,7 @@ Module.register('MMM-TeslaFi', {
 			break;
 
 			case 'power-connected':
-				if(t.charging_state) {
+				if(t.charging_state!="Disconnected") {
 
 				table += `
 				   <tr>
