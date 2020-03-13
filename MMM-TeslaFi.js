@@ -226,7 +226,7 @@ Module.register('MMM-TeslaFi', {
 		table += "</table>";
 
 		wrapper.innerHTML = table;
-		wrapper.className = "dimmed light small";
+		wrapper.className = "light small";
 		wrapper.appendChild(content);
 		return wrapper;
 	},
