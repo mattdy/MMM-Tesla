@@ -19,7 +19,7 @@ Module.register('MMM-TeslaFi', {
 		batteryWarning: 50,
 		apiBase: 'https://www.teslafi.com/feed.php?token=',
 		apiQuery: '&command=lastGood',
-		items: [ 'battery', 'range', 'range-estimated', 'power-connected', 'charge-time', 'charge-added', 'locked', 'odometer', 'temperature', 'data-time' ],
+		items: [ 'battery', 'range', 'range-estimated', 'power-connected', 'charge-time', 'charge-added', 'locked', 'odometer', 'temperature', 'temperatureF', 'data-time' ],
 	},
 	// Define required scripts.
 	getScripts: function() {
@@ -184,6 +184,18 @@ Module.register('MMM-TeslaFi', {
 				      <td class="icon"><span class="zmdi zmdi-sun zmdi-hc-fw"></span></td>
 				      <td class="field">Temperature</td>
 				      <td class="value">${t.outside_temp}&deg;C / ${t.inside_temp}&deg;C</td>
+				   </tr>
+				`;
+			break;
+
+			case 'temperatureF':
+				if(!t.outside_tempF || !t.inside_tempF) { break; }
+
+				table += `
+				   <tr>
+				      <td class="icon"><span class="zmdi zmdi-sun zmdi-hc-fw"></span></td>
+				      <td class="field">Temperature</td>
+				      <td class="value">${t.outside_tempF}&deg;F / ${t.inside_tempF}&deg;F</td>
 				   </tr>
 				`;
 			break;
