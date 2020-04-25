@@ -104,7 +104,7 @@ Module.register('MMM-TeslaFi', {
 				   <tr>
 				      <td class="icon"><span class="zmdi zmdi-gas-station zmdi-hc-fw"></span></td>
 				      <td class="field">Range</td>
-				      <td class="value">${t.ideal_battery_range} miles</td>
+				      <td class="value">${parseFloat(t.ideal_battery_range).toFixed(0)} / ${parseFloat(t.maxRange).toFixed(0)} miles</td>
 				   </tr>
 				`;
 			break;
@@ -113,8 +113,8 @@ Module.register('MMM-TeslaFi', {
 				table += `
 				   <tr>
 				      <td class="icon"><span class="zmdi zmdi-gas-station zmdi-hc-fw"></span></td>
-				      <td class="field">Range</td>
-				      <td class="value">${t.est_battery_range} miles (estimated)</td>
+				      <td class="field">Est. Real Range</td>
+				      <td class="value">${parseFloat(t.est_battery_range).toFixed(0)} miles</td>
 				   </tr>
 				`;
 			break;
@@ -145,12 +145,24 @@ Module.register('MMM-TeslaFi', {
 			break;
 
 			case 'locked':
-				if(t.locked) {
 
+				//Check for a window open and only show status is open to avoid clutter
+				var window_index = parseInt(0);
+				window_index = parseInt(t.fd_window);
+				window_index += parseInt(t.fp_window);
+				window_index += parseInt(t.rd_window);
+				window_index += parseInt(t.rp_window);
+				//var window_status = "Window closed";
+				var window_status = "";
+				if (window_index!=0) {window_status = "Window open"}
+
+
+				if(t.locked) {
 				table += `
 				   <tr>
 				      <td class="icon"><span class="zmdi zmdi-lock-outline zmdi-hc-fw"></span></td>
-				      <td class="field" colspan="2">Locked</td>
+				      <td class="field">Locked</td>
+				      <td class="value"><span class="security-warning">${window_status}</span></td>
 				   </tr>
 				`;
 
@@ -159,7 +171,8 @@ Module.register('MMM-TeslaFi', {
 				table += `
 				   <tr>
 				      <td class="icon"><span class="zmdi zmdi-lock-open zmdi-hc-fw"></span></td>
-				      <td class="field" colspan="2">Unlocked</td>
+				      <td class="field"><span class="security-warning">Unlocked</span></td>
+				      <td class="value"><span class="security-warning">${window_status}</span></td>
 				   </tr>
 				`;
 
@@ -171,7 +184,7 @@ Module.register('MMM-TeslaFi', {
 				   <tr>
 				      <td class="icon"><span class="zmdi zmdi-globe zmdi-hc-fw"></span></td>
 				      <td class="field">Odometer</td>
-				      <td class="value">${parseFloat(t.odometer).toFixed(1)} miles</td>
+				      <td class="value">${parseFloat(t.odometer).toFixed(0)} miles</td>
 				   </tr>
 				`;
 			break;
@@ -179,32 +192,58 @@ Module.register('MMM-TeslaFi', {
 			case 'temperature':
 				if(!t.outside_temp || !t.inside_temp) { break; }
 
-				table += `
-				   <tr>
+					if(t.measure=="imperial") {		
+					table += `
+					<tr>
+						<td class="icon"><span class="zmdi zmdi-sun zmdi-hc-fw"></span></td>
+						<td class="field">Temperature</td>
+						<td class="value">${t.outside_tempF}&deg;F / ${t.inside_tempF}&deg;F</td>
+					</tr>
+					`;
+					} else {
+					table += `
+					<tr>
 				      <td class="icon"><span class="zmdi zmdi-sun zmdi-hc-fw"></span></td>
 				      <td class="field">Temperature</td>
 				      <td class="value">${t.outside_temp}&deg;C / ${t.inside_temp}&deg;C</td>
 				   </tr>
-				`;
+					`;
+					}
 			break;
 
 			case 'power-connected':
 				if(t.charging_state!="Disconnected") {
+					if(t.scheduled_charging_pending) {
 
-				table += `
-				   <tr>
-				      <td class="icon"><span class="zmdi zmdi-input-power zmdi-hc-fw"></span></td>
-				      <td class="field">Connected</td>
-				      <td class="value">${t.charging_state}</td>
-				   </tr>
-				`;
+					table += `
+					<tr>
+						<td class="icon"><span class="zmdi zmdi-input-power zmdi-hc-fw"></span></td>
+						<td class="field">Connected</td>
+						<td class="value">Scheduled</td>
+					</tr>
+					`;
+
+					} else {
+
+					table += `
+					<tr>
+						<td class="icon"><span class="zmdi zmdi-input-power zmdi-hc-fw"></span></td>
+						<td class="field">Connected</td>
+						<td class="value">${t.charging_state}</td>
+					</tr>
+					`;
+
+					}
+
 
 				} else {
 
 				table += `
 				   <tr>
 				      <td class="icon"><span class="zmdi zmdi-input-power zmdi-hc-fw"></span></td>
-				      <td class="field" colspan="2">Disconnected</td>
+				      <td class="field" colspan="2">
+						<span class="battery-level-${getBatteryLevelClass(t.usable_battery_level, this.config.batteryWarning, this.config.batteryDanger)}">Disconnected</span>
+				      </td>
 				   </tr>
 				`;
 
