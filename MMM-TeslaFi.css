@@ -61,6 +61,11 @@
   color: lightcoral;
 }
 
+.security-warning {
+  color: orange;
+}
+
+
 .mattributes .mattribute .name:after {
   content: ': ';
 }
