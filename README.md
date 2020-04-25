@@ -14,7 +14,7 @@ I am happy to accept any [bug reports](https://github.com/mattdy/MMM-TeslaFi/iss
 
 ## Installation
 
-Open a terminal session, navigate to your MagicMirror's `modules` folder and execute `git clone https://github.com/mattdyson/MMM-TeslaFi.git`, a new folder called MMM-TeslaFi will be created.
+Open a terminal session, navigate to your MagicMirror's `modules` folder and execute `git clone https://github.com/mattdy/MMM-TeslaFi.git`, a new folder called MMM-TeslaFi will be created.
 
 Activate the module by adding it to the config.js file as shown below. Of course the position is up to you.
 
@@ -44,7 +44,8 @@ Activate the module by adding it to the config.js file as shown below. Of course
 | charge-added | How much energy has been added on this charge session |
 | locked | Whether or not the vehicle is locked |
 | odometer | Total mileage of the vehicle (rounded to 2 decimal places) |
-| temperature | Temperature outside and inside the vehicle (see note below) |
+| temperature | Temperature outside and inside the vehicle (Celcius) |
+| temperatureF | Temperature outside and inside the vehicle (Fahrenheit) |
 | data-time | How long ago the data was collected by TeslaFi |
 
 * Some fields (charge-time, charge-added) are only enabled if the vehicle is plugged in
