@@ -126,7 +126,7 @@ Module.register('MMM-TeslaFi', {
 				   <tr>
 				      <td class="icon"><span class="zmdi zmdi-battery-flash zmdi-hc-fw"></span></td>
 				      <td class="field">Charging</td>
-				      <td class="value">${moment().add(t.time_to_full_charge, "hours").fromNow()}</td>
+				      <td class="value">Done ${moment().add(t.time_to_full_charge, "hours").fromNow()}</td>
 				   </tr>
 				`;
 			break;
