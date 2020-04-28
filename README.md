@@ -14,7 +14,7 @@ I am happy to accept any [bug reports](https://github.com/mattdy/MMM-TeslaFi/iss
 
 ## Installation
 
-Open a terminal session, navigate to your MagicMirror's `modules` folder and execute `git clone https://github.com/mattdyson/MMM-TeslaFi.git`, a new folder called MMM-TeslaFi will be created.
+Open a terminal session, navigate to your MagicMirror's `modules` folder and execute `git clone https://github.com/mattdy/MMM-TeslaFi.git`, a new folder called MMM-TeslaFi will be created.
 
 Activate the module by adding it to the config.js file as shown below. Of course the position is up to you.
 
