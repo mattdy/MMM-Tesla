@@ -17,6 +17,7 @@ Module.register('MMM-TeslaFi', {
 		imperial: true,
 		batteryDanger: 30,
 		batteryWarning: 50,
+		precision: 1, // How many decimal places to round values to
 		apiBase: 'https://www.teslafi.com/feed.php?token=',
 		apiQuery: '&command=lastGood',
 		items: [ 'battery', 'range', 'range-estimated', 'power-connected', 'charge-time', 'charge-added', 'locked', 'odometer', 'temperature', 'data-time' ],
@@ -99,7 +100,7 @@ Module.register('MMM-TeslaFi', {
 				   <tr>
 				      <td class="icon"><span class="zmdi zmdi-gas-station zmdi-hc-fw"></span></td>
 				      <td class="field">Range</td>
-				      <td class="value">${t.ideal_battery_range} miles</td>
+				      <td class="value">${this.numberFormat(t.ideal_battery_range)} miles</td>
 				   </tr>
 				`;
 			break;
@@ -109,7 +110,7 @@ Module.register('MMM-TeslaFi', {
 				   <tr>
 				      <td class="icon"><span class="zmdi zmdi-gas-station zmdi-hc-fw"></span></td>
 				      <td class="field">Range</td>
-				      <td class="value">${t.est_battery_range} miles (estimated)</td>
+				      <td class="value">${this.numberFormat(t.est_battery_range)} miles (estimated)</td>
 				   </tr>
 				`;
 			break;
@@ -133,7 +134,7 @@ Module.register('MMM-TeslaFi', {
 				   <tr>
 				      <td class="icon"><span class="zmdi zmdi-flash zmdi-hc-fw"></span></td>
 				      <td class="field">Charge Added</td>
-				      <td class="value">${t.charge_energy_added} kWh</td>
+				      <td class="value">${this.numberFormat(t.charge_energy_added)} kWh</td>
 				   </tr>
 				`;
 
@@ -166,7 +167,7 @@ Module.register('MMM-TeslaFi', {
 				   <tr>
 				      <td class="icon"><span class="zmdi zmdi-globe zmdi-hc-fw"></span></td>
 				      <td class="field">Odometer</td>
-				      <td class="value">${parseFloat(t.odometer).toFixed(1)} miles</td>
+				      <td class="value">${this.numberFormat(t.odometer)} miles</td>
 				   </tr>
 				`;
 			break;
@@ -247,5 +248,9 @@ Module.register('MMM-TeslaFi', {
 		this.data = data;
 		this.loaded = true;
 		this.updateDom(this.config.animationSpeed);
+	},
+	// Return a number with the precision specified in our config
+	numberFormat: function(number) {
+		return parseFloat(number).toFixed(this.config.precision);
 	}
 });
