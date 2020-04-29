@@ -52,11 +52,6 @@ Module.register('MMM-TeslaFi', {
 			wrapper.className = "dimmed light small";
 			return wrapper;
 		}
-		if (this.config.googleApiKey === "") {
-			wrapper.innerHTML = "No Google <i>api Key</i> set in config file.";
-			wrapper.className = "dimmed light small";
-			return wrapper;
-		}
 		if (!this.data) {
 			wrapper.innerHTML = "No data";
 			wrapper.className = "dimmed light small";
