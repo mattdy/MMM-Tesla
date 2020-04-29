@@ -189,11 +189,16 @@ Module.register('MMM-TeslaFi', {
 
 				if(t.charging_state!="Disconnected") {
 
+					displayVal = t.charging_state;
+					if(t.scheduled_charging_pending==1) {
+						displayVal = "Scheduled " + moment(t.scheduled_charging_start_time).fromNow();
+					}
+
 				table += `
 				   <tr>
 				      <td class="icon"><span class="zmdi zmdi-input-power zmdi-hc-fw"></span></td>
 				      <td class="field">Connected</td>
-				      <td class="value">${t.charging_state}</td>
+				      <td class="value">${displayVal}</td>
 				   </tr>
 				`;
 
