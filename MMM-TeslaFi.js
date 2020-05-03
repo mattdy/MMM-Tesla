@@ -176,11 +176,14 @@ Module.register('MMM-TeslaFi', {
 			case 'temperature':
 				if(!t.outside_temp || !t.inside_temp) { break; }
 
+				outside = this.convertTemperature(t.outside_temp);
+				inside = this.convertTemperature(t.inside_temp);
+
 				table += `
 				   <tr>
 				      <td class="icon"><span class="zmdi zmdi-sun zmdi-hc-fw"></span></td>
 				      <td class="field">Temperature</td>
-				      <td class="value">${t.outside_temp}&deg;C / ${t.inside_temp}&deg;C</td>
+				      <td class="value">${outside} / ${inside}</td>
 				   </tr>
 				`;
 			break;
@@ -258,5 +261,15 @@ Module.register('MMM-TeslaFi', {
 	// Return a number with the precision specified in our config
 	numberFormat: function(number) {
 		return parseFloat(number).toFixed(this.config.precision);
+	},
+
+	// Converts the given temperature (assumes C input) into the configured output, with appropriate units appended
+	convertTemperature: function(valueC) {
+		if(this.config.unitTemperature=="f") {
+			valueF = valueC * (9 / 5) + 32;
+			return this.numberFormat(valueF) + "&deg;F";
+		} else {
+			return this.numberFormat(valueC) + "&deg;C";
+		}
 	}
 });
