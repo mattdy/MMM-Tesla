@@ -14,7 +14,8 @@ Module.register('MMM-TeslaFi', {
 		lang: config.language,
 		initialLoadDelay: 0, // 0 seconds delay
 		retryDelay: 2500,
-		imperial: true,
+		unitDistance: "miles",
+		unitTemperature: "c",
 		batteryDanger: 30,
 		batteryWarning: 50,
 		precision: 1, // How many decimal places to round values to

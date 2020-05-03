@@ -30,6 +30,8 @@ Activate the module by adding it to the config.js file as shown below. Of course
 | precision | How many decimal places to round values (such as mileage and energy) to. Defaults to 1 | `2` |
 | apiBase | The URL to use for the TeslaFi API | `https://www.teslafi.com/feed.php?token=` |
 | apiQuery | Extra parameters to add on to the end of the TeslaFi API call | `&command=lastGoodTemp` |
+| unitTemperature | The unit to use for displaying temperature. Options are 'f' (Farenheight) or 'c' (Celcius). Defaults to 'c' | `f` |
+| unitDistance | The unit to use for displaying distance. Options are 'miles' or 'km'. Defaults to 'miles' | `km` |
 | items | The rows of data you want the module to show. See list below. By default will show all available | `['battery','range-estimated','locked','odometer']` |
 | initialLoadDelay | How many seconds to delay initial API call |
 
