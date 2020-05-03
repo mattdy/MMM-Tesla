@@ -14,7 +14,8 @@ Module.register('MMM-TeslaFi', {
 		lang: config.language,
 		initialLoadDelay: 0, // 0 seconds delay
 		retryDelay: 2500,
-		imperial: true,
+		unitDistance: "miles",
+		unitTemperature: "c",
 		batteryDanger: 30,
 		batteryWarning: 50,
 		precision: 1, // How many decimal places to round values to
@@ -100,7 +101,7 @@ Module.register('MMM-TeslaFi', {
 				   <tr>
 				      <td class="icon"><span class="zmdi zmdi-gas-station zmdi-hc-fw"></span></td>
 				      <td class="field">Range</td>
-				      <td class="value">${this.numberFormat(t.ideal_battery_range)} miles</td>
+				      <td class="value">${this.convertDistance(t.ideal_battery_range)}</td>
 				   </tr>
 				`;
 			break;
@@ -110,7 +111,7 @@ Module.register('MMM-TeslaFi', {
 				   <tr>
 				      <td class="icon"><span class="zmdi zmdi-gas-station zmdi-hc-fw"></span></td>
 				      <td class="field">Range</td>
-				      <td class="value">${this.numberFormat(t.est_battery_range)} miles (estimated)</td>
+				      <td class="value">${this.convertDistance(t.est_battery_range)} (estimated)</td>
 				   </tr>
 				`;
 			break;
@@ -167,7 +168,7 @@ Module.register('MMM-TeslaFi', {
 				   <tr>
 				      <td class="icon"><span class="zmdi zmdi-globe zmdi-hc-fw"></span></td>
 				      <td class="field">Odometer</td>
-				      <td class="value">${this.numberFormat(t.odometer)} miles</td>
+				      <td class="value">${this.convertDistance(t.odometer)}</td>
 				   </tr>
 				`;
 			break;
@@ -175,11 +176,14 @@ Module.register('MMM-TeslaFi', {
 			case 'temperature':
 				if(!t.outside_temp || !t.inside_temp) { break; }
 
+				outside = this.convertTemperature(t.outside_temp);
+				inside = this.convertTemperature(t.inside_temp);
+
 				table += `
 				   <tr>
 				      <td class="icon"><span class="zmdi zmdi-sun zmdi-hc-fw"></span></td>
 				      <td class="field">Temperature</td>
-				      <td class="value">${t.outside_temp}&deg;C / ${t.inside_temp}&deg;C</td>
+				      <td class="value">${outside} / ${inside}</td>
 				   </tr>
 				`;
 			break;
@@ -257,5 +261,25 @@ Module.register('MMM-TeslaFi', {
 	// Return a number with the precision specified in our config
 	numberFormat: function(number) {
 		return parseFloat(number).toFixed(this.config.precision);
+	},
+
+	// Converts the given temperature (assumes C input) into the configured output, with appropriate units appended
+	convertTemperature: function(valueC) {
+		if(this.config.unitTemperature=="f") {
+			valueF = valueC * (9 / 5) + 32;
+			return this.numberFormat(valueF) + "&deg;F";
+		} else {
+			return this.numberFormat(valueC) + "&deg;C";
+		}
+	},
+
+	// Converts the given distance (assumes miles input) into the configured output, with appropriate units appended
+	convertDistance: function(valueMiles) {
+		if(this.config.unitDistance=="km") {
+			valueKm = valueMiles * 1.60934;
+			return this.numberFormat(valueKm) + " km";
+		} else {
+			return this.numberFormat(valueMiles) + " miles";
+		}
 	}
 });
