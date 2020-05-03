@@ -49,7 +49,7 @@ Activate the module by adding it to the config.js file as shown below. Of course
 | data-time | How long ago the data was collected by TeslaFi |
 
 * Some fields (charge-time, charge-added) are only enabled if the vehicle is plugged in
-* The temperature field may not be populated if you use TeslaFi's sleep mode, which will stop this row from showing entirely. You may need to use `apiQuery: "lastGoodTemp"` if this fails to show
+* The temperature field may not be populated if you use TeslaFi's sleep mode, which will stop this row from showing entirely. You may need to use `apiQuery: "&command=lastGoodTemp"` if this fails to show
 
 ## Future work
 
