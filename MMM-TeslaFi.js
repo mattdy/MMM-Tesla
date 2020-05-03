@@ -277,7 +277,7 @@ Module.register('MMM-TeslaFi', {
 	convertDistance: function(valueMiles) {
 		if(this.config.unitDistance=="km") {
 			valueKm = valueMiles * 1.60934;
-			return this.numberFormat(valueKm) + "km";
+			return this.numberFormat(valueKm) + " km";
 		} else {
 			return this.numberFormat(valueMiles) + " miles";
 		}
