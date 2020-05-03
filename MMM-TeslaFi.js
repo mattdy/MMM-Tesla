@@ -101,7 +101,7 @@ Module.register('MMM-TeslaFi', {
 				   <tr>
 				      <td class="icon"><span class="zmdi zmdi-gas-station zmdi-hc-fw"></span></td>
 				      <td class="field">Range</td>
-				      <td class="value">${this.numberFormat(t.ideal_battery_range)} miles</td>
+				      <td class="value">${this.convertDistance(t.ideal_battery_range)}</td>
 				   </tr>
 				`;
 			break;
@@ -111,7 +111,7 @@ Module.register('MMM-TeslaFi', {
 				   <tr>
 				      <td class="icon"><span class="zmdi zmdi-gas-station zmdi-hc-fw"></span></td>
 				      <td class="field">Range</td>
-				      <td class="value">${this.numberFormat(t.est_battery_range)} miles (estimated)</td>
+				      <td class="value">${this.convertDistance(t.est_battery_range)} (estimated)</td>
 				   </tr>
 				`;
 			break;
@@ -168,7 +168,7 @@ Module.register('MMM-TeslaFi', {
 				   <tr>
 				      <td class="icon"><span class="zmdi zmdi-globe zmdi-hc-fw"></span></td>
 				      <td class="field">Odometer</td>
-				      <td class="value">${this.numberFormat(t.odometer)} miles</td>
+				      <td class="value">${this.convertDistance(t.odometer)}</td>
 				   </tr>
 				`;
 			break;
@@ -270,6 +270,16 @@ Module.register('MMM-TeslaFi', {
 			return this.numberFormat(valueF) + "&deg;F";
 		} else {
 			return this.numberFormat(valueC) + "&deg;C";
+		}
+	},
+
+	// Converts the given distance (assumes miles input) into the configured output, with appropriate units appended
+	convertDistance: function(valueMiles) {
+		if(this.config.unitDistance=="km") {
+			valueKm = valueMiles * 1.60934;
+			return this.numberFormat(valueKm) + "km";
+		} else {
+			return this.numberFormat(valueMiles) + " miles";
 		}
 	}
 });
