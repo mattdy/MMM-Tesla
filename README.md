@@ -49,13 +49,14 @@ Activate the module by adding it to the config.js file as shown below. Of course
 | odometer | Total mileage of the vehicle (rounded to 2 decimal places) |
 | temperature | Temperature outside and inside the vehicle (see note below) |
 | data-time | How long ago the data was collected by TeslaFi |
+| state | Vehicle State (Idling/Driving/Sentry) |
 
 * Some fields (charge-time, charge-added) are only enabled if the vehicle is plugged in
+* State field will display vehicle's speed (in preferred units) and vehicle's heading when the state is "Driving"
 * The temperature field may not be populated if you use TeslaFi's sleep mode, which will stop this row from showing entirely. You may need to use `apiQuery: "&command=lastGoodTemp"` if this fails to show
 
 ## Future work
 
-* Re-add support for metric & imperial units
 * Display Tesla location on Google Maps
 
 ## Credits

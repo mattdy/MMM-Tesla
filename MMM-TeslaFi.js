@@ -226,6 +226,32 @@ Module.register('MMM-TeslaFi', {
 				   </tr>
 				`;
 			break;
+
+			case 'state':
+				table += `
+					<tr>
+						<td class="icon"><span class="zmdi zmdi-hc-fw ${((t.carState === 'Sentry') ? 'sentry zmdi-dot-circle':'zmdi-parking')}"></span></td>
+						<td class="field">State</td>
+						<td class="value">${t.carState}</td>
+					</tr>
+				`;
+				if(t.carState === 'Driving') {
+					table += `
+						<tr>
+							<td class="icon"><span class="zmdi zmdi-time-countdown zmdi-hc-fw"></span></td>
+							<td class="field">Speed</td>
+							<td class="value">${this.convertSpeed(t.speed)}</td>
+						</tr>
+					`;					
+					table += `
+						<tr>
+							<td class="icon"><span class="zmdi zmdi-compass zmdi-hc-fw"></span></td>
+						   	<td class="field">Heading</td>
+						   	<td class="value">${this.convertHeading(t.heading)}</td>
+						</tr>
+					`;
+				}
+				break;
 		} // switch
 
 		} // end foreach loop of items
@@ -281,5 +307,25 @@ Module.register('MMM-TeslaFi', {
 		} else {
 			return this.numberFormat(valueMiles) + " miles";
 		}
+	},
+
+	// Converts given speed (assumes miles input) to configured output with approprate units appened
+	convertSpeed: function(valueMiles) {
+		if(this.config.unitDistance==="km") {
+			return this.numberFormat(valueMiles * 1.60934) + " Km/h"
+		} else {
+			return this.numberFormat(valueMiles) + " Mph"
+		}
+	},
+
+	// Converts heading int to nearest bearing by 45deg
+	convertHeading: function(heading) {
+		const bearing = {0:"North", 45:"North East", 90:"East", 135:"South East", 180:"South", 225:"South West", 270:"West", 315:"North West", 360:"North"};
+		const direction = (heading) => {
+			return Object.keys(bearing).map(Number).reduce(function(prev, curr) {
+				return (Math.abs(curr - heading) < Math.abs(prev - heading) ? curr : prev);
+			});
+	  	}
+		return bearing[direction(heading)];
 	}
 });
