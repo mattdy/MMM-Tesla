@@ -34,6 +34,7 @@ Activate the module by adding it to the config.js file as shown below. Of course
 | unitDistance | The unit to use for displaying distance. Options are 'miles' or 'km'. Defaults to 'miles' | `km` |
 | items | The rows of data you want the module to show. See list below. By default will show all available | `['battery','range-estimated','locked','odometer']` |
 | initialLoadDelay | How many seconds to delay initial API call |
+| dataTimeout | How old data must be in seconds before 'data-time' is displayed. Use 0 to always show | `0` |
 
 ### Available fields
 
@@ -51,7 +52,7 @@ Activate the module by adding it to the config.js file as shown below. Of course
 | data-time | How long ago the data was collected by TeslaFi |
 | state | Vehicle State (Idling/Driving/Sentry) (see note below) |
 | version | Current version installed - changes to display new version if available |
-| location | Displays current location as tagged in TeslaFi - Is hidden if vehicle's location is not tagged |
+| location | Displays current location as tagged in TeslaFi - Is hidden if driving or vehicle's location is not tagged |
 
 * Some fields (charge-time, charge-added) are only enabled if the vehicle is plugged in
 * State field will display vehicle's speed (in preferred units) and vehicle's heading when the state is "Driving"
