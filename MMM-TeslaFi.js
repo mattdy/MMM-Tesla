@@ -19,6 +19,10 @@ Module.register('MMM-TeslaFi', {
 		batteryDanger: 30,
 		batteryWarning: 50,
 		dataTimeout: 0,
+		googleMapApiKey: '',
+		mapZoom: 13,
+		mapWidth: 300,
+		mapHeight: 150,
 		precision: 1, // How many decimal places to round values to
 		apiBase: 'https://www.teslafi.com/feed.php?token=',
 		apiQuery: '&command=lastGood',
@@ -256,7 +260,7 @@ Module.register('MMM-TeslaFi', {
 						</tr>
 					`;
 				}
-				break;
+			break;
 
 			case 'version':
 				if(t.carState !== 'Driving') {
@@ -278,7 +282,7 @@ Module.register('MMM-TeslaFi', {
 						`;
 					}
 				}
-				break;
+			break;
 
 			case 'location':
 				if(t.carState !== 'Driving' && t.location !== "No Tagged Location Found") {
@@ -290,7 +294,27 @@ Module.register('MMM-TeslaFi', {
 					</tr>
 					`;		
 				}
-				break;
+			break;
+
+			case 'map':
+				if(this.config.googleMapApiKey !=='') {
+					table += `
+					<tr>
+						<td class="icon ${((t.carState !== 'Driving') ? 'dim':'')}" colspan="3">
+							<img alt="map" class="map" src="${this.getMap(t.latitude, t.longitude)}" />
+						</td>
+					</tr>
+				`;
+				} else {
+					table += `
+					<tr>
+					<td class="icon"><span class="zmdi zmdi-alert-octagon zmdi-hc-fw"></span></td>
+						<td class="field">MAP ERROR!</td>
+						<td class="value">Missing GoogleMaps API Key</td>
+					</tr>
+					`;
+				}
+			break;
 
 		} // switch
 
@@ -367,5 +391,18 @@ Module.register('MMM-TeslaFi', {
 			});
 	  	}
 		return bearing[direction(heading)];
+	},
+
+	getMap: function(lat, lng){
+		if (this.config.googleMapApiKey !== '') {
+			const options = {
+				center: [lat, lng],
+				zoom: this.config.mapZoom,
+				key: this.config.googleMapApiKey,
+				marker: [lat, lng]
+			}
+			//return `https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lng}&zoom=${this.config.mapZoom}&size=300x150&key=${this.config.googleMapApiKey}&markers=${lat},${lng}&size=tiny`;
+			return `https://maps.googleapis.com/maps/api/staticmap?size=${this.config.mapWidth}x${this.config.mapHeight}&center=${options.center}&markers=${options.marker}&key=${options.key}&zoom=${options.zoom}&size=tiny`;
+		}
 	}
 });
