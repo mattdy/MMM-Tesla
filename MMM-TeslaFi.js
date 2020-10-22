@@ -252,7 +252,7 @@ Module.register('MMM-TeslaFi', {
 					`;
 				}
 				break;
-				
+
 			case 'version':
 				if(t.carState !== 'Driving') {
 					if(t.newVersionStatus === "") {
@@ -272,6 +272,18 @@ Module.register('MMM-TeslaFi', {
 						</tr>
 						`;
 					}
+				}
+				break;
+
+			case 'location':
+				if(t.carState !== 'Driving' && t.location !== "No Tagged Location Found") {
+					table += `
+					<tr>
+					<td class="icon"><span class="zmdi zmdi-pin zmdi-hc-fw"></span></td>
+						<td class="field">Location</td>
+						<td class="value">${t.location}</td>
+					</tr>
+					`;		
 				}
 				break;
 
