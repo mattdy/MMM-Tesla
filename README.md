@@ -56,6 +56,7 @@ Activate the module by adding it to the config.js file as shown below. Of course
 | data-time | How long ago the data was collected by TeslaFi |
 | state | Vehicle State (Idling/Driving/Sentry) (see note below) |
 | version | Current version installed - changes to display new version if available |
+| newVersion | Display new version if available - hidden if not available |
 | location | Displays current location as tagged in TeslaFi - Is hidden if driving or vehicle's location is not tagged |
 | map | Displays current location on a map - Dims if not 'Driving' |
 

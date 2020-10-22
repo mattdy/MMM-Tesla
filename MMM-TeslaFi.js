@@ -26,7 +26,7 @@ Module.register('MMM-TeslaFi', {
 		precision: 1, // How many decimal places to round values to
 		apiBase: 'https://www.teslafi.com/feed.php?token=',
 		apiQuery: '&command=lastGood',
-		items: [ 'battery', 'range', 'range-estimated', 'power-connected', 'charge-time', 'charge-added', 'locked', 'odometer', 'temperature', 'data-time' ],
+		items: [ 'state', 'battery', 'range', 'range-estimated', 'power-connected', 'charge-time', 'charge-added', 'locked', 'odometer', 'temperature', 'data-time', 'version', 'location', 'map' ],
 	},
 	// Define required scripts.
 	getScripts: function() {
@@ -224,7 +224,6 @@ Module.register('MMM-TeslaFi', {
 			break;
 
 			case 'data-time':
-				const now = moment(t.Date)
 				const secondsPassed = moment().diff(moment(t.Date), 'seconds')
 				if (secondsPassed > this.config.dataTimeout) {
 					table += `
@@ -258,6 +257,18 @@ Module.register('MMM-TeslaFi', {
 						   	<td class="field">Heading</td>
 						   	<td class="value">${this.convertHeading(t.heading)}</td>
 						</tr>
+					`;
+				}
+			break;
+
+			case 'newVersion':
+				if(t.newVersionStatus !== "") {
+					table += `
+					<tr>
+						<td class="icon"><span class="zmdi zmdi-download zmdi-hc-fw newVersion"></span></td>
+						<td class="field newVersion">NEW Version Available!</td>
+						<td class="value newVersion">${t.newVersion}</td>
+					</tr>
 					`;
 				}
 			break;
