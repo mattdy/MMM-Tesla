@@ -347,7 +347,7 @@ Module.register('MMM-TeslaFi', {
 		} else if (notification === "DATA") {
 			this.loaded = true;
 			this.tFi(JSON.parse(payload));
-			this.updateDom();
+			//this.updateDom(); - this was double updating the Dom.
 		}
 	},
 	// tFi(data)
