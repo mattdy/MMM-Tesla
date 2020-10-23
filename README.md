@@ -39,6 +39,7 @@ Activate the module by adding it to the config.js file as shown below. Of course
 | mapZoom | (optional) Zoom Level of map | 13 |
 | mapWidth | (optional) Specify width of map | 300 |
 | mapHeight | (optional) Specify height of map | 150 |
+| excludeLocations | (optional) Specify locations to hide map by TeslaFi Location Tags (case insensitive) - stops Google Map generation @ listed locations | `[ 'home', 'Work', 'cottage' ]` |
 
 ### Available fields
 

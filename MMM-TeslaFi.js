@@ -23,6 +23,7 @@ Module.register('MMM-TeslaFi', {
 		mapZoom: 13,
 		mapWidth: 300,
 		mapHeight: 150,
+		excludeLocations: [],
 		precision: 1, // How many decimal places to round values to
 		apiBase: 'https://www.teslafi.com/feed.php?token=',
 		apiQuery: '&command=lastGood',
@@ -309,17 +310,19 @@ Module.register('MMM-TeslaFi', {
 
 			case 'map':
 				if(this.config.googleMapApiKey !=='') {
-					table += `
-					<tr>
-						<td class="icon ${((t.carState !== 'Driving') ? 'dim':'')}" colspan="3">
-							<img alt="map" class="map" src="${this.getMap(t.latitude, t.longitude)}" />
-						</td>
-					</tr>
-				`;
+					if(!this.isExcluded(t.location)){
+						table += `
+						<tr>
+							<td class="icon ${((t.carState !== 'Driving') ? 'dim':'')}" colspan="3">
+								<img alt="map" class="map" src="${this.getMap(t.latitude, t.longitude)}" />
+							</td>
+						</tr>
+						`;
+					}
 				} else {
 					table += `
 					<tr>
-					<td class="icon"><span class="zmdi zmdi-alert-octagon zmdi-hc-fw"></span></td>
+					<td class="icon"><span class="zmdi zmdi-alert-octagon sentry zmdi-hc-fw"></span></td>
 						<td class="field">MAP ERROR!</td>
 						<td class="value">Missing GoogleMaps API Key</td>
 					</tr>
@@ -404,6 +407,7 @@ Module.register('MMM-TeslaFi', {
 		return bearing[direction(heading)];
 	},
 
+	// Gets Static map as picture
 	getMap: function(lat, lng){
 		if (this.config.googleMapApiKey !== '') {
 			const options = {
@@ -412,8 +416,12 @@ Module.register('MMM-TeslaFi', {
 				key: this.config.googleMapApiKey,
 				marker: [lat, lng]
 			}
-			//return `https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lng}&zoom=${this.config.mapZoom}&size=300x150&key=${this.config.googleMapApiKey}&markers=${lat},${lng}&size=tiny`;
 			return `https://maps.googleapis.com/maps/api/staticmap?size=${this.config.mapWidth}x${this.config.mapHeight}&center=${options.center}&markers=${options.marker}&key=${options.key}&zoom=${options.zoom}&size=tiny`;
 		}
+	},
+
+	isExcluded: function(locale){
+		const excludeLocationsUpper = this.config.excludeLocations.map(location => location.toUpperCase())
+		return excludeLocationsUpper.includes(locale.toUpperCase())
 	}
 });
