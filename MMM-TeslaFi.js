@@ -310,7 +310,7 @@ Module.register('MMM-TeslaFi', {
 
 			case 'map':
 				if(this.config.googleMapApiKey !=='') {
-					if(!this.isExcluded(t.location)){
+					if(!this.isExcluded(t.location) || t.carState === "Driving"){
 						table += `
 						<tr>
 							<td class="icon ${((t.carState !== 'Driving') ? 'dim':'')}" colspan="3">
