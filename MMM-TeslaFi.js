@@ -144,7 +144,18 @@ Module.register('MMM-TeslaFi', {
 				      <td class="value">${this.numberFormat(t.charge_energy_added)} kWh</td>
 				   </tr>
 				`;
+			break;
 
+			case 'charge-power':
+				if(!t.charging_state || t.charging_state=="Disconnected") { break; }
+
+				table += `
+				   <tr>
+				      <td class="icon"><span class="zmdi zmdi-flash zmdi-hc-fw"></span></td>
+				      <td class="field">Charger Power</td>
+				      <td class="value">${this.numberFormat(t.charger_power)} kW</td>
+				   </tr>
+				`;
 			break;
 
 			case 'locked':

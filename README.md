@@ -11,6 +11,9 @@ I am happy to accept any [bug reports](https://github.com/mattdy/MMM-TeslaFi/iss
 ## Screenshot
 
 ![screenshot.png](doc/screenshot.png)
+![screenshot.png](doc/Driving-With-Map.png)
+![screenshot.png](doc/Sentry-Dimmed-Map.png)
+![screenshot.png](doc/charging.png)
 
 ## Installation
 
@@ -51,6 +54,7 @@ Activate the module by adding it to the config.js file as shown below. Of course
 | power-connected | Whether or not the vehicle is connected to a charger. If so, also displays the charge state |
 | charge-time | How long left until the charge is complete |
 | charge-added | How much energy has been added on this charge session |
+| charge-power | How much energy the vehicle is currently receiving |
 | locked | Whether or not the vehicle is locked |
 | odometer | Total mileage of the vehicle (rounded to 2 decimal places) |
 | temperature | Temperature outside and inside the vehicle (see note below) |
