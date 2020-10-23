@@ -55,7 +55,7 @@ Activate the module by adding it to the config.js file as shown below. Of course
 | charge-time | How long left until the charge is complete |
 | charge-added | How much energy has been added on this charge session |
 | charge-power | How much energy the vehicle is currently receiving |
-| locked | Whether or not the vehicle is locked |
+| locked | Whether or not the vehicle is locked - only appears if vehicle is not driving |
 | odometer | Total mileage of the vehicle (rounded to 2 decimal places) |
 | temperature | Temperature outside and inside the vehicle (see note below) |
 | data-time | How long ago the data was collected by TeslaFi |
@@ -73,7 +73,7 @@ Activate the module by adding it to the config.js file as shown below. Of course
 
 ## Future work
 
-* Display Distance from home (monitor) IF not at home
+* Display Distance from home (from Magic Mirror) and time to drive there.
 
 ## Credits
 

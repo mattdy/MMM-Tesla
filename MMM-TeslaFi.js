@@ -159,24 +159,25 @@ Module.register('MMM-TeslaFi', {
 			break;
 
 			case 'locked':
-				if(t.locked) {
+				if(t.carState !== 'Driving') {
+					if(t.locked) {
 
-				table += `
-				   <tr>
-				      <td class="icon"><span class="zmdi zmdi-lock-outline zmdi-hc-fw"></span></td>
-				      <td class="field" colspan="2">Locked</td>
-				   </tr>
-				`;
+					table += `
+					<tr>
+						<td class="icon"><span class="zmdi zmdi-lock-outline zmdi-hc-fw"></span></td>
+						<td class="field" colspan="2">Locked</td>
+					</tr>
+					`;
 
-				} else {
+					} else {
 
-				table += `
-				   <tr>
-				      <td class="icon"><span class="zmdi zmdi-lock-open zmdi-hc-fw"></span></td>
-				      <td class="field" colspan="2">Unlocked</td>
-				   </tr>
-				`;
-
+					table += `
+					<tr>
+						<td class="icon"><span class="zmdi zmdi-lock-open zmdi-hc-fw"></span></td>
+						<td class="field" colspan="2">Unlocked</td>
+					</tr>
+					`;
+					}
 				}
 			break;
 
