@@ -2,7 +2,7 @@
 
 This an extension for the [MagicMirror](https://github.com/MichMich/MagicMirror).
 
-It monitors a your Tesla Stats, such as Battery Level, Temperature, Lock status and much more! A valid API key is required, the key can be requested here: https://teslafi.com
+It monitors a your Tesla Stats, such as Battery Level, Temperature, Lock status and much more! A valid API key is required, the key can be requested here: <https://teslafi.com>
 
 This is a partial re-write of the original MMM-TeslaFi by [f00d4tehg0dz](https://github.com/f00d4tehg0dz), which can be found [here](https://github.com/f00d4tehg0dz/MMM-TeslaFi). I have chosen to not merge this version back in as it breaks some functionality of the original module.
 
@@ -43,6 +43,7 @@ Activate the module by adding it to the config.js file as shown below. Of course
 | mapWidth | (optional) Specify width of map | 300 |
 | mapHeight | (optional) Specify height of map | 150 |
 | excludeLocations | (optional) Specify locations to hide map by TeslaFi Location Tags (case insensitive) - stops Google Map generation @ listed locations | `[ 'home', 'Work', 'cottage' ]` |
+| homeAddress | Specify home address for 'distance' and 'duration' values - calculates vehichle's best route and displays distance and duration of drive to this address (if vehicle is at an 'excludedLocation', this is not used!) | `123 Fake St. Toronto ON Canada` |
 
 ### Available fields
 
@@ -64,16 +65,17 @@ Activate the module by adding it to the config.js file as shown below. Of course
 | newVersion | Display new version if available - hidden if not available |
 | location | Displays current location as tagged in TeslaFi - Is hidden if driving or vehicle's location is not tagged |
 | map | Displays current location on a map - Dims if not 'Driving' |
+| distance | Displays current distance (as driving route) vehichle is from 'homeAddress' |
+| duration | Displays time to drive from vehicle's current location to 'homeAddress' |
 
 * Some fields (charge-time, charge-added) are only enabled if the vehicle is plugged in
 * State field will display vehicle's speed (in preferred units) and vehicle's heading when the state is "Driving"
 * The temperature field may not be populated if you use TeslaFi's sleep mode, which will stop this row from showing entirely. You may need to use `apiQuery: "&command=lastGoodTemp"` if this fails to show
 
-* To get Google Maps API Key, start here: [Google Maps Developer Platform](https://developers.google.com/maps/documentation/maps-static/overview?utm_source=google&utm_medium=cpc&utm_campaign=FY18-Q2-global-demandgen-paidsearchonnetworkhouseads-cs-maps_contactsal_saf&utm_content=text-ad-none-none-DEV_c-CRE_432494864760-ADGP_Hybrid%20%7C%20AW%20SEM%20%7C%20SKWS%20~%20Maps%20Static%20API-KWID_43700053359877717-kwd-505086761433-userloc_9000983&utm_term=KW_%2Bmaps%20%2Bstatic%20%2Bapi-ST_%2Bmaps%20%2Bstatic%20%2Bapi&gclid=EAIaIQobChMImdKugZjJ7AIViInICh2BFAjGEAAYASAAEgJSB_D_BwE) It's free and easy. (note: the map is static and not interactive)
-
-## Future work
-
-* Display Distance from home (from Magic Mirror) and time to drive there.
+* To get Google Maps API Key, start here: [Google Maps Developer Platform](https://developers.google.com/maps/documentation/maps-static/overview?utm_source=google&utm_medium=cpc&utm_campaign=FY18-Q2-global-demandgen-paidsearchonnetworkhouseads-cs-maps_contactsal_saf&utm_content=text-ad-none-none-DEV_c-CRE_432494864760-ADGP_Hybrid%20%7C%20AW%20SEM%20%7C%20SKWS%20~%20Maps%20Static%20API-KWID_43700053359877717-kwd-505086761433-userloc_9000983&utm_term=KW_%2Bmaps%20%2Bstatic%20%2Bapi-ST_%2Bmaps%20%2Bstatic%20%2Bapi&gclid=EAIaIQobChMImdKugZjJ7AIViInICh2BFAjGEAAYASAAEgJSB_D_BwE) It's easy and comes with ~100,000 free calls/month.
+  * For the static map, activate the "Maps Static API" (note: the map is static and not interactive - it is essentially a picture and will not zoom/scroll with touch interactivity)
+  * For the "distance" and/or "duration" field, activate the "Distance Matrix API"
+    * both of these APIs use the same API key.
 
 ## Credits
 
@@ -84,12 +86,12 @@ Activate the module by adding it to the config.js file as shown below. Of course
 
 ````javascript
 modules: [
-		{
-			module:		'MMM-TeslaFi',
-			position:	'top_left',
-			config: {
-				apiKey: 'ENTER YOUR KEY HERE',
-			}
-		},
+  {
+   module:  'MMM-TeslaFi',
+   position: 'top_left',
+   config: {
+    apiKey: 'ENTER YOUR KEY HERE',
+   }
+  },
 ]
 ````
