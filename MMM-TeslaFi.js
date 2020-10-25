@@ -24,6 +24,7 @@ Module.register("MMM-TeslaFi", {
     mapWidth: 300,
     mapHeight: 150,
     excludeLocations: [],
+    homeAddress: "",
     googleApiBase:
       "https://maps.googleapis.com/maps/api/distancematrix/json?key=",
     precision: 1, // How many decimal places to round values to
@@ -35,15 +36,18 @@ Module.register("MMM-TeslaFi", {
       "range",
       "range-estimated",
       "power-connected",
+      "charge-power",
       "charge-time",
       "charge-added",
       "locked",
       "odometer",
       "temperature",
-      "data-time",
       "version",
+      "distance",
+      "duration",
       "location",
-      "map"
+      "map",
+      "data-time"
     ]
   },
   // Define required scripts.
