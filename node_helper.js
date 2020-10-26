@@ -56,25 +56,27 @@ module.exports = NodeHelper.create({
     const dest = encodeURI(this.config.homeAddress);
     var gUrl = `
 	  ${this.config.googleApiBase}${this.config.googleMapApiKey}&origins=${lat},${lng}&destinations=${dest}&departure_time=now`;
-	  if(!listOfExclusions.includes(tBody.location.toUpperCase()) && dest !== "" && this.config.googleMapApiKey !== "") {
-		request(
-		{
-			url: gUrl,
-			method: "GET"
-		},
-		function (error, response, mbody) {
-			if (!error && response.statusCode == 200) {
-			var jBody = JSON.parse(mbody);
-			const distance = (jBody.rows[0].elements[0].distance.value) * 0.00062137;
-			const duration = jBody.rows[0].elements[0].duration_in_traffic.value;
-			const newBody = {...tBody, distance, duration}
-			self.sendSocketNotification("DATA", JSON.stringify(newBody));
-			} else {
-				const newBody = {...tBody, distance:error, duration:error}
+	  if(!listOfExclusions.includes(tBody.location.toUpperCase()) || tBody.carState === "Driving") {
+		if(dest !== "" && this.config.googleMapApiKey !== "") {
+			request(
+			{
+				url: gUrl,
+				method: "GET"
+			},
+			function (error, response, mbody) {
+				if (!error && response.statusCode == 200) {
+				var jBody = JSON.parse(mbody);
+				const distance = (jBody.rows[0].elements[0].distance.value) * 0.00062137;
+				const duration = jBody.rows[0].elements[0].duration_in_traffic.value;
+				const newBody = {...tBody, distance, duration}
 				self.sendSocketNotification("DATA", JSON.stringify(newBody));
+				} else {
+					const newBody = {...tBody, distance:error, duration:error}
+					self.sendSocketNotification("DATA", JSON.stringify(newBody));
+				}
 			}
+			);
 		}
-		);
 		} else {
 			const newBody = {...tBody, distance:'excluded', duration:'excluded'}
 			self.sendSocketNotification("DATA", JSON.stringify(newBody));

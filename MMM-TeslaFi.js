@@ -392,7 +392,7 @@ Module.register("MMM-TeslaFi", {
             this.config.googleMapApiKey !== "" &&
             this.config.homeAddress !== ""
           ) {
-            if (!this.isExcluded(t.location) || t.state === "Driving") {
+            if (!this.isExcluded(t.location) || t.carState === "Driving") {
               table += `
 				<tr>
 				<td class="icon"><span class="zmdi zmdi-ruler zmdi-hc-fw"></span></td>
@@ -409,13 +409,13 @@ Module.register("MMM-TeslaFi", {
             this.config.googleMapApiKey !== "" &&
             this.config.homeAddress !== ""
           ) {
-            if (!this.isExcluded(t.location) || t.state === "Driving") {
+            if (!this.isExcluded(t.location) || t.carState === "Driving") {
               const duration = moment.duration(t.duration, "seconds");
-              const formattedTime = duration.format("HH:mm");
+              const formattedTime = duration.format("HH[h]:Mm[m]");
               table += `
 				  <tr>
 				  <td class="icon"><span class="zmdi zmdi-timer zmdi-hc-fw"></span></td>
-					  <td class="field">Duration to Here</td>
+					  <td class="field">Time to Here</td>
 					  <td class="value">${formattedTime}</td>
 				  </tr>
 				  `;
