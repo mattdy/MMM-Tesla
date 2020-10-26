@@ -11,9 +11,31 @@ I am happy to accept any [bug reports](https://github.com/mattdy/MMM-TeslaFi/iss
 ## Screenshot
 
 ![screenshot.png](doc/screenshot.png)
+- 'battery'
+- 'range'
+- 'range-estimated
+- 'power-connected'
+- 'charge-time'
+- 'charge-added'
+- 'locked'
+- 'odometer'
+- 'temperature'
+- 'data-time'
+
 ![screenshot.png](doc/Driving-With-Map.png)
+- 'state' (automatically includes Speed and Heading when vehicle is driving)
+- 'battery'
+- 'odometer'
+- 'map'
+
 ![screenshot.png](doc/Sentry-Dimmed-Map.png)
-![screenshot.png](doc/charging.png)
+- 'state'
+- 'battery'
+- 'odometer'
+- 'version' 
+- 'distance'
+- 'duration' 
+- 'location'
 
 ## Installation
 
@@ -66,7 +88,7 @@ Activate the module by adding it to the config.js file as shown below. Of course
 | location | Displays current location as tagged in TeslaFi - Is hidden if driving or vehicle's location is not tagged |
 | map | Displays current location on a map - Dims if not 'Driving' |
 | distance | Displays current distance (as driving route) vehichle is from 'homeAddress' |
-| duration | Displays time to drive from vehicle's current location to 'homeAddress' |
+| duration | Displays time to drive from vehicle's current location to 'homeAddress' - Google's best guess - based on current traffic|
 
 * Some fields (charge-time, charge-added) are only enabled if the vehicle is plugged in
 * State field will display vehicle's speed (in preferred units) and vehicle's heading when the state is "Driving"
@@ -81,6 +103,7 @@ Activate the module by adding it to the config.js file as shown below. Of course
 
 * Thanks to [Adrian](https://github.com/f00d4tehg0dz) for the [original version](https://github.com/f00d4tehg0dz/MMM-TeslaFi)
 * Big thanks to [aduyng](https://github.com/aduyng) for their [TeslaStatus](https://github.com/aduyng/MMM-TeslaStatus) module used as a template!
+* [Justynr](https://github.com/justynr)
 
 ## Using the module
 
