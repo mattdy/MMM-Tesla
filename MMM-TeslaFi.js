@@ -485,9 +485,9 @@ Module.register("MMM-TeslaFi", {
   // Converts given speed (assumes miles input) to configured output with approprate units appened
   convertSpeed: function (valueMiles) {
     if (this.config.unitDistance === "km") {
-      return this.numberFormat(valueMiles * 1.60934) + " Km/h";
+      return this.numberFormat(valueMiles * 1.60934) + " km/h";
     } else {
-      return this.numberFormat(valueMiles) + " Mph";
+      return this.numberFormat(valueMiles) + " mph";
     }
   },
 
