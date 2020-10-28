@@ -31,21 +31,21 @@ Module.register("MMM-TeslaFi", {
       "locked",
       "odometer",
       "temperature",
-      "data-time",
-    ],
+      "data-time"
+    ]
   },
   // Define required scripts.
   getScripts: function () {
     return [
       "https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.min.js",
       "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js",
-      "moment.js",
+      "moment.js"
     ];
   },
   getStyles: function () {
     return [
       "https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css",
-      "MMM-TeslaFi.css",
+      "MMM-TeslaFi.css"
     ];
   },
   start: function () {
@@ -304,5 +304,5 @@ Module.register("MMM-TeslaFi", {
     } else {
       return this.numberFormat(valueMiles) + " miles";
     }
-  },
+  }
 });

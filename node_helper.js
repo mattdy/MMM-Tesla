@@ -26,7 +26,7 @@ module.exports = NodeHelper.create({
       {
         url: myUrl,
         method: "GET",
-        headers: { TeslaFi_API_TOKEN: this.config.apiKey },
+        headers: { TeslaFi_API_TOKEN: this.config.apiKey }
       },
       function (error, response, body) {
         if (!error && response.statusCode == 200) {
@@ -48,5 +48,5 @@ module.exports = NodeHelper.create({
       self.getData();
       self.started = true;
     }
-  },
+  }
 });

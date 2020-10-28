@@ -71,8 +71,8 @@ modules: [
     module: "MMM-TeslaFi",
     position: "top_left",
     config: {
-      apiKey: "ENTER YOUR KEY HERE",
-    },
-  },
+      apiKey: "ENTER YOUR KEY HERE"
+    }
+  }
 ];
 ```
