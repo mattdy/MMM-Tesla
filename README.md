@@ -35,6 +35,11 @@ Activate the module by adding it to the config.js file as shown in the example b
 | items            | The rows of data you want the module to show. See list below. By default will show all available            | `['battery','range-estimated','locked','odometer']` |
 | initialLoadDelay | How many seconds to delay initial API call                                                                  |
 | dataTimeout      | How old data must be in seconds before 'data-time' is displayed. Use 0 to always show                       | `0`                                                 |
+| googleMapApiKey  | Google Maps "Static Maps API" | `AIzaSyB6KgHKwRNa63JsVHuu7d8jV-1IH875idKs` |
+| mapZoom          | (optional) Zoom Level of map                                                                                | 13                                                  |
+| mapWidth         | (optional) Specify width of map                                                                             | 300                                                 |
+| mapHeight        | (optional) Specify height of map                                                                            | 150                                                 |
+| excludeLocations | (optional) Specify locations to hide map by TeslaFi Location Tags (case insensitive) - stops Google Map generation @ listed locations | `[ 'home', 'Work', 'cottage' ]` |
 
 ### Available fields
 
@@ -50,14 +55,16 @@ Activate the module by adding it to the config.js file as shown in the example b
 | odometer        | Total mileage of the vehicle (rounded to 2 decimal places)                                  |
 | temperature     | Temperature outside and inside the vehicle (see note below)                                 |
 | data-time       | How long ago the data was collected by TeslaFi                                              |
+| map             | Displays current location on a map - Dims if not 'Driving'                                  |
 
 - Some fields (charge-time, charge-added) are only enabled if the vehicle is plugged in
 - The temperature field may not be populated if you use TeslaFi's sleep mode, which will stop this row from showing entirely. You may need to use `apiQuery: "&command=lastGoodTemp"` if this fails to show
+- To get Google Maps API Key, start here: [Google Maps Developer Platform](https://developers.google.com/maps/documentation/maps-static/overview?utm_source=google&utm_medium=cpc&utm_campaign=FY18-Q2-global-demandgen-paidsearchonnetworkhouseads-cs-maps_contactsal_saf&utm_content=text-ad-none-none-DEV_c-CRE_432494864760-ADGP_Hybrid%20%7C%20AW%20SEM%20%7C%20SKWS%20~%20Maps%20Static%20API-KWID_43700053359877717-kwd-505086761433-userloc_9000983&utm_term=KW_%2Bmaps%20%2Bstatic%20%2Bapi-ST_%2Bmaps%20%2Bstatic%20%2Bapi&gclid=EAIaIQobChMImdKugZjJ7AIViInICh2BFAjGEAAYASAAEgJSB_D_BwE) It's easy and comes with ~100,000 free calls/month.
+  - For the static map, activate the "Maps Static API" (note: the map is static and not interactive - it is essentially a picture and will NOT zoom/scroll with touch interactivity)
 
 ## Future work
 
 - Re-add support for metric & imperial units
-- Display Tesla location on Google Maps
 
 ## Credits
 

@@ -64,3 +64,11 @@
 .mattributes .mattribute .name:after {
   content: ": ";
 }
+
+.dim {
+  opacity: 0.6;
+}
+
+.map {
+  border-radius: 5px;
+}
