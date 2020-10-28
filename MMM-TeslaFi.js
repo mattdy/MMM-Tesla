@@ -250,6 +250,40 @@ Module.register("MMM-TeslaFi", {
 				   </tr>
 				`;
           break;
+
+        case "newVersion":
+          if (t.newVersionStatus !== "") {
+            table += `
+					<tr>
+						<td class="icon"><span class="zmdi zmdi-download zmdi-hc-fw newVersion"></span></td>
+						<td class="field newVersion">NEW Version Available!</td>
+						<td class="value newVersion">${t.newVersion}</td>
+					</tr>
+					`;
+          }
+          break;
+
+        case "version":
+          if (t.carState !== "Driving") {
+            if (t.newVersionStatus === "") {
+              table += `
+						<tr>
+							<td class="icon"><span class="zmdi zmdi-download zmdi-hc-fw"></span></td>
+							<td class="field">Version</td>
+							<td class="value">${t.car_version.split(" ")[0]}</td>
+						</tr>
+						`;
+            } else {
+              table += `
+						<tr>
+							<td class="icon"><span class="zmdi zmdi-download zmdi-hc-fw newVersion"></span></td>
+							<td class="field newVersion">NEW Version Available!</td>
+							<td class="value newVersion">${t.newVersion}</td>
+						</tr>
+						`;
+            }
+          }
+          break;
       } // switch
     } // end foreach loop of items
 

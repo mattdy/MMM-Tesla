@@ -49,6 +49,8 @@ Activate the module by adding it to the config.js file as shown in the example b
 | odometer        | Total mileage of the vehicle (rounded to 2 decimal places)                                  |
 | temperature     | Temperature outside and inside the vehicle (see note below)                                 |
 | data-time       | How long ago the data was collected by TeslaFi                                              |
+| version         | Current version installed - changes to display new version if available                     |
+| newVersion      | Display new version if available - hidden if not available                                  |
 
 - Some fields (charge-time, charge-added) are only enabled if the vehicle is plugged in
 - The temperature field may not be populated if you use TeslaFi's sleep mode, which will stop this row from showing entirely. You may need to use `apiQuery: "&command=lastGoodTemp"` if this fails to show
