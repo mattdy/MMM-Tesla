@@ -1,10 +1,10 @@
 .delay {
-	color: #FF0000;
+  color: #ff0000;
 }
 
 .lineinfo {
-	text-align: right;
-	padding: 0px 5px 0px 5px;
+  text-align: right;
+  padding: 0px 5px 0px 5px;
 }
 
 .loading {
@@ -28,7 +28,7 @@
 .field {
   text-align: left;
   font-weight: bold;
-  padding-right:20px;
+  padding-right: 20px;
 }
 
 .value {
@@ -44,8 +44,8 @@
 
 .mattributes .mattribute {
   text-align: left;
-	font-size: 1.2rem;
-  line-height: 2.0rem;
+  font-size: 1.2rem;
+  line-height: 2rem;
   color: #fff;
   opacity: 0.75;
 }
@@ -62,5 +62,5 @@
 }
 
 .mattributes .mattribute .name:after {
-  content: ': ';
+  content: ": ";
 }
