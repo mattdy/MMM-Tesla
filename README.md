@@ -46,6 +46,7 @@ Activate the module by adding it to the config.js file as shown in the example b
 | power-connected | Whether or not the vehicle is connected to a charger. If so, also displays the charge state |
 | charge-time     | How long left until the charge is complete                                                  |
 | charge-added    | How much energy has been added on this charge session                                       |
+| charge-power    | How much energy the vehicle is currently receiving                                          |
 | locked          | Whether or not the vehicle is locked                                                        |
 | odometer        | Total mileage of the vehicle (rounded to 2 decimal places)                                  |
 | temperature     | Temperature outside and inside the vehicle (see note below)                                 |
