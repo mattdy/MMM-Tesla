@@ -24,6 +24,9 @@
     "prettier": "prettier --write **/*.{js,css,json,md,yml}",
     "test:prettier": "prettier --check **/*.{js,css,json,md,yml}"
   },
+  "prettier": {
+    "trailingComma": "none"
+  },
   "dependencies": {},
   "devDependencies": {
     "prettier": "^2.1.2"
