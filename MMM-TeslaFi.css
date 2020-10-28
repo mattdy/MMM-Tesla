@@ -64,3 +64,11 @@
 .mattributes .mattribute .name:after {
   content: ": ";
 }
+
+.sentry {
+  color: #f55;
+}
+
+.newVersion {
+  color: lightgreen;
+}
