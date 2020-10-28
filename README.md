@@ -2,7 +2,7 @@
 
 This an extension for the [MagicMirror](https://github.com/MichMich/MagicMirror).
 
-It monitors a your Tesla Stats, such as Battery Level, Temperature, Lock status and much more! A valid API key is required, the key can be requested here: https://teslafi.com
+It monitors a your Tesla Stats, such as Battery Level, Temperature, Lock status and much more! A valid TeslaFi API key is required, the key can be requested [here](https://teslafi.com/api.php)
 
 This is a partial re-write of the original MMM-TeslaFi by [f00d4tehg0dz](https://github.com/f00d4tehg0dz), which can be found [here](https://github.com/f00d4tehg0dz/MMM-TeslaFi). I have chosen to not merge this version back in as it breaks some functionality of the original module.
 
@@ -16,7 +16,7 @@ I am happy to accept any [bug reports](https://github.com/mattdy/MMM-TeslaFi/iss
 
 Open a terminal session, navigate to your MagicMirror's `modules` folder and execute `git clone https://github.com/mattdy/MMM-TeslaFi.git`, a new folder called MMM-TeslaFi will be created.
 
-Activate the module by adding it to the config.js file as shown below. Of course the position is up to you.
+Activate the module by adding it to the config.js file as shown in the example below.
 
 ## Notes
 
@@ -25,8 +25,8 @@ Activate the module by adding it to the config.js file as shown below. Of course
 | Option           | Details                                                                                                     | Example                                             |
 | ---------------- | ----------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
 | apiKey           | **Required** - The API key from [TeslaFi.com](https://teslafi.com/api.php)                                  | `4de3736a68714869d3e2fbda1f1b83ff`                  |
-| batteryDanger    | The percentage at which your battery level will highlight in red                                            | `40`                                                |
-| batteryWarning   | The percentage at which your battery level will highlight in orange                                         | `60`                                                |
+| batteryDanger    | The percentage below which your battery level will highlight in red                                         | `40`                                                |
+| batteryWarning   | The percentage below which your battery level will highlight in orange                                      | `60`                                                |
 | precision        | How many decimal places to round values (such as mileage and energy) to. Defaults to 1                      | `2`                                                 |
 | apiBase          | The URL to use for the TeslaFi API                                                                          | `https://www.teslafi.com/feed.php?token=`           |
 | apiQuery         | Extra parameters to add on to the end of the TeslaFi API call                                               | `&command=lastGoodTemp`                             |
