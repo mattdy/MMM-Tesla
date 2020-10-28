@@ -34,7 +34,7 @@ Activate the module by adding it to the config.js file as shown in the example b
 | unitDistance     | The unit to use for displaying distance. Options are 'miles' or 'km'. Defaults to 'miles'                   | `km`                                                |
 | items            | The rows of data you want the module to show. See list below. By default will show all available            | `['battery','range-estimated','locked','odometer']` |
 | initialLoadDelay | How many seconds to delay initial API call                                                                  |
-| excludeLocations | (optional) Specify locations to hide map by TeslaFi Location Tags (case insensitive) - stops Google Map generation @ listed locations | `[ 'home', 'Work', 'cottage' ]` |
+| dataTimeout      | How old data must be in seconds before 'data-time' is displayed. Use 0 to always show                       | `0`                                                 |
 
 ### Available fields
 
