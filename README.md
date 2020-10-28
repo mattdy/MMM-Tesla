@@ -44,6 +44,7 @@ Activate the module by adding it to the config.js file as shown in the example b
 | range           | The range (in miles) that the vehicle has available                                         |
 | range-estimated | The estimated range (in miles) that the vehicle has available                               |
 | power-connected | Whether or not the vehicle is connected to a charger. If so, also displays the charge state |
+| charge-power    | How much energy the vehicle is currently receiving                                          |
 | charge-time     | How long left until the charge is complete                                                  |
 | charge-added    | How much energy has been added on this charge session                                       |
 | locked          | Whether or not the vehicle is locked                                                        |
