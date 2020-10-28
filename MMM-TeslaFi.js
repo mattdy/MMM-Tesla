@@ -31,6 +31,7 @@ Module.register("MMM-TeslaFi", {
       "locked",
       "odometer",
       "temperature",
+      "location",
       "data-time"
     ]
   },
@@ -249,6 +250,21 @@ Module.register("MMM-TeslaFi", {
 				      <td class="field" colspan="2">${moment(t.Date).fromNow()}</td>
 				   </tr>
 				`;
+          break;
+
+        case "location":
+          if (
+            t.carState !== "Driving" &&
+            t.location !== "No Tagged Location Found"
+          ) {
+            table += `
+					<tr>
+					<td class="icon"><span class="zmdi zmdi-pin zmdi-hc-fw"></span></td>
+						<td class="field">Location</td>
+						<td class="value">${t.location}</td>
+					</tr>
+					`;
+          }
           break;
       } // switch
     } // end foreach loop of items

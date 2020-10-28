@@ -34,6 +34,7 @@ Activate the module by adding it to the config.js file as shown in the example b
 | unitDistance     | The unit to use for displaying distance. Options are 'miles' or 'km'. Defaults to 'miles'                   | `km`                                                |
 | items            | The rows of data you want the module to show. See list below. By default will show all available            | `['battery','range-estimated','locked','odometer']` |
 | initialLoadDelay | How many seconds to delay initial API call                                                                  |
+| excludeLocations | (optional) Specify locations to hide map by TeslaFi Location Tags (case insensitive) - stops Google Map generation @ listed locations | `[ 'home', 'Work', 'cottage' ]` |
 
 ### Available fields
 
@@ -49,6 +50,7 @@ Activate the module by adding it to the config.js file as shown in the example b
 | odometer        | Total mileage of the vehicle (rounded to 2 decimal places)                                  |
 | temperature     | Temperature outside and inside the vehicle (see note below)                                 |
 | data-time       | How long ago the data was collected by TeslaFi                                              |
+| location        | Displays current location as tagged in TeslaFi - Is hidden if driving or vehicle's location is not tagged |
 
 - Some fields (charge-time, charge-added) are only enabled if the vehicle is plugged in
 - The temperature field may not be populated if you use TeslaFi's sleep mode, which will stop this row from showing entirely. You may need to use `apiQuery: "&command=lastGoodTemp"` if this fails to show
