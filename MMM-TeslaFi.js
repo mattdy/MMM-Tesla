@@ -18,6 +18,7 @@ Module.register("MMM-TeslaFi", {
     unitTemperature: "c",
     batteryDanger: 30,
     batteryWarning: 50,
+    dataTimeout: 0,
     precision: 1, // How many decimal places to round values to
     apiBase: "https://www.teslafi.com/feed.php?token=",
     apiQuery: "&command=lastGood",
@@ -243,12 +244,15 @@ Module.register("MMM-TeslaFi", {
           break;
 
         case "data-time":
-          table += `
-				   <tr>
-				      <td class="icon"><span class="zmdi zmdi-time zmdi-hc-fw"></span></td>
-				      <td class="field" colspan="2">${moment(t.Date).fromNow()}</td>
-				   </tr>
-				`;
+          const secondsPassed = moment().diff(moment(t.Date), "seconds");
+          if (secondsPassed > this.config.dataTimeout) {
+            table += `
+            <tr>
+              <td class="icon"><span class="zmdi zmdi-time zmdi-hc-fw"></span></td>
+              <td class="field" colspan="2">${moment(t.Date).fromNow()}</td>
+            </tr>
+            `;
+          }
           break;
 
         case "newVersion":
