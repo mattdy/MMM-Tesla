@@ -25,8 +25,8 @@ Activate the module by adding it to the config.js file as shown in the example b
 | Option           | Details                                                                                                     | Example                                             |
 | ---------------- | ----------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
 | apiKey           | **Required** - The API key from [TeslaFi.com](https://teslafi.com/api.php)                                  | `4de3736a68714869d3e2fbda1f1b83ff`                  |
-| batteryDanger    | The percentage below which your battery level will highlight in red                                            | `40`                                                |
-| batteryWarning   | The percentage below which your battery level will highlight in orange                                         | `60`                                                |
+| batteryDanger    | The percentage below which your battery level will highlight in red                                         | `40`                                                |
+| batteryWarning   | The percentage below which your battery level will highlight in orange                                      | `60`                                                |
 | precision        | How many decimal places to round values (such as mileage and energy) to. Defaults to 1                      | `2`                                                 |
 | apiBase          | The URL to use for the TeslaFi API                                                                          | `https://www.teslafi.com/feed.php?token=`           |
 | apiQuery         | Extra parameters to add on to the end of the TeslaFi API call                                               | `&command=lastGoodTemp`                             |
@@ -71,8 +71,8 @@ modules: [
     module: "MMM-TeslaFi",
     position: "top_left",
     config: {
-      apiKey: "ENTER YOUR KEY HERE"
-    }
-  }
+      apiKey: "ENTER YOUR KEY HERE",
+    },
+  },
 ];
 ```
