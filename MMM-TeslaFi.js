@@ -275,6 +275,7 @@ Module.register("MMM-TeslaFi", {
 
         case "charge-power":
           if (!t.charging_state || t.charging_state == "Disconnected") {
+            break;
           }
           table += `
 				   <tr>
