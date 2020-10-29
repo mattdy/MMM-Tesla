@@ -50,8 +50,9 @@ Activate the module by adding it to the config.js file as shown in the example b
 | odometer        | Total mileage of the vehicle (rounded to 2 decimal places)                                  |
 | temperature     | Temperature outside and inside the vehicle (see note below)                                 |
 | data-time       | How long ago the data was collected by TeslaFi                                              |
-| location        | Displays current location as tagged in TeslaFi - Is hidden if driving or vehicle's location is not tagged |
+| location        | Displays the current location as tagged in TeslaFi. Not shown if the vehicle is driving, or if the current location isn't tagged |
 
+- For details on TeslaFi's 'location' tags, see [TeslaFi Locations](https://teslafi.com/locations.php)
 - Some fields (charge-time, charge-added) are only enabled if the vehicle is plugged in
 - The temperature field may not be populated if you use TeslaFi's sleep mode, which will stop this row from showing entirely. You may need to use `apiQuery: "&command=lastGoodTemp"` if this fails to show
 
