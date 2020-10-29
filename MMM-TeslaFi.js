@@ -256,6 +256,7 @@ Module.register("MMM-TeslaFi", {
           }
           break;
 
+        //shows vehicle's location IF not driving and IF location is tagged - otherwise, it's hidden
         case "location":
           if (
             t.carState !== "Driving" &&

@@ -52,9 +52,9 @@ Activate the module by adding it to the config.js file as shown in the example b
 | data-time       | How long ago the data was collected by TeslaFi                                              |
 | location        | Displays the current location as tagged in TeslaFi. Not shown if the vehicle is driving, or if the current location isn't tagged |
 
-- For details on TeslaFi's 'location' tags, see [TeslaFi Locations](https://teslafi.com/locations.php)
 - Some fields (charge-time, charge-added) are only enabled if the vehicle is plugged in
 - The temperature field may not be populated if you use TeslaFi's sleep mode, which will stop this row from showing entirely. You may need to use `apiQuery: "&command=lastGoodTemp"` if this fails to show
+- For details on TeslaFi's 'location' tags, see [TeslaFi Locations](https://teslafi.com/locations.php)
 
 ## Future work
 
