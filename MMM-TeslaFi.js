@@ -264,6 +264,7 @@ Module.register("MMM-TeslaFi", {
           }
           break;
 
+        //static map - GoogleAPI needed and is only used if vehicle is not at tagged locations
         case "map":
           if (this.config.googleMapApiKey !== "") {
             if (!this.isExcluded(t.location) || t.carState === "Driving") {
