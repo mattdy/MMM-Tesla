@@ -11,26 +11,26 @@ jobs:
         with:
           node-version: "12.x"
       - name: Install
-        run: |
+      - run: |
           npm ci
 
   prettier:
     needs: setup
     steps:
       - name: CheckPrettier
-        run: |
+      - run: |
           npm run test:prettier
 
   lintJS:
     needs: setup
     steps:
       - name: CheckJS
-        run: |
+      - run: |
           npm run test:js
 
   lintCSS:
     needs: setup
     steps:
       - name: CheckCSS
-        run: |
+      - run: |
           npm run test:css
