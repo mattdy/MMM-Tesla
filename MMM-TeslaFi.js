@@ -29,6 +29,7 @@ Module.register("MMM-TeslaFi", {
       "power-connected",
       "charge-time",
       "charge-added",
+      "charge-power",
       "locked",
       "odometer",
       "temperature",
@@ -270,6 +271,18 @@ Module.register("MMM-TeslaFi", {
 					</tr>
 					`;
           }
+          break;
+
+        case "charge-power":
+          if (!t.charging_state || t.charging_state == "Disconnected") {
+          }
+          table += `
+				   <tr>
+				      <td class="icon"><span class="zmdi zmdi-flash zmdi-hc-fw"></span></td>
+				      <td class="field">Charger Power</td>
+				      <td class="value">${this.numberFormat(t.charger_power)} kW</td>
+				   </tr>
+				`;
           break;
       } // switch
     } // end foreach loop of items
