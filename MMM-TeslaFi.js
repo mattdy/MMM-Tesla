@@ -138,7 +138,7 @@ Module.register("MMM-TeslaFi", {
           break;
 
         case "charge-time":
-          if (!t.charging_state || t.time_to_full_charge === "0") {
+          if (!t.charging_state || t.time_to_full_charge === "0.0") {
             break;
           }
 
