@@ -46,6 +46,7 @@ Activate the module by adding it to the config.js file as shown in the example b
 | power-connected | Whether or not the vehicle is connected to a charger. If so, also displays the charge state |
 | charge-time     | How long left until the charge is complete                                                  |
 | charge-added    | How much energy has been added on this charge session                                       |
+| charge-power    | How much energy the vehicle is currently receiving                                          |
 | locked          | Whether or not the vehicle is locked                                                        |
 | odometer        | Total mileage of the vehicle (rounded to 2 decimal places)                                  |
 | temperature     | Temperature outside and inside the vehicle (see note below)                                 |
@@ -53,7 +54,7 @@ Activate the module by adding it to the config.js file as shown in the example b
 | version         | Current version installed - changes to display new version if available                     |
 | newVersion      | Display new version if available - hidden if not available                                  |
 
-- Some fields (charge-time, charge-added) are only enabled if the vehicle is plugged in
+- Some fields (charge-time, charge-added, charge-power) are only enabled if the vehicle is plugged in
 - The temperature field may not be populated if you use TeslaFi's sleep mode, which will stop this row from showing entirely. You may need to use `apiQuery: "&command=lastGoodTemp"` if this fails to show
 
 ## Future work
