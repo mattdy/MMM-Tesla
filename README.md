@@ -39,7 +39,7 @@ Activate the module by adding it to the config.js file as shown in the example b
 | mapZoom          | (optional) Zoom Level of map                                                                                | 13                                                  |
 | mapWidth         | (optional) Specify width of map                                                                             | 300                                                 |
 | mapHeight        | (optional) Specify height of map                                                                            | 150                                                 |
-| excludeLocations | (optional) Specify locations to hide map by TeslaFi Location Tags (case insensitive) - stops Google Map generation @ listed locations | `[ 'home', 'Work', 'cottage' ]` |
+| excludeLocations | (optional) Specify TeslaFi tagged locations at which the map field will not be shown. Case insensitive.     | `[ 'home', 'Work', 'cottage' ]` |
 
 ### Available fields
 
@@ -60,8 +60,8 @@ Activate the module by adding it to the config.js file as shown in the example b
 
 - Some fields (charge-time, charge-added, charge-power) are only enabled if the vehicle is plugged in
 - The temperature field may not be populated if you use TeslaFi's sleep mode, which will stop this row from showing entirely. You may need to use `apiQuery: "&command=lastGoodTemp"` if this fails to show
-- To get Google Maps API Key, start here: [Google Maps Developer Platform](https://developers.google.com/maps/documentation/maps-static/overview?utm_source=google&utm_medium=cpc&utm_campaign=FY18-Q2-global-demandgen-paidsearchonnetworkhouseads-cs-maps_contactsal_saf&utm_content=text-ad-none-none-DEV_c-CRE_432494864760-ADGP_Hybrid%20%7C%20AW%20SEM%20%7C%20SKWS%20~%20Maps%20Static%20API-KWID_43700053359877717-kwd-505086761433-userloc_9000983&utm_term=KW_%2Bmaps%20%2Bstatic%20%2Bapi-ST_%2Bmaps%20%2Bstatic%20%2Bapi&gclid=EAIaIQobChMImdKugZjJ7AIViInICh2BFAjGEAAYASAAEgJSB_D_BwE) It's easy and comes with ~100,000 free calls/month.
-  - For the static map, activate the "Maps Static API" (note: the map is static and not interactive - it is essentially a picture and will NOT zoom/scroll with touch interactivity)
+- To get Google Maps API Key, start here: [Google Maps Developer Platform](https://developers.google.com/maps/documentation/maps-static/overview) It's easy and comes with ~100,000 free calls/month.
+- For the static map, activate the "Maps Static API" (note: the map is static and not interactive - it is essentially a picture and will NOT zoom/scroll with touch interactivity)
 
 ## Future work
 
