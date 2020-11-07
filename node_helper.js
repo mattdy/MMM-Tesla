@@ -11,7 +11,6 @@
 
 const NodeHelper = require("node_helper");
 var request = require("request");
-var moment = require("moment");
 
 module.exports = NodeHelper.create({
   start: function () {
@@ -29,7 +28,7 @@ module.exports = NodeHelper.create({
         headers: { TeslaFi_API_TOKEN: this.config.apiKey }
       },
       function (error, response, body) {
-        if (!error && response.statusCode == 200) {
+        if (!error && response.statusCode === 200) {
           self.sendSocketNotification("DATA", body);
         }
       }
@@ -42,7 +41,7 @@ module.exports = NodeHelper.create({
 
   socketNotificationReceived: function (notification, payload) {
     var self = this;
-    if (notification === "CONFIG" && self.started == false) {
+    if (notification === "CONFIG" && self.started === false) {
       self.config = payload;
       self.sendSocketNotification("STARTED", true);
       self.getData();

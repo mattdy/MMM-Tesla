@@ -22,13 +22,18 @@
   "homepage": "https://github.com/mattdy/MMM-TeslaFi#readme",
   "scripts": {
     "prettier": "prettier --write **/*.{js,css,json,md,yml}",
-    "test:prettier": "prettier --check **/*.{js,css,json,md,yml}"
+    "test:prettier": "prettier --check **/*.{js,css,json,md,yml}",
+    "test:js": "eslint *.js --config .eslintrc.json",
+    "test:css": "stylelint *.css --config .stylelintrc.json"
   },
   "prettier": {
     "trailingComma": "none"
   },
   "dependencies": {},
   "devDependencies": {
-    "prettier": "^2.1.2"
+    "eslint": "^7.9.0",
+    "prettier": "^2.1.2",
+    "stylelint": "^13.7.2",
+    "stylelint-config-standard": "^20.0.0"
   }
 }

@@ -107,7 +107,7 @@ Module.register("MMM-TeslaFi", {
 		<table class="small">
 		`;
 
-    for (field in this.config.items) {
+    for (var field in this.config.items) {
       switch (this.config.items[field]) {
         case "battery":
           table += `
@@ -154,7 +154,7 @@ Module.register("MMM-TeslaFi", {
           break;
 
         case "charge-time":
-          if (!t.charging_state || t.time_to_full_charge == 0) {
+          if (!t.charging_state || t.time_to_full_charge === "0.0") {
             break;
           }
 
@@ -170,7 +170,7 @@ Module.register("MMM-TeslaFi", {
           break;
 
         case "charge-added":
-          if (!t.charging_state || t.charging_state == "Disconnected") {
+          if (!t.charging_state || t.charging_state === "Disconnected") {
             break;
           }
 
@@ -217,8 +217,8 @@ Module.register("MMM-TeslaFi", {
             break;
           }
 
-          outside = this.convertTemperature(t.outside_temp);
-          inside = this.convertTemperature(t.inside_temp);
+          var outside = this.convertTemperature(t.outside_temp);
+          var inside = this.convertTemperature(t.inside_temp);
 
           table += `
 				   <tr>
@@ -234,9 +234,9 @@ Module.register("MMM-TeslaFi", {
             break;
           }
 
-          if (t.charging_state != "Disconnected") {
-            displayVal = t.charging_state;
-            if (t.scheduled_charging_pending == 1) {
+          if (t.charging_state !== "Disconnected") {
+            var displayVal = t.charging_state;
+            if (t.scheduled_charging_pending === "1") {
               displayVal =
                 "Scheduled " +
                 moment(t.scheduled_charging_start_time).fromNow();
@@ -260,7 +260,7 @@ Module.register("MMM-TeslaFi", {
           break;
 
         case "data-time":
-          const secondsPassed = moment().diff(moment(t.Date), "seconds");
+          var secondsPassed = moment().diff(moment(t.Date), "seconds");
           if (secondsPassed > this.config.dataTimeout) {
             table += `
             <tr>
@@ -435,8 +435,8 @@ Module.register("MMM-TeslaFi", {
 
   // Converts the given temperature (assumes C input) into the configured output, with appropriate units appended
   convertTemperature: function (valueC) {
-    if (this.config.unitTemperature == "f") {
-      valueF = valueC * (9 / 5) + 32;
+    if (this.config.unitTemperature === "f") {
+      var valueF = valueC * (9 / 5) + 32;
       return this.numberFormat(valueF) + "&deg;F";
     } else {
       return this.numberFormat(valueC) + "&deg;C";
@@ -445,8 +445,8 @@ Module.register("MMM-TeslaFi", {
 
   // Converts the given distance (assumes miles input) into the configured output, with appropriate units appended
   convertDistance: function (valueMiles) {
-    if (this.config.unitDistance == "km") {
-      valueKm = valueMiles * 1.60934;
+    if (this.config.unitDistance === "km") {
+      var valueKm = valueMiles * 1.60934;
       return this.numberFormat(valueKm) + " km";
     } else {
       return this.numberFormat(valueMiles) + " miles";
