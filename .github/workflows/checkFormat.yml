@@ -15,6 +15,7 @@ jobs:
           npm ci
 
   prettier:
+    runs-on: ubuntu-latest
     needs: setup
     steps:
       - name: CheckPrettier
@@ -22,6 +23,7 @@ jobs:
           npm run test:prettier
 
   lintJS:
+    runs-on: ubuntu-lastest
     needs: setup
     steps:
       - name: CheckJS
@@ -29,6 +31,7 @@ jobs:
           npm run test:js
 
   lintCSS:
+    runs-on: ubuntu-latest
     needs: setup
     steps:
       - name: CheckCSS
