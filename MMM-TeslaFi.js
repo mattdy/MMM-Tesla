@@ -33,6 +33,8 @@ Module.register("MMM-TeslaFi", {
       "locked",
       "odometer",
       "temperature",
+      "version",
+      "newVersion",
       "data-time"
     ]
   },
@@ -270,25 +272,16 @@ Module.register("MMM-TeslaFi", {
 
         case "version":
           if (t.carState !== "Driving") {
-            if (t.newVersionStatus === "") {
-              table += `
+            table += `
 						<tr>
 							<td class="icon"><span class="zmdi zmdi-download zmdi-hc-fw"></span></td>
 							<td class="field">Version</td>
 							<td class="value">${t.car_version.split(" ")[0]}</td>
 						</tr>
 						`;
-            } else {
-              table += `
-						<tr>
-							<td class="icon"><span class="zmdi zmdi-download zmdi-hc-fw newVersion"></span></td>
-							<td class="field newVersion">NEW Version Available!</td>
-							<td class="value newVersion">${t.newVersion}</td>
-						</tr>
-						`;
-            }
           }
           break;
+
         case "charge-power":
           if (!t.charging_state || t.charging_state == "Disconnected") {
             break;
