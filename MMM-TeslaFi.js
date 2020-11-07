@@ -36,6 +36,9 @@ Module.register("MMM-TeslaFi", {
       "locked",
       "odometer",
       "temperature",
+      "version",
+      "newVersion",
+      "location",
       "data-time"
     ]
   },
@@ -302,6 +305,46 @@ Module.register("MMM-TeslaFi", {
 						   	<td class="value">${this.convertHeading(t.heading)}</td>
 						</tr>
 					`;
+          }
+          break;
+ 
+        case "newVersion":
+          if (t.newVersionStatus !== "") {
+            table += `
+					<tr>
+						<td class="icon"><span class="zmdi zmdi-download zmdi-hc-fw newVersion"></span></td>
+						<td class="field newVersion">NEW Version Available!</td>
+						<td class="value newVersion">${t.newVersion}</td>
+          </tr>
+					`;
+          }
+          break;
+
+        //shows vehicle's location IF not driving and IF location is tagged - otherwise, it's hidden
+        case "location":
+          if (
+            t.carState !== "Driving" &&
+            t.location !== "No Tagged Location Found"
+          ) {
+            table += `
+					<tr>
+					<td class="icon"><span class="zmdi zmdi-pin zmdi-hc-fw"></span></td>
+						<td class="field">Location</td>
+						<td class="value">${t.location}</td>
+					</tr>
+					`;
+          }
+          break;
+
+        case "version":
+          if (t.carState !== "Driving") {
+            table += `
+						<tr>
+							<td class="icon"><span class="zmdi zmdi-download zmdi-hc-fw"></span></td>
+							<td class="field">Version</td>
+							<td class="value">${t.car_version.split(" ")[0]}</td>
+						</tr>
+						`;
           }
           break;
 

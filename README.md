@@ -33,32 +33,35 @@ Activate the module by adding it to the config.js file as shown in the example b
 | unitTemperature  | The unit to use for displaying temperature. Options are 'f' (Farenheight) or 'c' (Celcius). Defaults to 'c' | `f`                                                 |
 | unitDistance     | The unit to use for displaying distance. Options are 'miles' or 'km'. Defaults to 'miles'                   | `km`                                                |
 | items            | The rows of data you want the module to show. See list below. By default will show all available            | `['battery','range-estimated','locked','odometer']` |
-| initialLoadDelay | How many seconds to delay initial API call                                                                  |
-|
+| initialLoadDelay | How many seconds to delay initial API call                                                                  |                                                     |
 | dataTimeout      | How old data must be in seconds before 'data-time' is displayed. Use 0 to always show                       | `0`                                                 |
 
 ### Available fields
 
-| Field name      | Data display                                                                                |
-| --------------- | ------------------------------------------------------------------------------------------- |
-| battery         | Shows the current charge level (percent) and the charge limit                               |
-| range           | The range (in miles) that the vehicle has available                                         |
-| range-estimated | The estimated range (in miles) that the vehicle has available                               |
-| power-connected | Whether or not the vehicle is connected to a charger. If so, also displays the charge state |
-| charge-time     | How long left until the charge is complete                                                  |
-| charge-added    | How much energy has been added on this charge session                                       |
-| charge-power    | How much energy the vehicle is currently receiving                                          |
-| locked          | Whether or not the vehicle is locked                                                        |
-| odometer        | Total mileage of the vehicle (rounded to 2 decimal places)                                  |
-| temperature     | Temperature outside and inside the vehicle (see note below)                                 |
-| data-time       | How long ago the data was collected by TeslaFi                                              |
+| Field name      | Data display                                                                                                                     |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| battery         | Shows the current charge level (percent) and the charge limit                                                                    |
+| range           | The range (in miles) that the vehicle has available                                                                              |
+| range-estimated | The estimated range (in miles) that the vehicle has available                                                                    |
+| power-connected | Whether or not the vehicle is connected to a charger. If so, also displays the charge state                                      |
+| charge-time     | How long left until the charge is complete                                                                                       |
+| charge-added    | How much energy has been added on this charge session                                                                            |
+| charge-power    | How much energy the vehicle is currently receiving                                                                               |
+| locked          | Whether or not the vehicle is locked                                                                                             |
+| odometer        | Total mileage of the vehicle (rounded to 2 decimal places)                                                                       |
+| temperature     | Temperature outside and inside the vehicle (see note below)                                                                      |
+| data-time       | How long ago the data was collected by TeslaFi                                                                                   |
+| location        | Displays the current location as tagged in TeslaFi. Not shown if the vehicle is driving, or if the current location isn't tagged |
+| version         | Current version installed                                                                                                        |
+| newVersion      | Display new version if available - hidden if no new version is available                                                         |
 | state           | Vehicle State (Idling/Driving/Sentry) (see note below)                                      |
 | speed           | Vehicle speed in preferred unit (see note below)                                      |
 | heading         | Vehicle heading (see note below)                                      |
 
 - Some fields (charge-time, charge-added, charge-power) are only enabled if the vehicle is plugged in
 - The temperature field may not be populated if you use TeslaFi's sleep mode, which will stop this row from showing entirely. You may need to use `apiQuery: "&command=lastGoodTemp"` if this fails to show
-- Some fields (speed, heading) are only enabled if the vehicle is driving
+- For details on TeslaFi's 'location' tags, see [TeslaFi Locations](https://teslafi.com/locations.php)
+- Some fields (version, speed, heading) are only enabled if the vehicle is not driving
 
 ## Future work
 
