@@ -307,7 +307,7 @@ Module.register("MMM-TeslaFi", {
 					`;
           }
           break;
- 
+
         case "newVersion":
           if (t.newVersionStatus !== "") {
             table += `

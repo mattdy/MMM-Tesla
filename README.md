@@ -54,9 +54,9 @@ Activate the module by adding it to the config.js file as shown in the example b
 | location        | Displays the current location as tagged in TeslaFi. Not shown if the vehicle is driving, or if the current location isn't tagged |
 | version         | Current version installed                                                                                                        |
 | newVersion      | Display new version if available - hidden if no new version is available                                                         |
-| state           | Vehicle State (Idling/Driving/Sentry) (see note below)                                      |
-| speed           | Vehicle speed in preferred unit (see note below)                                      |
-| heading         | Vehicle heading (see note below)                                      |
+| state           | Vehicle State (Idling/Driving/Sentry) (see note below)                                                                           |
+| speed           | Vehicle speed in preferred unit (see note below)                                                                                 |
+| heading         | Vehicle heading (see note below)                                                                                                 |
 
 - Some fields (charge-time, charge-added, charge-power) are only enabled if the vehicle is plugged in
 - The temperature field may not be populated if you use TeslaFi's sleep mode, which will stop this row from showing entirely. You may need to use `apiQuery: "&command=lastGoodTemp"` if this fails to show
