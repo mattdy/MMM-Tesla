@@ -23,6 +23,9 @@ Module.register("MMM-TeslaFi", {
     apiBase: "https://www.teslafi.com/feed.php?token=",
     apiQuery: "&command=lastGood",
     items: [
+      "state",
+      "speed",
+      "heading",
       "battery",
       "range",
       "range-estimated",
@@ -257,17 +260,28 @@ Module.register("MMM-TeslaFi", {
           break;
 
         case "state":
+          let icon;
+          switch (t.carState) {
+            case "Sentry":
+              icon = "zmdi-dot-circle sentry";
+              break;
+            case "Idling":
+              icon = "zmdi-parking";
+              break;
+            case "Driving":
+              icon = "zmdi-car";
+              break;
+          }
           table += `
 					<tr>
-						<td class="icon"><span class="zmdi zmdi-hc-fw ${
-              t.carState === "Sentry"
-                ? "sentry zmdi-dot-circle"
-                : "zmdi-parking"
-            }"></span></td>
+						<td class="icon"><span class="zmdi zmdi-hc-fw ${icon}"></span></td>
 						<td class="field">State</td>
 						<td class="value">${t.carState}</td>
 					</tr>
-				`;
+        `;
+          break;
+
+        case "speed":
           if (t.carState === "Driving") {
             table += `
 						<tr>
@@ -275,7 +289,12 @@ Module.register("MMM-TeslaFi", {
 							<td class="field">Speed</td>
 							<td class="value">${this.convertSpeed(t.speed)}</td>
 						</tr>
-					`;
+          `;
+          }
+          break;
+
+        case "heading":
+          if (t.carState === "Driving") {
             table += `
 						<tr>
 							<td class="icon"><span class="zmdi zmdi-compass zmdi-hc-fw"></span></td>
@@ -284,7 +303,7 @@ Module.register("MMM-TeslaFi", {
 						</tr>
 					`;
           }
-         break;
+          break;
 
         case "charge-power":
           if (!t.charging_state || t.charging_state == "Disconnected") {
