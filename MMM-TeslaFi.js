@@ -473,7 +473,7 @@ Module.register("MMM-TeslaFi", {
     );
     return excludeLocationsUpper.includes(locale.toUpperCase());
   },
-  
+
   // Converts given speed (assumes miles input) to configured output with approprate units appened
   convertSpeed: function (valueMiles) {
     if (this.config.unitDistance === "km") {
