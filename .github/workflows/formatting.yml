@@ -5,7 +5,7 @@ on:
     branches: [master]
 
 jobs:
-  setup:
+  buildAndTest:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -17,11 +17,6 @@ jobs:
       - name: Install
         run: |
           npm install
-
-  prettier:
-    runs-on: ubuntu-latest
-    needs: setup
-    steps:
       - name: Prettier
         run: |
           npm run prettier
@@ -30,19 +25,9 @@ jobs:
         with:
           commit_message: Apply formatting changes
           branch: ${{ github.head_ref }}
-
-  lintJS:
-    runs-on: ubuntu-latest
-    needs: setup
-    steps:
       - name: CheckJS
         run: |
           npm run test:js
-
-  lintCSS:
-    runs-on: ubuntu-latest
-    needs: setup
-    steps:
       - name: CheckCSS
         run: |
           npm run test:css
