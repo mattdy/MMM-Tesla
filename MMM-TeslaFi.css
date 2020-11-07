@@ -72,3 +72,11 @@
 .map {
   border-radius: 5px;
 }
+
+.sentry {
+  color: #f55;
+}
+
+.newVersion {
+  color: lightgreen;
+}

@@ -31,6 +31,9 @@ Module.register("MMM-TeslaFi", {
     apiBase: "https://www.teslafi.com/feed.php?token=",
     apiQuery: "&command=lastGood",
     items: [
+      "state",
+      "speed",
+      "heading",
       "battery",
       "range",
       "range-estimated",
@@ -42,6 +45,9 @@ Module.register("MMM-TeslaFi", {
       "odometer",
       "temperature",
       "map",
+      "version",
+      "newVersion",
+      "location",
       "data-time"
     ]
   },
@@ -293,6 +299,92 @@ Module.register("MMM-TeslaFi", {
           }
           break;
 
+        case "state":
+          let icon;
+          switch (t.carState) {
+            case "Sentry":
+              icon = "zmdi-dot-circle sentry";
+              break;
+            case "Idling":
+              icon = "zmdi-parking";
+              break;
+            case "Driving":
+              icon = "zmdi-car";
+              break;
+          }
+          table += `
+					<tr>
+						<td class="icon"><span class="zmdi zmdi-hc-fw ${icon}"></span></td>
+						<td class="field">State</td>
+						<td class="value">${t.carState}</td>
+					</tr>
+        `;
+          break;
+
+        case "speed":
+          if (t.carState === "Driving") {
+            table += `
+						<tr>
+							<td class="icon"><span class="zmdi zmdi-time-countdown zmdi-hc-fw"></span></td>
+							<td class="field">Speed</td>
+							<td class="value">${this.convertSpeed(t.speed)}</td>
+						</tr>
+          `;
+          }
+          break;
+
+        case "heading":
+          if (t.carState === "Driving") {
+            table += `
+						<tr>
+							<td class="icon"><span class="zmdi zmdi-compass zmdi-hc-fw"></span></td>
+						   	<td class="field">Heading</td>
+						   	<td class="value">${this.convertHeading(t.heading)}</td>
+						</tr>
+					`;
+          }
+          break;
+
+        case "newVersion":
+          if (t.newVersionStatus !== "") {
+            table += `
+					<tr>
+						<td class="icon"><span class="zmdi zmdi-download zmdi-hc-fw newVersion"></span></td>
+						<td class="field newVersion">NEW Version Available!</td>
+						<td class="value newVersion">${t.newVersion}</td>
+          </tr>
+					`;
+          }
+          break;
+
+        //shows vehicle's location IF not driving and IF location is tagged - otherwise, it's hidden
+        case "location":
+          if (
+            t.carState !== "Driving" &&
+            t.location !== "No Tagged Location Found"
+          ) {
+            table += `
+					<tr>
+					<td class="icon"><span class="zmdi zmdi-pin zmdi-hc-fw"></span></td>
+						<td class="field">Location</td>
+						<td class="value">${t.location}</td>
+					</tr>
+					`;
+          }
+          break;
+
+        case "version":
+          if (t.carState !== "Driving") {
+            table += `
+						<tr>
+							<td class="icon"><span class="zmdi zmdi-download zmdi-hc-fw"></span></td>
+							<td class="field">Version</td>
+							<td class="value">${t.car_version.split(" ")[0]}</td>
+						</tr>
+						`;
+          }
+          break;
+
         case "charge-power":
           if (!t.charging_state || t.charging_state == "Disconnected") {
             break;
@@ -380,5 +472,39 @@ Module.register("MMM-TeslaFi", {
       location.toUpperCase()
     );
     return excludeLocationsUpper.includes(locale.toUpperCase());
+  },
+  
+  // Converts given speed (assumes miles input) to configured output with approprate units appened
+  convertSpeed: function (valueMiles) {
+    if (this.config.unitDistance === "km") {
+      return this.numberFormat(valueMiles * 1.60934) + " km/h";
+    } else {
+      return this.numberFormat(valueMiles) + " mph";
+    }
+  },
+
+  // Converts heading int to nearest bearing by 45deg
+  convertHeading: function (heading) {
+    const bearing = {
+      0: "North",
+      45: "North East",
+      90: "East",
+      135: "South East",
+      180: "South",
+      225: "South West",
+      270: "West",
+      315: "North West",
+      360: "North"
+    };
+    const direction = (heading) => {
+      return Object.keys(bearing)
+        .map(Number)
+        .reduce(function (prev, curr) {
+          return Math.abs(curr - heading) < Math.abs(prev - heading)
+            ? curr
+            : prev;
+        });
+    };
+    return bearing[direction(heading)];
   }
 });
