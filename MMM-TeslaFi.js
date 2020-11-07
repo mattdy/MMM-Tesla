@@ -19,6 +19,14 @@ Module.register("MMM-TeslaFi", {
     batteryDanger: 30,
     batteryWarning: 50,
     dataTimeout: 0,
+    googleMapApiKey: "",
+    mapZoom: 13,
+    mapWidth: 300,
+    mapHeight: 150,
+    excludeLocations: [],
+    homeAddress: "",
+    googleApiBase:
+      "https://maps.googleapis.com/maps/api/distancematrix/json?key=",
     precision: 1, // How many decimal places to round values to
     apiBase: "https://www.teslafi.com/feed.php?token=",
     apiQuery: "&command=lastGood",
@@ -36,6 +44,7 @@ Module.register("MMM-TeslaFi", {
       "locked",
       "odometer",
       "temperature",
+      "map",
       "version",
       "newVersion",
       "location",
@@ -262,6 +271,34 @@ Module.register("MMM-TeslaFi", {
           }
           break;
 
+        //static map - GoogleAPI needed and is only used if vehicle is not at tagged locations
+        case "map":
+          if (this.config.googleMapApiKey !== "") {
+            if (!this.isExcluded(t.location) || t.carState === "Driving") {
+              table += `
+              <tr>
+                <td class="icon ${
+                  t.carState !== "Driving" ? "dim" : ""
+                }" colspan="3">
+                  <img alt="map" class="map" src="${this.getMap(
+                    t.latitude,
+                    t.longitude
+                  )}" />
+                </td>
+              </tr>
+              `;
+            }
+          } else {
+            table += `
+            <tr>
+            <td class="icon"><span class="zmdi zmdi-alert-octagon sentry zmdi-hc-fw"></span></td>
+              <td class="field">MAP ERROR!</td>
+              <td class="value">Missing GoogleMaps API Key</td>
+            </tr>
+            `;
+          }
+          break;
+
         case "state":
           let icon;
           switch (t.carState) {
@@ -416,6 +453,27 @@ Module.register("MMM-TeslaFi", {
     }
   },
 
+  // Gets Static map as picture
+  getMap: function (lat, lng) {
+    if (this.config.googleMapApiKey !== "") {
+      const options = {
+        center: [lat, lng],
+        zoom: this.config.mapZoom,
+        key: this.config.googleMapApiKey,
+        marker: [lat, lng]
+      };
+      return `https://maps.googleapis.com/maps/api/staticmap?size=${this.config.mapWidth}x${this.config.mapHeight}&center=${options.center}&markers=${options.marker}&key=${options.key}&zoom=${options.zoom}&size=tiny`;
+    }
+  },
+
+  // Checks exclusion list returns bool
+  isExcluded: function (locale) {
+    const excludeLocationsUpper = this.config.excludeLocations.map((location) =>
+      location.toUpperCase()
+    );
+    return excludeLocationsUpper.includes(locale.toUpperCase());
+  },
+  
   // Converts given speed (assumes miles input) to configured output with approprate units appened
   convertSpeed: function (valueMiles) {
     if (this.config.unitDistance === "km") {
