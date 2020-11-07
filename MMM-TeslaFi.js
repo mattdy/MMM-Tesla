@@ -300,7 +300,7 @@ Module.register("MMM-TeslaFi", {
           break;
 
         case "state":
-          let icon;
+          var icon;
           switch (t.carState) {
             case "Sentry":
               icon = "zmdi-dot-circle sentry";
@@ -386,7 +386,7 @@ Module.register("MMM-TeslaFi", {
           break;
 
         case "charge-power":
-          if (!t.charging_state || t.charging_state == "Disconnected") {
+          if (!t.charging_state || t.charging_state === "Disconnected") {
             break;
           }
           table += `
