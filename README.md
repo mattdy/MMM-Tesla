@@ -16,32 +16,45 @@ I am happy to accept any [bug reports](https://github.com/mattdy/MMM-TeslaFi/iss
 
 Open a terminal session, navigate to your MagicMirror's `modules` folder and execute `git clone https://github.com/mattdy/MMM-TeslaFi.git`, a new folder called MMM-TeslaFi will be created.
 
-Activate the module by adding it to the config.js file as shown in the example below.
+Activate the module by adding it to the config.js file as shown here:
 
-## Notes
+```javascript
+modules: [
+  {
+    module: "MMM-TeslaFi",
+    position: "top_left",
+    config: {
+      apiKey: "ENTER YOUR KEY HERE"
+    }
+  }
+];
+```
 
-### Config Options
+You can then use the various configuration options below to customise how the module is displayed. By default, all fields will be shown. You can set the `items` configuration option to an array of field names as shown in
+[Available fields](#available-fields) to limit the number of data items shown.
 
-| Option           | Details                                                                                                     | Example                                             |
-| ---------------- | ----------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
-| apiKey           | **Required** - The API key from [TeslaFi.com](https://teslafi.com/api.php)                                  | `4de3736a68714869d3e2fbda1f1b83ff`                  |
-| batteryDanger    | The percentage below which your battery level will highlight in red                                         | `40`                                                |
-| batteryWarning   | The percentage below which your battery level will highlight in orange                                      | `60`                                                |
-| precision        | How many decimal places to round values (such as mileage and energy) to. Defaults to 1                      | `2`                                                 |
-| apiBase          | The URL to use for the TeslaFi API                                                                          | `https://www.teslafi.com/feed.php?token=`           |
-| apiQuery         | Extra parameters to add on to the end of the TeslaFi API call                                               | `&command=lastGoodTemp`                             |
-| unitTemperature  | The unit to use for displaying temperature. Options are 'f' (Farenheight) or 'c' (Celcius). Defaults to 'c' | `f`                                                 |
-| unitDistance     | The unit to use for displaying distance. Options are 'miles' or 'km'. Defaults to 'miles'                   | `km`                                                |
-| items            | The rows of data you want the module to show. See list below. By default will show all available            | `['battery','range-estimated','locked','odometer']` |
-| initialLoadDelay | How many seconds to delay initial API call                                                                  |                                                     |
-| dataTimeout      | How old data must be in seconds before 'data-time' is displayed. Use 0 to always show                       | `0`                                                 |
-| googleMapApiKey  | Google Maps "Static Maps API"                                                                               | `AIzaSyB6KgHKwRNa63JsVHuu7d8jV-1IH875idKs`          |
-| mapZoom          | (optional) Zoom Level of map                                                                                | 13                                                  |
-| mapWidth         | (optional) Specify width of map                                                                             | 300                                                 |
-| mapHeight        | (optional) Specify height of map                                                                            | 150                                                 |
-| excludeLocations | (optional) Specify TeslaFi tagged locations at which the map field will not be shown. Case insensitive.     | `[ 'home', 'Work', 'cottage' ]`                     |
+## Config Options
 
-### Available fields
+| Option           | Details                                                                                                               | Example                                             |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
+| apiKey           | **Required** - The API key from [TeslaFi.com](https://teslafi.com/api.php)                                            | `4de3736a68714869d3e2fbda1f1b83ff`                  |
+| batteryDanger    | The percentage below which your battery level will highlight in red                                                   | `40`                                                |
+| batteryWarning   | The percentage below which your battery level will highlight in orange                                                | `60`                                                |
+| precision        | How many decimal places to round values (such as mileage and energy) to. Defaults to 1                                | `2`                                                 |
+| apiBase          | The URL to use for the TeslaFi API                                                                                    | `https://www.teslafi.com/feed.php?token=`           |
+| apiQuery         | Extra parameters to add on to the end of the TeslaFi API call                                                         | `&command=lastGoodTemp`                             |
+| unitTemperature  | The unit to use for displaying temperature. Options are 'f' (Farenheight) or 'c' (Celcius). Defaults to 'c'           | `f`                                                 |
+| unitDistance     | The unit to use for displaying distance. Options are 'miles' or 'km'. Defaults to 'miles'                             | `km`                                                |
+| items            | The rows of data you want the module to show. See list [below](#available-fields). By default will show all available | `['battery','range-estimated','locked','odometer']` |
+| initialLoadDelay | How many seconds to delay initial API call                                                                            | `10`                                                |
+| dataTimeout      | How old data must be in seconds before 'data-time' is displayed. Use 0 to always show                                 | `0`                                                 |
+| googleMapApiKey  | Google Maps API key. Must have "Static Maps API" access enabled. See [Map](#map) below for more detail                | `AIzaSyB6KgHKwRNa63JsVHuu7d8jV-1IH875idKs`          |
+| mapZoom          | [Zoom level](https://developers.google.com/maps/documentation/maps-static/start#Zoomlevels) of map                    | `13`                                                |
+| mapWidth         | Specify width of map                                                                                                  | `300`                                               |
+| mapHeight        | Specify height of map                                                                                                 | `150`                                               |
+| excludeLocations | Specify TeslaFi tagged locations at which the map field will not be shown. Case insensitive.                          | `[ 'home', 'Work', 'cottage' ]`                     |
+
+## Available fields
 
 | Field name      | Data display                                                                                                                     |
 | --------------- | -------------------------------------------------------------------------------------------------------------------------------- |
@@ -59,37 +72,26 @@ Activate the module by adding it to the config.js file as shown in the example b
 | location        | Displays the current location as tagged in TeslaFi. Not shown if the vehicle is driving, or if the current location isn't tagged |
 | version         | Current version installed                                                                                                        |
 | newVersion      | Display new version if available - hidden if no new version is available                                                         |
-| state           | Vehicle State (Idling/Driving/Sentry) (see note below)                                                                           |
-| speed           | Vehicle speed in preferred unit (see note below)                                                                                 |
-| heading         | Vehicle heading (see note below)                                                                                                 |
-| map             | Displays current location on a map - Dims if not 'Driving'                                                                       |
+| state           | Vehicle State (Idling/Driving/Sentry)                                                                                            |
+| speed           | Vehicle speed in preferred units                                                                                                 |
+| heading         | Vehicle heading                                                                                                                  |
+| map             | Displays current location on a map - Dims if not 'Driving'. See the [Map section](#map) for details on how to configure          |
 
 - Some fields (charge-time, charge-added, charge-power) are only enabled if the vehicle is plugged in
+- Some fields (version, speed, heading) are only enabled if the vehicle is not driving
 - The temperature field may not be populated if you use TeslaFi's sleep mode, which will stop this row from showing entirely. You may need to use `apiQuery: "&command=lastGoodTemp"` if this fails to show
 - For details on TeslaFi's 'location' tags, see [TeslaFi Locations](https://teslafi.com/locations.php)
-- Some fields (version, speed, heading) are only enabled if the vehicle is not driving
-- To get Google Maps API Key, start here: [Google Maps Developer Platform](https://developers.google.com/maps/documentation/maps-static/overview) It's easy and comes with ~100,000 free calls/month.
-- For the static map, activate the "Maps Static API" (note: the map is static and not interactive - it is essentially a picture and will NOT zoom/scroll with touch interactivity)
 
-## Future work
+## Map
 
-- Re-add support for metric & imperial units
+In order to enable the `map` field, you must first have created a Google Maps API key from the [Google Maps Developer Platform](https://developers.google.com/maps/documentation/maps-static/overview). This is easy to do, and comes
+with ~100,000 free calls per month. Once you have created the API key, you must enable the "Maps Static API". Once you have done this, add the `map` field your configuration, which will show a non-interactive map of the
+vehicles location. The size of this map can be configured with the `mapZoom`,`mapWidth` and `mapHeight` configuration options. Note that you will not be able to zoom or move the map with touch/mouse functionality.
 
 ## Credits
 
+- Thanks to [Justyn](https://github.com/justynr) for creating the location, version, state, speed, heading & map fields
 - Thanks to [Adrian](https://github.com/f00d4tehg0dz) for the [original version](https://github.com/f00d4tehg0dz/MMM-TeslaFi)
 - Big thanks to [aduyng](https://github.com/aduyng) for their [TeslaStatus](https://github.com/aduyng/MMM-TeslaStatus) module used as a template!
 
 ## Using the module
-
-```javascript
-modules: [
-  {
-    module: "MMM-TeslaFi",
-    position: "top_left",
-    config: {
-      apiKey: "ENTER YOUR KEY HERE"
-    }
-  }
-];
-```
