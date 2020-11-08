@@ -56,26 +56,26 @@ You can then use the various configuration options below to customise how the mo
 
 ## Available fields
 
-| Field name      | Data display                                                                                                                     |
-| --------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| battery         | Shows the current charge level (percent) and the charge limit                                                                    |
-| range           | The range (in miles) that the vehicle has available                                                                              |
-| range-estimated | The estimated range (in miles) that the vehicle has available                                                                    |
-| power-connected | Whether or not the vehicle is connected to a charger. If so, also displays the charge state                                      |
-| charge-time     | How long left until the charge is complete                                                                                       |
-| charge-added    | How much energy has been added on this charge session                                                                            |
-| charge-power    | How much energy the vehicle is currently receiving                                                                               |
-| locked          | Whether or not the vehicle is locked                                                                                             |
-| odometer        | Total mileage of the vehicle (rounded to 2 decimal places)                                                                       |
-| temperature     | Temperature outside and inside the vehicle (see note below)                                                                      |
-| data-time       | How long ago the data was collected by TeslaFi                                                                                   |
-| location        | Displays the current location as tagged in TeslaFi. Not shown if the vehicle is driving, or if the current location isn't tagged |
-| version         | Current version installed                                                                                                        |
-| newVersion      | Display new version if available - hidden if no new version is available                                                         |
-| state           | Vehicle State (Idling/Driving/Sentry)                                                                                            |
-| speed           | Vehicle speed in preferred units                                                                                                 |
-| heading         | Vehicle heading                                                                                                                  |
-| map             | Displays current location on a map - Dims if not 'Driving'. See the [Map section](#map) for details on how to configure          |
+| Field name             | Data display                                                                                                                     |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| battery                | Shows the current charge level (percent) and the charge limit                                                                    |
+| range                  | The range (in miles) that the vehicle has available                                                                              |
+| range&#x2011;estimated | The estimated range (in miles) that the vehicle has available                                                                    |
+| power&#x2011;connected | Whether or not the vehicle is connected to a charger. If so, also displays the charge state                                      |
+| charge&#x2011;time     | How long left until the charge is complete                                                                                       |
+| charge&#x2011;added    | How much energy has been added on this charge session                                                                            |
+| charge&#x2011;power    | How much energy the vehicle is currently receiving                                                                               |
+| locked                 | Whether or not the vehicle is locked                                                                                             |
+| odometer               | Total mileage of the vehicle (rounded to 2 decimal places)                                                                       |
+| temperature            | Temperature outside and inside the vehicle (see note below)                                                                      |
+| data&#x2011;time       | How long ago the data was collected by TeslaFi                                                                                   |
+| location               | Displays the current location as tagged in TeslaFi. Not shown if the vehicle is driving, or if the current location isn't tagged |
+| version                | Current version installed                                                                                                        |
+| newVersion             | Display new version if available - hidden if no new version is available                                                         |
+| state                  | Vehicle State (Idling/Driving/Sentry)                                                                                            |
+| speed                  | Vehicle speed in preferred units                                                                                                 |
+| heading                | Vehicle heading                                                                                                                  |
+| map                    | Displays current location on a map - Dims if not 'Driving'. See the [Map section](#map) for details on how to configure          |
 
 - Some fields (charge-time, charge-added, charge-power) are only enabled if the vehicle is plugged in
 - Some fields (version, speed, heading) are only enabled if the vehicle is not driving
