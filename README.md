@@ -2,7 +2,8 @@
 
 This an extension for the [MagicMirror](https://github.com/MichMich/MagicMirror).
 
-It monitors a your Tesla Stats, such as Battery Level, Temperature, Lock status and much more! A valid TeslaFi API key is required, the key can be requested [here](https://teslafi.com/api.php)
+With this module, you can display the status of your Tesla vehicle from [TeslaFi](https://www.teslafi.com/signup.php?referred=warlrus). Many different pieces of data can be shown, such as the battery level, temperature, lock status and plenty more!
+A valid TeslaFi API key is required, the key can be requested [here](https://teslafi.com/api.php)
 
 This is a partial re-write of the original MMM-TeslaFi by [f00d4tehg0dz](https://github.com/f00d4tehg0dz), which can be found [here](https://github.com/f00d4tehg0dz/MMM-TeslaFi). I have chosen to not merge this version back in as it breaks some functionality of the original module.
 
