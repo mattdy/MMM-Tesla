@@ -85,13 +85,11 @@ You can then use the various configuration options below to customise how the mo
 ## Map
 
 In order to enable the `map` field, you must first have created a Google Maps API key from the [Google Maps Developer Platform](https://developers.google.com/maps/documentation/maps-static/overview). This is easy to do, and comes
-with ~100,000 free calls per month. Once you have created the API key, you must enable the "Maps Static API". Once you have done this, add the `map` field your configuration, which will show a non-interactive map of the
-vehicles location. The size of this map can be configured with the `mapZoom`,`mapWidth` and `mapHeight` configuration options. Note that you will not be able to zoom or move the map with touch/mouse functionality.
+with ~100,000 free calls per month. Once you have created the API key, you must enable the "Maps Static API". Once you have done this, add the API key to your configuration and add the `map` field to your list of items.
+This will show a non-interactive map of the vehicles location. The size of this map can be configured with the `mapZoom`,`mapWidth` and `mapHeight` configuration options. Note that you will not be able to zoom or move the map with touch/mouse functionality.
 
 ## Credits
 
 - Thanks to [Justyn](https://github.com/justynr) for creating the location, version, state, speed, heading & map fields
 - Thanks to [Adrian](https://github.com/f00d4tehg0dz) for the [original version](https://github.com/f00d4tehg0dz/MMM-TeslaFi)
 - Big thanks to [aduyng](https://github.com/aduyng) for their [TeslaStatus](https://github.com/aduyng/MMM-TeslaStatus) module used as a template!
-
-## Using the module
