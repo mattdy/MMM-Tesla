@@ -96,7 +96,7 @@ If you have an idea for an additional field, then please raise an [issue](https:
 
 In order to keep the code as accessible as possible, there are Github Actions defined to run `eslint` (JS & CSS) and `prettier` checks against all Pull Requests. Additionally, `prettier` is automatically run on merges to the `master` branch.
 
-Finally, if you find this module useful and would like to make a small contribution to it's developer ([mattdy](https://github.com/mattdy)) then you can do so at [this link](https://www.paypal.com/donate?hosted_button_id=D3B8FWDJYXLSL).
+Finally, if you find this module useful and would like to make a small contribution to it's developer ([mattdy](https://github.com/mattdy)) then you can do so at [this link](http://paypal.me/mattdy90).
 Alternatively, please consider using my [TeslaFi referral link](https://www.teslafi.com/signup.php?referred=warlrus) if this module has inspired you to subscribe, or my [Tesla referral link](http://ts.la/matthew6411) if this module
 has inspired you to buy a Tesla!
 
