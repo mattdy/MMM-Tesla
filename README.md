@@ -89,6 +89,17 @@ In order to enable the `map` field, you must first have created a Google Maps AP
 with ~100,000 free calls per month. Once you have created the API key, you must enable the "Maps Static API". Once you have done this, add the API key to your configuration and add the `map` field to your list of items.
 This will show a non-interactive map of the vehicles location. The size of this map can be configured with the `mapZoom`,`mapWidth` and `mapHeight` configuration options. Note that you will not be able to zoom or move the map with touch/mouse functionality.
 
+## Contributing
+
+If you have an idea for an additional field, then please raise an [issue](https://github.com/mattdy/MMM-TeslaFi/issues) with the `enhancement` label. Alternatively, please feel free to develop the new functionality yourself and submit a
+[pull request](https://github.com/mattdy/MMM-TeslaFi/pulls) - I'd be delighted to incorporate any new fields.
+
+In order to keep the code as accessible as possible, there are Github Actions defined to run `eslint` (JS & CSS) and `prettier` checks against all Pull Requests. Additionally, `prettier` is automatically run on merges to the `master` branch.
+
+Finally, if you find this module useful and would like to make a small contribution to it's developer ([mattdy](https://github.com/mattdy)) then you can do so at [this link](https://www.paypal.com/donate?hosted_button_id=D3B8FWDJYXLSL).
+Alternatively, please consider using my [TeslaFi referral link](https://www.teslafi.com/signup.php?referred=warlrus) if this module has inspired you to subscribe, or my [Tesla referral link](http://ts.la/matthew6411) if this module
+has inspired you to buy a Tesla!
+
 ## Credits
 
 - Thanks to [Justyn](https://github.com/justynr) for creating the location, version, state, speed, heading & map fields
