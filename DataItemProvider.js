@@ -24,7 +24,7 @@ var DataItemProvider = Class.extend({
   // Called when we get new data from TeslaFi
   // We should use this to update the icon, field and value variables
   // This should be overridden in any sub-classes
-  updateData: function (data) {}
+  onDataUpdate: function (data) {}
 });
 
 // Collection of all DataItemProviders that are registered with the module

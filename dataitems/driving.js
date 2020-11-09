@@ -8,7 +8,7 @@ DataItemProvider.register("speed", {
   icon: `<span class="zmdi zmdi-time-countdown zmdi-hc-fw"></span>`,
   field: "Speed",
 
-  updateData(data) {
+  onDataUpdate(data) {
     if (data.carState !== "Driving") {
       this.display = false;
     } else {
@@ -28,7 +28,7 @@ DataItemProvider.register("heading", {
   icon: `<span class="zmdi zmdi-compass zmdi-hc-fw"></span>`,
   field: "Heading",
 
-  updateData(data) {
+  onDataUpdate(data) {
     if (data.carState !== "Driving") {
       this.display = false;
     } else {

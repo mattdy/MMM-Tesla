@@ -9,7 +9,7 @@ DataItemProvider.register("battery", {
   icon: '<span class="zmdi zmdi-battery zmdi-hc-fw"></span>',
   field: "Battery",
 
-  updateData(data) {
+  onDataUpdate(data) {
     this.value = `<span class="battery-level-`;
     this.value += this.getBatteryLevelClass(data.usable_battery_level);
     this.value += `">`;

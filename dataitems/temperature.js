@@ -9,7 +9,7 @@ DataItemProvider.register("temperature", {
   icon: `<span class="zmdi zmdi-sun zmdi-hc-fw"></span>`,
   field: "Temperature",
 
-  updateData(data) {
+  onDataUpdate(data) {
     if (!data.outside_temp || !data.inside_temp) {
       this.display = false;
       return;

@@ -8,7 +8,7 @@ DataItemProvider.register("charge-time", {
   icon: '<span class="zmdi zmdi-battery-flash zmdi-hc-fw"></span>',
   field: "Charging",
 
-  updateData(data) {
+  onDataUpdate(data) {
     if (!data.charging_state || data.time_to_full_charge === "0.0") {
       this.display = false;
       return;
@@ -31,7 +31,7 @@ DataItemProvider.register("charge-added", {
   icon: '<span class="zmdi zmdi-flash zmdi-hc-fw"></span>',
   field: "Charge Added",
 
-  updateData(data) {
+  onDataUpdate(data) {
     if (!data.charging_state || data.charging_state === "Disconnected") {
       this.display = false;
       return;
@@ -54,7 +54,7 @@ DataItemProvider.register("charge-power", {
   icon: '<span class="zmdi zmdi-flash zmdi-hc-fw"></span>',
   field: "Charger Power",
 
-  updateData(data) {
+  onDataUpdate(data) {
     if (!data.charging_state || data.charging_state === "Disconnected") {
       this.display = false;
       return;
@@ -76,7 +76,7 @@ DataItemProvider.register("charge-power", {
 DataItemProvider.register("power-connected", {
   icon: `<span class="zmdi zmdi-input-power zmdi-hc-fw"></span>`,
 
-  updateData(data) {
+  onDataUpdate(data) {
     if (!data.charging_state) {
       this.display = false;
       return;

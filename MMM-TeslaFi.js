@@ -184,7 +184,7 @@ Module.register("MMM-TeslaFi", {
 
     // Tell all of our data item providers about the new data
     for (var identifier in this.providers) {
-      this.providers[identifier].updateData(data);
+      this.providers[identifier].onDataUpdate(data);
     }
 
     // Update the DOM

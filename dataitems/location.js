@@ -7,7 +7,7 @@
  * Adapted from original code by Justyn R
  */
 DataItemProvider.register("map", {
-  updateData(data) {
+  onDataUpdate(data) {
     if (this.config.googleMapApiKey === "") {
       this.icon = `<span class="zmdi zmdi-alert-octagon sentry zmdi-hc-fw"></span>`;
       this.field = "MAP ERROR!";
@@ -55,7 +55,7 @@ DataItemProvider.register("location", {
   icon: `<span class="zmdi zmdi-pin zmdi-hc-fw"></span>`,
   field: "Location",
 
-  updateData(data) {
+  onDataUpdate(data) {
     if (
       data.carState === "Driving" ||
       data.location === "No Tagged Location Found"
