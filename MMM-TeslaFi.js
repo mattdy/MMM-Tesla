@@ -65,7 +65,7 @@ Module.register("MMM-TeslaFi", {
       this.file("dataitems/range.js"),
       this.file("dataitems/software.js"),
       this.file("dataitems/state.js"),
-      this.file("dataitems/temperature.js"),
+      this.file("dataitems/temperature.js")
     ];
   },
   getStyles: function () {
@@ -80,8 +80,10 @@ Module.register("MMM-TeslaFi", {
     this.sendSocketNotification("CONFIG", this.config);
     this.providers = [];
 
-    for(var identifier in DataItemProvider.providers) {
-      this.providers[identifier] = new DataItemProvider.providers[identifier](this);
+    for (var identifier in DataItemProvider.providers) {
+      this.providers[identifier] = new DataItemProvider.providers[identifier](
+        this
+      );
     }
   },
   getDom: function () {
@@ -113,14 +115,16 @@ Module.register("MMM-TeslaFi", {
     for (var index in this.config.items) {
       dataItem = this.config.items[index];
 
-      if(!this.providers.hasOwnProperty(dataItem)) {
+      if (!this.providers.hasOwnProperty(dataItem)) {
         Log.error("Could not find " + dataItem + " in list of valid providers");
         continue;
       }
 
-      if(!this.providers[dataItem].display) {
+      if (!this.providers[dataItem].display) {
         // This provider doesn't want us to display it right now, so skip
-        Log.info("Provider " + dataItem + " doesn't want to be shown right now");
+        Log.info(
+          "Provider " + dataItem + " doesn't want to be shown right now"
+        );
         continue;
       }
 
@@ -128,7 +132,7 @@ Module.register("MMM-TeslaFi", {
       var field = this.providers[dataItem].field;
       var value = this.providers[dataItem].value;
 
-      if(field===null && value===null) {
+      if (field === null && value === null) {
         table += `
           <tr>
             <td class="icon" colspan="3">${icon}</td>
@@ -136,19 +140,20 @@ Module.register("MMM-TeslaFi", {
         `;
       } else {
         var colspan = 1;
-        if(value===null) { colspan = 2; }
+        if (value === null) {
+          colspan = 2;
+        }
 
         table += `
           <tr>
             <td class="icon">${icon}</td>
             <td class="field" colspan="${colspan}">${field}</td>
         `;
-        if(value!==null) {
+        if (value !== null) {
           table += `<td class="value">${value}</td>`;
         }
         table += `</tr>`;
       }
-
     } // end foreach loop of items
 
     table += "</table>";
@@ -178,7 +183,7 @@ Module.register("MMM-TeslaFi", {
     this.loaded = true;
 
     // Tell all of our data item providers about the new data
-    for(var identifier in this.providers) {
+    for (var identifier in this.providers) {
       this.providers[identifier].updateData(data);
     }
 

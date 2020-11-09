@@ -1,9 +1,8 @@
 DataItemProvider.register("locked", {
-
   itemName: "locked",
 
   updateData(data) {
-    if(data.locked) {
+    if (data.locked) {
       this.icon = `<span class="zmdi zmdi-lock-outline zmdi-hc-fw"></span>`;
       this.field = "Locked";
     } else {
@@ -11,11 +10,9 @@ DataItemProvider.register("locked", {
       this.field = "Unlocked";
     }
   }
-
 });
 
 DataItemProvider.register("odometer", {
-
   itemName: "odometer",
 
   icon: `<span class="zmdi zmdi-globe zmdi-hc-fw"></span>`,
@@ -24,11 +21,9 @@ DataItemProvider.register("odometer", {
   updateData(data) {
     this.value = this.context.convertDistance(data.odometer);
   }
-
 });
 
 DataItemProvider.register("state", {
-
   itemName: "state",
 
   field: "State",
@@ -36,7 +31,7 @@ DataItemProvider.register("state", {
   updateData(data) {
     this.value = data.carState;
 
-    switch(data.carState) {
+    switch (data.carState) {
       case "Sentry":
         this.icon = `<span class="zmdi zmdi-hc-fw zmdi-dot-circle sentry"></span>`;
         break;
@@ -50,11 +45,9 @@ DataItemProvider.register("state", {
         break;
     }
   }
-
 });
 
 DataItemProvider.register("data-time", {
-
   itemName: "data-time",
 
   icon: `<span class="zmdi zmdi-time zmdi-hc-fw"></span>`,
@@ -62,5 +55,4 @@ DataItemProvider.register("data-time", {
   updateData(data) {
     this.field = moment(data.Date).fromNow();
   }
-
 });
