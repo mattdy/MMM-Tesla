@@ -17,7 +17,7 @@ DataItemProvider.register("version-new", {
   field: "New Version Available",
 
   updateData(data) {
-    this.display = data.newVersionStatus === "";
+    this.display = data.newVersionStatus !== "";
     this.value = data.newVersion;
   }
 });
