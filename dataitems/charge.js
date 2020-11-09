@@ -13,7 +13,7 @@ DataItemProvider.register("charge-time", {
     }
 
     this.value = "Done ";
-    this.value += moment().add(t.time_to_full_charge, "hours").fromNow();
+    this.value += moment().add(data.time_to_full_charge, "hours").fromNow();
   }
 });
 
