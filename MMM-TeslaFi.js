@@ -9,8 +9,8 @@ Module.register("MMM-TeslaFi", {
   defaults: {
     units: config.units,
     animationSpeed: 1000,
-    refreshInterval: 1000 * 60, //refresh every minute
-    updateInterval: 1000 * 3600, //update every hour
+    refreshInterval: 1000 * 60, // Refresh DOM every 60 seconds
+    updateInterval: 1000 * 60 * 5, // Load TeslaFi data every 5 minutes
     lang: config.language,
     initialLoadDelay: 0, // 0 seconds delay
     retryDelay: 2500,
@@ -66,9 +66,14 @@ Module.register("MMM-TeslaFi", {
     ];
   },
   start: function () {
-    Log.info("Starting module: " + this.name);
     this.loaded = false;
     this.sendSocketNotification("CONFIG", this.config);
+
+    // Refresh the DOM at the given interval
+    var self = this;
+    this.domTimer = setTimeout(function () {
+      self.updateDom(self.config.animationSpeed);
+    }, this.config.refreshInterval);
   },
   getDom: function () {
     var wrapper = document.createElement("div");
@@ -410,26 +415,23 @@ Module.register("MMM-TeslaFi", {
     wrapper.appendChild(content);
     return wrapper;
   },
+
   socketNotificationReceived: function (notification, payload) {
     if (notification === "STARTED") {
+      // If the node_helper socket has only just opened, refresh the DOM to make sure we're displaying a loading message
       this.updateDom();
     } else if (notification === "DATA") {
+      // We've received data from TeslaFi, so parse and display it
+      var data = JSON.parse(payload);
+      if (!data) {
+        return;
+      }
+      this.data = data;
       this.loaded = true;
-      this.tFi(JSON.parse(payload));
+      this.updateDom(this.config.animationSpeed);
     }
   },
-  // tFi(data)
-  // Uses the received data to set the various values.
-  //argument data object - info from teslfi.com
-  tFi: function (data) {
-    if (!data) {
-      // Did not receive usable new data.
-      return;
-    }
-    this.data = data;
-    this.loaded = true;
-    this.updateDom(this.config.animationSpeed);
-  },
+
   // Return a number with the precision specified in our config
   numberFormat: function (number) {
     return parseFloat(number).toFixed(this.config.precision);

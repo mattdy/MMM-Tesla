@@ -36,16 +36,15 @@ module.exports = NodeHelper.create({
 
     setTimeout(function () {
       self.getData();
-    }, this.config.refreshInterval);
+    }, this.config.updateInterval);
   },
 
   socketNotificationReceived: function (notification, payload) {
-    var self = this;
-    if (notification === "CONFIG" && self.started === false) {
-      self.config = payload;
-      self.sendSocketNotification("STARTED", true);
-      self.getData();
-      self.started = true;
+    if (notification === "CONFIG" && this.started === false) {
+      this.config = payload;
+      this.sendSocketNotification("STARTED", true);
+      this.getData();
+      this.started = true;
     }
   }
 });
