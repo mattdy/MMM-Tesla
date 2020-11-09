@@ -66,6 +66,7 @@ Module.register("MMM-TeslaFi", {
     ];
   },
   start: function () {
+    Log.info("Starting module: " + this.name);
     this.loaded = false;
     this.sendSocketNotification("CONFIG", this.config);
 
