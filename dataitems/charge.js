@@ -55,7 +55,7 @@ DataItemProvider.register("charge-power", {
   field: "Charger Power",
 
   onDataUpdate(data) {
-    if (!data.charging_state || data.charging_state === "Disconnected") {
+    if (data.charger_power === "0.0") {
       this.display = false;
       return;
     } else {
