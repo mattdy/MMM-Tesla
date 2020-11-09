@@ -413,7 +413,6 @@ Module.register("MMM-TeslaFi", {
     } else if (notification === "DATA") {
       this.loaded = true;
       this.tFi(JSON.parse(payload));
-      this.updateDom();
     }
   },
   // tFi(data)
