@@ -23,8 +23,8 @@
   "scripts": {
     "prettier": "prettier --write **/*.{js,css,json,md,yml}",
     "test:prettier": "prettier --check **/*.{js,css,json,md,yml}",
-    "test:js": "eslint *.js --config .eslintrc.json",
-    "test:css": "stylelint *.css --config .stylelintrc.json"
+    "test:js": "eslint **/*.js --config .eslintrc.json",
+    "test:css": "stylelint **/*.css --config .stylelintrc.json"
   },
   "prettier": {
     "trailingComma": "none"
