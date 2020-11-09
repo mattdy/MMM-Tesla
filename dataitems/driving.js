@@ -5,8 +5,6 @@
  * Adapted from original code by Justyn R
  */
 DataItemProvider.register("speed", {
-  itemName: "speed",
-
   icon: `<span class="zmdi zmdi-time-countdown zmdi-hc-fw"></span>`,
   field: "Speed",
 
@@ -27,8 +25,6 @@ DataItemProvider.register("speed", {
  * Adapted from original code by Justyn R
  */
 DataItemProvider.register("heading", {
-  itemName: "heading",
-
   icon: `<span class="zmdi zmdi-compass zmdi-hc-fw"></span>`,
   field: "Heading",
 

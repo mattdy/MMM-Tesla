@@ -5,8 +5,6 @@
  * Adapted from original code by Justyn R
  */
 DataItemProvider.register("version", {
-  itemName: "version",
-
   icon: `<span class="zmdi zmdi-download zmdi-hc-fw"></span>`,
   field: "Version",
 
@@ -23,8 +21,6 @@ DataItemProvider.register("version", {
  * Adapted from original code by Justyn R
  */
 DataItemProvider.register("version-new", {
-  itemName: "version-new",
-
   icon: `<span class="zmdi zmdi-download zmdi-hc-fw newVersion">`,
   field: "New Version Available",
 

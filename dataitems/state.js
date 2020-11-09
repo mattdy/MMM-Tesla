@@ -6,8 +6,6 @@
  */
 
 DataItemProvider.register("locked", {
-  itemName: "locked",
-
   updateData(data) {
     if (data.locked) {
       this.icon = `<span class="zmdi zmdi-lock-outline zmdi-hc-fw"></span>`;
@@ -26,8 +24,6 @@ DataItemProvider.register("locked", {
  * Adapted from original code by Adrian Chrysanthou
  */
 DataItemProvider.register("odometer", {
-  itemName: "odometer",
-
   icon: `<span class="zmdi zmdi-globe zmdi-hc-fw"></span>`,
   field: "Odometer",
 
@@ -43,8 +39,6 @@ DataItemProvider.register("odometer", {
  * Adapted from original code by Justyn R
  */
 DataItemProvider.register("state", {
-  itemName: "state",
-
   field: "State",
 
   updateData(data) {
@@ -72,8 +66,6 @@ DataItemProvider.register("state", {
  * Created by Matt Dyson
  */
 DataItemProvider.register("data-time", {
-  itemName: "data-time",
-
   icon: `<span class="zmdi zmdi-time zmdi-hc-fw"></span>`,
 
   updateData(data) {

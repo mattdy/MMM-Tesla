@@ -5,8 +5,6 @@
  * Adapted from original code by Adrian Chrysanthou
  */
 DataItemProvider.register("range", {
-  itemName: "range",
-
   icon: '<span class="zmdi zmdi-gas-station zmdi-hc-fw"></span>',
   field: "Range",
 
@@ -22,8 +20,6 @@ DataItemProvider.register("range", {
  * Adapted from original code by Adrian Chrysanthou
  */
 DataItemProvider.register("range-estimated", {
-  itemName: "range-estimated",
-
   icon: '<span class="zmdi zmdi-gas-station zmdi-hc-fw"></span>',
   field: "Range",
 

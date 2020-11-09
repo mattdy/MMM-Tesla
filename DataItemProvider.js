@@ -3,8 +3,6 @@
  */
 
 var DataItemProvider = Class.extend({
-  itemName: null,
-
   icon: null,
   field: null,
   value: null,

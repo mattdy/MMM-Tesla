@@ -7,8 +7,6 @@
  * Adapted from original code by Justyn R
  */
 DataItemProvider.register("map", {
-  itemName: "map",
-
   updateData(data) {
     if (this.config.googleMapApiKey === "") {
       this.icon = `<span class="zmdi zmdi-alert-octagon sentry zmdi-hc-fw"></span>`;
@@ -54,8 +52,6 @@ DataItemProvider.register("map", {
  * Adapted from original code by Justyn R
  */
 DataItemProvider.register("location", {
-  itemName: "location",
-
   icon: `<span class="zmdi zmdi-pin zmdi-hc-fw"></span>`,
   field: "Location",
 

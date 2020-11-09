@@ -6,8 +6,6 @@
  * Adapted from original code by Adrian Chrysanthou
  */
 DataItemProvider.register("temperature", {
-  itemName: "temperature",
-
   icon: `<span class="zmdi zmdi-sun zmdi-hc-fw"></span>`,
   field: "Temperature",
 

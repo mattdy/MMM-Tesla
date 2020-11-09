@@ -6,8 +6,6 @@
  * Created by Matt Dyson
  */
 DataItemProvider.register("battery", {
-  itemName: "battery",
-
   icon: '<span class="zmdi zmdi-battery zmdi-hc-fw"></span>',
   field: "Battery",
 

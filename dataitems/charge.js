@@ -5,8 +5,6 @@
  * Adapted from original code by Adrian Chrysanthou
  */
 DataItemProvider.register("charge-time", {
-  itemName: "charge-time",
-
   icon: '<span class="zmdi zmdi-battery-flash zmdi-hc-fw"></span>',
   field: "Charging",
 
@@ -30,8 +28,6 @@ DataItemProvider.register("charge-time", {
  * Adapted from original code by Adrian Chrysanthou
  */
 DataItemProvider.register("charge-added", {
-  itemName: "charge-added",
-
   icon: '<span class="zmdi zmdi-flash zmdi-hc-fw"></span>',
   field: "Charge Added",
 
@@ -55,8 +51,6 @@ DataItemProvider.register("charge-added", {
  * Adapted from original code by Justyn R
  */
 DataItemProvider.register("charge-power", {
-  itemName: "charge-power",
-
   icon: '<span class="zmdi zmdi-flash zmdi-hc-fw"></span>',
   field: "Charger Power",
 
@@ -80,8 +74,6 @@ DataItemProvider.register("charge-power", {
  * Suggestion by johnny-co
  */
 DataItemProvider.register("power-connected", {
-  itemName: "power-connected",
-
   icon: `<span class="zmdi zmdi-input-power zmdi-hc-fw"></span>`,
 
   updateData(data) {
