@@ -1,3 +1,9 @@
+/*
+ * Display the time remaining until the battery reaches the specified charge limit.
+ *
+ * Created by Matt Dyson
+ * Adapted from original code by Adrian Chrysanthou
+ */
 DataItemProvider.register("charge-time", {
   itemName: "charge-time",
 
@@ -17,6 +23,12 @@ DataItemProvider.register("charge-time", {
   }
 });
 
+/*
+ * Display the energy added to the car within the current charge cycle
+ *
+ * Created by Matt Dyson
+ * Adapted from original code by Adrian Chrysanthou
+ */
 DataItemProvider.register("charge-added", {
   itemName: "charge-added",
 
@@ -36,6 +48,12 @@ DataItemProvider.register("charge-added", {
   }
 });
 
+/*
+ * Display the current energy being provided by the car charger
+ *
+ * Created by Matt Dyson
+ * Adapted from original code by Justyn R
+ */
 DataItemProvider.register("charge-power", {
   itemName: "charge-power",
 
@@ -55,6 +73,12 @@ DataItemProvider.register("charge-power", {
   }
 });
 
+/*
+ * Display whether or not the car is currently connected to a charger
+ *
+ * Created by Matt Dyson
+ * Suggestion by johnny-co
+ */
 DataItemProvider.register("power-connected", {
   itemName: "power-connected",
 

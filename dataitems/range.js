@@ -1,3 +1,9 @@
+/*
+ * Display the current (ideal) range of the vehicle
+ *
+ * Created by Matt Dyson
+ * Adapted from original code by Adrian Chrysanthou
+ */
 DataItemProvider.register("range", {
   itemName: "range",
 
@@ -9,6 +15,12 @@ DataItemProvider.register("range", {
   }
 });
 
+/*
+ * Display the current estimated range of the vehicle, based off recent performance
+ *
+ * Created by Matt Dyson
+ * Adapted from original code by Adrian Chrysanthou
+ */
 DataItemProvider.register("range-estimated", {
   itemName: "range-estimated",
 

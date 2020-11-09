@@ -1,3 +1,10 @@
+/*
+ * Display the current inside and outside temperatures from the vehicle
+ * Note that TeslaFi may not always include these variables - see the README for more information
+ *
+ * Created by Matt Dyson
+ * Adapted from original code by Adrian Chrysanthou
+ */
 DataItemProvider.register("temperature", {
   itemName: "temperature",
 

@@ -1,3 +1,11 @@
+/*
+ * Display the current location of the vehicle within a static Google Maps window
+ * Size of the map can be modified using the `mapZoom`, `mapWidth` and `mapHeight` configuration options
+ * Requires a valid Google Maps API key - see the README for more information
+ *
+ * Created by Matt Dyson
+ * Adapted from original code by Justyn R
+ */
 DataItemProvider.register("map", {
   itemName: "map",
 
@@ -39,6 +47,12 @@ DataItemProvider.register("map", {
   }
 });
 
+/*
+ * Display the tagged location of the vehicle, if such a tag exists within TeslaFi
+ *
+ * Created by Matt Dyson
+ * Adapted from original code by Justyn R
+ */
 DataItemProvider.register("location", {
   itemName: "location",
 

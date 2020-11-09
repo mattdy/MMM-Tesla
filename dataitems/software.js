@@ -1,3 +1,9 @@
+/*
+ * Display the currently installed software version
+ *
+ * Created by Matt Dyson
+ * Adapted from original code by Justyn R
+ */
 DataItemProvider.register("version", {
   itemName: "version",
 
@@ -10,6 +16,12 @@ DataItemProvider.register("version", {
   }
 });
 
+/*
+ * Display a message if there is a new software version available for installation
+ *
+ * Created by Matt Dyson
+ * Adapted from original code by Justyn R
+ */
 DataItemProvider.register("version-new", {
   itemName: "version-new",
 

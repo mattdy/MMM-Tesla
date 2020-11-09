@@ -1,3 +1,10 @@
+/*
+ * Display the current charge level (in percentage points) of the battery, and the
+ * current charge limit set on the vehicle. Both values will be coloured according
+ * to the `batteryDanger` and `batteryWarn` configuration values
+ *
+ * Created by Matt Dyson
+ */
 DataItemProvider.register("battery", {
   itemName: "battery",
 

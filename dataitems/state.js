@@ -1,3 +1,10 @@
+/*
+ * Display whether or not the vehicle is locked
+ *
+ * Created by Matt Dyson
+ * Adapted from original code by Adrian Chrysanthou
+ */
+
 DataItemProvider.register("locked", {
   itemName: "locked",
 
@@ -12,6 +19,12 @@ DataItemProvider.register("locked", {
   }
 });
 
+/*
+ * Display the odometer value from the vehicle
+ *
+ * Created by Matt Dyson
+ * Adapted from original code by Adrian Chrysanthou
+ */
 DataItemProvider.register("odometer", {
   itemName: "odometer",
 
@@ -23,6 +36,12 @@ DataItemProvider.register("odometer", {
   }
 });
 
+/*
+ * Display the state of the vehicle (whether or not it is driving etc)
+ *
+ * Created by Matt Dyson
+ * Adapted from original code by Justyn R
+ */
 DataItemProvider.register("state", {
   itemName: "state",
 
@@ -47,6 +66,11 @@ DataItemProvider.register("state", {
   }
 });
 
+/*
+ * Display how long ago the currently loaded data was pulled by TeslaFi
+ *
+ * Created by Matt Dyson
+ */
 DataItemProvider.register("data-time", {
   itemName: "data-time",
 

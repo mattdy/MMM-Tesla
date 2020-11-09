@@ -1,3 +1,9 @@
+/*
+ * Display the current speed of the vehicle
+ *
+ * Created by Matt Dyson
+ * Adapted from original code by Justyn R
+ */
 DataItemProvider.register("speed", {
   itemName: "speed",
 
@@ -14,6 +20,12 @@ DataItemProvider.register("speed", {
   }
 });
 
+/*
+ * Display the current heading of the vehicle
+ *
+ * Created by Matt Dyson
+ * Adapted from original code by Justyn R
+ */
 DataItemProvider.register("heading", {
   itemName: "heading",
 
