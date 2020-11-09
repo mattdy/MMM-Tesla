@@ -46,7 +46,7 @@ Module.register("MMM-TeslaFi", {
       "temperature",
       "map",
       "version",
-      "newVersion",
+      "version-new",
       "location",
       "data-time"
     ]
