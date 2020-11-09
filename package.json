@@ -1,6 +1,6 @@
 {
   "name": "Magic-Mirror-Module-TeslaFi",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "description": "MagicMirror2 Module to display Tesla Stats.",
   "repository": {
     "type": "git",
