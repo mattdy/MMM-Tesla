@@ -103,54 +103,56 @@ Module.register("MMM-TeslaFi", {
 
     content.innerHTML = "";
     var table = `
-		<h2 class="mqtt-title"><span class="zmdi zmdi-car zmdi-hc-1x icon"></span> ${t.display_name}</h2>
-		<table class="small">
+      <h2 class="mqtt-title"><span class="zmdi zmdi-car zmdi-hc-1x icon"></span> ${t.display_name}</h2>
+      <table class="small">
 		`;
 
     for (var field in this.config.items) {
       switch (this.config.items[field]) {
         case "battery":
           table += `
-				   <tr>
-				      <td class="icon"><span class="zmdi zmdi-battery zmdi-hc-fw"></span></td>
-				      <td class="field">Battery</td>
-				      <td class="value">
-				         <span class="battery-level-${getBatteryLevelClass(
-                   t.usable_battery_level,
-                   this.config.batteryWarning,
-                   this.config.batteryDanger
-                 )}">${t.usable_battery_level}%</span>
-                                         /
-                                         <span class="battery-level-${getBatteryLevelClass(
-                                           t.charge_limit_soc,
-                                           this.config.batteryWarning,
-                                           this.config.batteryDanger
-                                         )}">${t.charge_limit_soc}%</span>
-				      </td>
-				   </tr>
-				`;
+            <tr>
+              <td class="icon"><span class="zmdi zmdi-battery zmdi-hc-fw"></span></td>
+              <td class="field">Battery</td>
+              <td class="value">
+                <span class="battery-level-${getBatteryLevelClass(
+                  t.usable_battery_level,
+                  this.config.batteryWarning,
+                  this.config.batteryDanger
+                )}">${t.usable_battery_level}%</span>
+                /
+                <span class="battery-level-${getBatteryLevelClass(
+                  t.charge_limit_soc,
+                  this.config.batteryWarning,
+                  this.config.batteryDanger
+                )}">${t.charge_limit_soc}%</span>
+              </td>
+            </tr>
+          `;
           break;
 
         case "range":
           table += `
-				   <tr>
-				      <td class="icon"><span class="zmdi zmdi-gas-station zmdi-hc-fw"></span></td>
-				      <td class="field">Range</td>
-				      <td class="value">${this.convertDistance(t.ideal_battery_range)}</td>
-				   </tr>
-				`;
+            <tr>
+              <td class="icon"><span class="zmdi zmdi-gas-station zmdi-hc-fw"></span></td>
+              <td class="field">Range</td>
+              <td class="value">${this.convertDistance(
+                t.ideal_battery_range
+              )}</td>
+            </tr>
+          `;
           break;
 
         case "range-estimated":
           table += `
-				   <tr>
-				      <td class="icon"><span class="zmdi zmdi-gas-station zmdi-hc-fw"></span></td>
-				      <td class="field">Range</td>
-				      <td class="value">${this.convertDistance(
+            <tr>
+              <td class="icon"><span class="zmdi zmdi-gas-station zmdi-hc-fw"></span></td>
+              <td class="field">Range</td>
+              <td class="value">${this.convertDistance(
                 t.est_battery_range
               )} (estimated)</td>
-				   </tr>
-				`;
+            </tr>
+          `;
           break;
 
         case "charge-time":
@@ -159,14 +161,14 @@ Module.register("MMM-TeslaFi", {
           }
 
           table += `
-				   <tr>
-				      <td class="icon"><span class="zmdi zmdi-battery-flash zmdi-hc-fw"></span></td>
-				      <td class="field">Charging</td>
-				      <td class="value">Done ${moment()
+            <tr>
+              <td class="icon"><span class="zmdi zmdi-battery-flash zmdi-hc-fw"></span></td>
+              <td class="field">Charging</td>
+              <td class="value">Done ${moment()
                 .add(t.time_to_full_charge, "hours")
                 .fromNow()}</td>
-				   </tr>
-				`;
+            </tr>
+          `;
           break;
 
         case "charge-added":
@@ -175,41 +177,42 @@ Module.register("MMM-TeslaFi", {
           }
 
           table += `
-				   <tr>
-				      <td class="icon"><span class="zmdi zmdi-flash zmdi-hc-fw"></span></td>
-				      <td class="field">Charge Added</td>
-				      <td class="value">${this.numberFormat(t.charge_energy_added)} kWh</td>
-				   </tr>
-				`;
-
+            <tr>
+              <td class="icon"><span class="zmdi zmdi-flash zmdi-hc-fw"></span></td>
+              <td class="field">Charge Added</td>
+              <td class="value">${this.numberFormat(
+                t.charge_energy_added
+              )} kWh</td>
+            </tr>
+          `;
           break;
 
         case "locked":
           if (t.locked) {
             table += `
-				   <tr>
-				      <td class="icon"><span class="zmdi zmdi-lock-outline zmdi-hc-fw"></span></td>
-				      <td class="field" colspan="2">Locked</td>
-				   </tr>
-				`;
+              <tr>
+                <td class="icon"><span class="zmdi zmdi-lock-outline zmdi-hc-fw"></span></td>
+                <td class="field" colspan="2">Locked</td>
+              </tr>
+            `;
           } else {
             table += `
-				   <tr>
-				      <td class="icon"><span class="zmdi zmdi-lock-open zmdi-hc-fw"></span></td>
-				      <td class="field" colspan="2">Unlocked</td>
-				   </tr>
-				`;
+              <tr>
+                <td class="icon"><span class="zmdi zmdi-lock-open zmdi-hc-fw"></span></td>
+                <td class="field" colspan="2">Unlocked</td>
+              </tr>
+            `;
           }
           break;
 
         case "odometer":
           table += `
-				   <tr>
-				      <td class="icon"><span class="zmdi zmdi-globe zmdi-hc-fw"></span></td>
-				      <td class="field">Odometer</td>
-				      <td class="value">${this.convertDistance(t.odometer)}</td>
-				   </tr>
-				`;
+            <tr>
+              <td class="icon"><span class="zmdi zmdi-globe zmdi-hc-fw"></span></td>
+              <td class="field">Odometer</td>
+              <td class="value">${this.convertDistance(t.odometer)}</td>
+            </tr>
+          `;
           break;
 
         case "temperature":
@@ -221,12 +224,12 @@ Module.register("MMM-TeslaFi", {
           var inside = this.convertTemperature(t.inside_temp);
 
           table += `
-				   <tr>
-				      <td class="icon"><span class="zmdi zmdi-sun zmdi-hc-fw"></span></td>
-				      <td class="field">Temperature</td>
-				      <td class="value">${outside} / ${inside}</td>
-				   </tr>
-				`;
+            <tr>
+              <td class="icon"><span class="zmdi zmdi-sun zmdi-hc-fw"></span></td>
+              <td class="field">Temperature</td>
+              <td class="value">${outside} / ${inside}</td>
+            </tr>
+          `;
           break;
 
         case "power-connected":
@@ -243,19 +246,19 @@ Module.register("MMM-TeslaFi", {
             }
 
             table += `
-				   <tr>
-				      <td class="icon"><span class="zmdi zmdi-input-power zmdi-hc-fw"></span></td>
-				      <td class="field">Connected</td>
-				      <td class="value">${displayVal}</td>
-				   </tr>
-				`;
+              <tr>
+                <td class="icon"><span class="zmdi zmdi-input-power zmdi-hc-fw"></span></td>
+                <td class="field">Connected</td>
+                <td class="value">${displayVal}</td>
+              </tr>
+            `;
           } else {
             table += `
-				   <tr>
-				      <td class="icon"><span class="zmdi zmdi-input-power zmdi-hc-fw"></span></td>
-				      <td class="field" colspan="2">Disconnected</td>
-				   </tr>
-				`;
+              <tr>
+                <td class="icon"><span class="zmdi zmdi-input-power zmdi-hc-fw"></span></td>
+                <td class="field" colspan="2">Disconnected</td>
+              </tr>
+            `;
           }
           break;
 
@@ -313,47 +316,47 @@ Module.register("MMM-TeslaFi", {
               break;
           }
           table += `
-					<tr>
-						<td class="icon"><span class="zmdi zmdi-hc-fw ${icon}"></span></td>
-						<td class="field">State</td>
-						<td class="value">${t.carState}</td>
-					</tr>
-        `;
+            <tr>
+              <td class="icon"><span class="zmdi zmdi-hc-fw ${icon}"></span></td>
+              <td class="field">State</td>
+              <td class="value">${t.carState}</td>
+            </tr>
+          `;
           break;
 
         case "speed":
           if (t.carState === "Driving") {
             table += `
-						<tr>
-							<td class="icon"><span class="zmdi zmdi-time-countdown zmdi-hc-fw"></span></td>
-							<td class="field">Speed</td>
-							<td class="value">${this.convertSpeed(t.speed)}</td>
-						</tr>
-          `;
+              <tr>
+                <td class="icon"><span class="zmdi zmdi-time-countdown zmdi-hc-fw"></span></td>
+                <td class="field">Speed</td>
+                <td class="value">${this.convertSpeed(t.speed)}</td>
+              </tr>
+            `;
           }
           break;
 
         case "heading":
           if (t.carState === "Driving") {
             table += `
-						<tr>
-							<td class="icon"><span class="zmdi zmdi-compass zmdi-hc-fw"></span></td>
-						   	<td class="field">Heading</td>
-						   	<td class="value">${this.convertHeading(t.heading)}</td>
-						</tr>
-					`;
+              <tr>
+                <td class="icon"><span class="zmdi zmdi-compass zmdi-hc-fw"></span></td>
+                <td class="field">Heading</td>
+                <td class="value">${this.convertHeading(t.heading)}</td>
+              </tr>
+            `;
           }
           break;
 
         case "newVersion":
           if (t.newVersionStatus !== "") {
             table += `
-					<tr>
-						<td class="icon"><span class="zmdi zmdi-download zmdi-hc-fw newVersion"></span></td>
-						<td class="field newVersion">NEW Version Available!</td>
-						<td class="value newVersion">${t.newVersion}</td>
-          </tr>
-					`;
+              <tr>
+                <td class="icon"><span class="zmdi zmdi-download zmdi-hc-fw newVersion"></span></td>
+                <td class="field newVersion">NEW Version Available!</td>
+                <td class="value newVersion">${t.newVersion}</td>
+              </tr>
+            `;
           }
           break;
 
@@ -364,24 +367,24 @@ Module.register("MMM-TeslaFi", {
             t.location !== "No Tagged Location Found"
           ) {
             table += `
-					<tr>
-					<td class="icon"><span class="zmdi zmdi-pin zmdi-hc-fw"></span></td>
-						<td class="field">Location</td>
-						<td class="value">${t.location}</td>
-					</tr>
-					`;
+              <tr>
+                <td class="icon"><span class="zmdi zmdi-pin zmdi-hc-fw"></span></td>
+                <td class="field">Location</td>
+                <td class="value">${t.location}</td>
+              </tr>
+            `;
           }
           break;
 
         case "version":
           if (t.carState !== "Driving") {
             table += `
-						<tr>
-							<td class="icon"><span class="zmdi zmdi-download zmdi-hc-fw"></span></td>
-							<td class="field">Version</td>
-							<td class="value">${t.car_version.split(" ")[0]}</td>
-						</tr>
-						`;
+              <tr>
+                <td class="icon"><span class="zmdi zmdi-download zmdi-hc-fw"></span></td>
+                <td class="field">Version</td>
+                <td class="value">${t.car_version.split(" ")[0]}</td>
+              </tr>
+            `;
           }
           break;
 
@@ -390,12 +393,12 @@ Module.register("MMM-TeslaFi", {
             break;
           }
           table += `
-				   <tr>
-				      <td class="icon"><span class="zmdi zmdi-flash zmdi-hc-fw"></span></td>
-				      <td class="field">Charger Power</td>
-				      <td class="value">${this.numberFormat(t.charger_power)} kW</td>
-				   </tr>
-				`;
+            <tr>
+              <td class="icon"><span class="zmdi zmdi-flash zmdi-hc-fw"></span></td>
+              <td class="field">Charger Power</td>
+              <td class="value">${this.numberFormat(t.charger_power)} kW</td>
+            </tr>
+          `;
           break;
       } // switch
     } // end foreach loop of items
