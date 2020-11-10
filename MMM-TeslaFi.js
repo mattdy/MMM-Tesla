@@ -70,8 +70,13 @@ Module.register("MMM-TeslaFi", {
     this.loaded = false;
     this.sendSocketNotification("CONFIG", this.config);
 
-    // Refresh the DOM at the given interval
+    this.resetDomUpdate();
+  },
+  resetDomUpdate: function () {
     var self = this;
+    // Reset any previously allocated timer to avoid double-refreshes
+    clearInterval(this.domTimer);
+    // Refresh the DOM at the given interval
     this.domTimer = setInterval(function () {
       self.updateDom(self.config.animationSpeed);
     }, this.config.refreshInterval);
@@ -431,6 +436,7 @@ Module.register("MMM-TeslaFi", {
       this.data = data;
       this.loaded = true;
       this.updateDom(this.config.animationSpeed);
+      this.resetDomUpdate();
     }
   },
 
