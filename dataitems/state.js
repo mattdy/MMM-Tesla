@@ -69,6 +69,12 @@ DataItemProvider.register("data-time", {
   icon: `<span class="zmdi zmdi-time zmdi-hc-fw"></span>`,
 
   onDataUpdate(data) {
-    this.field = moment(data.Date).fromNow();
+    var secondsPassed = moment().diff(moment(data.Date), "seconds");
+    if (secondsPassed > this.config.dataTimeout) {
+      this.display = true;
+      this.field = moment(data.Date).fromNow();
+    } else {
+      this.display = false;
+    }
   }
 });
