@@ -39,6 +39,8 @@ You can then use the various configuration options below to customise how the mo
 | Option           | Details                                                                                                               | Example                                             |
 | ---------------- | --------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
 | apiKey           | **Required** - The API key from [TeslaFi.com](https://teslafi.com/api.php)                                            | `4de3736a68714869d3e2fbda1f1b83ff`                  |
+| refreshInterval  | The time interval (in milliseconds) at which the module contents will be updated locally                              | `1000 * 60`                                         |
+| updateInterval   | The time interval (in milliseconds) at which fresh data will be gathered from TeslaFi                                 | `1000 * 60 * 5`                                     |
 | batteryDanger    | The percentage below which your battery level will highlight in red                                                   | `40`                                                |
 | batteryWarning   | The percentage below which your battery level will highlight in orange                                                | `60`                                                |
 | precision        | How many decimal places to round values (such as mileage and energy) to. Defaults to 1                                | `2`                                                 |

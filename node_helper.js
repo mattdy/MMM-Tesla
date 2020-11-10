@@ -11,6 +11,7 @@
 
 const NodeHelper = require("node_helper");
 var request = require("request");
+const Log = require("../../js/logger");
 
 module.exports = NodeHelper.create({
   start: function () {
@@ -21,6 +22,7 @@ module.exports = NodeHelper.create({
   getData: function () {
     var self = this;
     var myUrl = this.config.apiBase + this.config.apiKey + this.config.apiQuery;
+    Log.info("TeslaFi sending request");
     request(
       {
         url: myUrl,
@@ -28,7 +30,9 @@ module.exports = NodeHelper.create({
         headers: { TeslaFi_API_TOKEN: this.config.apiKey }
       },
       function (error, response, body) {
+        Log.info("TeslaFi response was " + response.statusCode);
         if (!error && response.statusCode === 200) {
+          Log.info("TeslaFi sending data");
           self.sendSocketNotification("DATA", body);
         }
       }
@@ -36,16 +40,16 @@ module.exports = NodeHelper.create({
 
     setTimeout(function () {
       self.getData();
-    }, this.config.refreshInterval);
+    }, this.config.updateInterval);
   },
 
   socketNotificationReceived: function (notification, payload) {
-    var self = this;
-    if (notification === "CONFIG" && self.started === false) {
-      self.config = payload;
-      self.sendSocketNotification("STARTED", true);
-      self.getData();
-      self.started = true;
+    if (notification === "CONFIG" && this.started === false) {
+      Log.info("TeslaFi received configuration");
+      this.config = payload;
+      this.sendSocketNotification("STARTED", true);
+      this.getData();
+      this.started = true;
     }
   }
 });
