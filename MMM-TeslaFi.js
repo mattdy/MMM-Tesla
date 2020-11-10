@@ -422,6 +422,7 @@ Module.register("MMM-TeslaFi", {
       // If the node_helper socket has only just opened, refresh the DOM to make sure we're displaying a loading message
       this.updateDom();
     } else if (notification === "DATA") {
+      Log.info("TeslaFi recevied new data");
       // We've received data from TeslaFi, so parse and display it
       var data = JSON.parse(payload);
       if (!data) {
