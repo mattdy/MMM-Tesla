@@ -72,7 +72,7 @@ Module.register("MMM-TeslaFi", {
 
     // Refresh the DOM at the given interval
     var self = this;
-    this.domTimer = setTimeout(function () {
+    this.domTimer = setInterval(function () {
       self.updateDom(self.config.animationSpeed);
     }, this.config.refreshInterval);
   },
