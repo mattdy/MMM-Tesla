@@ -7,13 +7,9 @@
  */
 Module.register("MMM-TeslaFi", {
   defaults: {
-    units: config.units,
     animationSpeed: 1000,
     refreshInterval: 1000 * 60, // Refresh DOM every 60 seconds
     updateInterval: 1000 * 60 * 5, // Load TeslaFi data every 5 minutes
-    lang: config.language,
-    initialLoadDelay: 0, // 0 seconds delay
-    retryDelay: 2500,
     unitDistance: "miles",
     unitTemperature: "c",
     batteryDanger: 30,
@@ -26,9 +22,6 @@ Module.register("MMM-TeslaFi", {
       zoom: 13,
       exclude: []
     },
-    homeAddress: "",
-    googleApiBase:
-      "https://maps.googleapis.com/maps/api/distancematrix/json?key=",
     precision: 1, // How many decimal places to round values to
     apiBase: "https://www.teslafi.com/feed.php?token=",
     apiQuery: "&command=lastGood",
