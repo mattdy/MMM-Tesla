@@ -23,8 +23,7 @@ Module.register("MMM-TeslaFi", {
       exclude: []
     },
     precision: 1, // How many decimal places to round values to
-    apiBase: "https://www.teslafi.com/feed.php?token=",
-    apiQuery: "&command=lastGood",
+    apiCommand: "lastGood",
     items: [
       "state",
       "speed",
