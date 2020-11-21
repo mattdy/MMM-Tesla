@@ -57,6 +57,7 @@ You can then use the various configuration options below to customise how the mo
 | maps.width       | Specify width of map                                                                                                  | `300`                                               |
 | maps.height      | Specify height of map                                                                                                 | `150`                                               |
 | maps.exclude     | Specify TeslaFi tagged locations at which the map field will not be shown. Case insensitive.                          | `[ 'home', 'Work', 'cottage' ]`                     |
+| maps.drivingOnly | Only display the map when the car is driving                                                                          | `true`                                              |
 
 ## Available fields
 

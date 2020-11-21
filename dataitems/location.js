@@ -8,6 +8,15 @@
  */
 DataItemProvider.register("map", {
   onDataUpdate(data) {
+    this.height = this.setParam(this.config.maps.height, "number", 150);
+    this.width = this.setParam(this.config.maps.width, "number", 300);
+    this.zoom = this.setParam(this.config.maps.zoom, "number", 13);
+    this.drivingOnly = this.setParam(
+      this.config.maps.drivingOnly,
+      "boolean",
+      false
+    );
+
     if (!this.hasApiKey()) {
       this.display = true;
       this.icon = `<span class="zmdi zmdi-alert-octagon sentry zmdi-hc-fw"></span>`;
@@ -16,7 +25,12 @@ DataItemProvider.register("map", {
       return;
     }
 
-    if (this.isExcluded(data.location) || data.carState !== "Driving") {
+    if (this.drivingOnly && data.carState !== "Driving") {
+      this.display = false;
+      return;
+    }
+
+    if (this.isExcluded(data.location)) {
       this.display = false;
       return;
     }
@@ -24,6 +38,15 @@ DataItemProvider.register("map", {
     this.display = true;
     var url = this.getMap(data.latitude, data.longitude);
     this.icon = `<img alt="map" class="map" src="${url}" />`;
+  },
+
+  // Check that our config value is of the correct type, otherwise set the default
+  setParam: function (variable, expectedType, def) {
+    if (typeof variable === expectedType) {
+      return variable;
+    } else {
+      return def;
+    }
   },
 
   isExcluded: function (locale) {
@@ -48,11 +71,11 @@ DataItemProvider.register("map", {
     if (this.hasApiKey()) {
       const options = {
         center: [lat, lng],
-        zoom: this.config.maps.zoom,
+        zoom: this.zoom,
         key: this.config.maps.apiKey,
         marker: [lat, lng]
       };
-      return `https://maps.googleapis.com/maps/api/staticmap?size=${this.config.maps.width}x${this.config.maps.height}&center=${options.center}&markers=${options.marker}&key=${options.key}&zoom=${options.zoom}&size=tiny`;
+      return `https://maps.googleapis.com/maps/api/staticmap?size=${this.width}x${this.height}&center=${options.center}&markers=${options.marker}&key=${options.key}&zoom=${options.zoom}&size=tiny`;
     }
   }
 });
