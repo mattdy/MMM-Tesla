@@ -19,11 +19,13 @@ Module.register("MMM-TeslaFi", {
     batteryDanger: 30,
     batteryWarning: 50,
     dataTimeout: 0,
-    googleMapApiKey: "",
-    mapZoom: 13,
-    mapWidth: 300,
-    mapHeight: 150,
-    excludeLocations: [],
+    maps: {
+      apiKey: "",
+      width: 300,
+      height: 150,
+      zoom: 13,
+      exclude: []
+    },
     homeAddress: "",
     googleApiBase:
       "https://maps.googleapis.com/maps/api/distancematrix/json?key=",

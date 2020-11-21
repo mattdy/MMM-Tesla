@@ -51,11 +51,12 @@ You can then use the various configuration options below to customise how the mo
 | items            | The rows of data you want the module to show. See list [below](#available-fields). By default will show all available | `['battery','range-estimated','locked','odometer']` |
 | initialLoadDelay | How many seconds to delay initial API call                                                                            | `10`                                                |
 | dataTimeout      | How old data must be in seconds before 'data-time' is displayed. Use 0 to always show                                 | `0`                                                 |
-| googleMapApiKey  | Google Maps API key. Must have "Static Maps API" access enabled. See [Map](#map) below for more detail                | `AIzaSyB6KgHKwRNa63JsVHuu7d8jV-1IH875idKs`          |
-| mapZoom          | [Zoom level](https://developers.google.com/maps/documentation/maps-static/start#Zoomlevels) of map                    | `13`                                                |
-| mapWidth         | Specify width of map                                                                                                  | `300`                                               |
-| mapHeight        | Specify height of map                                                                                                 | `150`                                               |
-| excludeLocations | Specify TeslaFi tagged locations at which the map field will not be shown. Case insensitive.                          | `[ 'home', 'Work', 'cottage' ]`                     |
+| **maps**         | Group of configuration values relating to displaying vehicle location on a Google Map                                 |
+| maps.apiKey      | Google Maps API key. Must have "Static Maps API" access enabled. See [Map](#map) below for more detail                | `AIzaSyB6KgHKwRNa63JsVHuu7d8jV-1IH875idKs`          |
+| maps.zoom        | [Zoom level](https://developers.google.com/maps/documentation/maps-static/start#Zoomlevels) of map                    | `13`                                                |
+| maps.width       | Specify width of map                                                                                                  | `300`                                               |
+| maps.height      | Specify height of map                                                                                                 | `150`                                               |
+| maps.exclude     | Specify TeslaFi tagged locations at which the map field will not be shown. Case insensitive.                          | `[ 'home', 'Work', 'cottage' ]`                     |
 
 ## Available fields
 

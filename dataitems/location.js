@@ -1,6 +1,6 @@
 /*
  * Display the current location of the vehicle within a static Google Maps window
- * Size of the map can be modified using the `mapZoom`, `mapWidth` and `mapHeight` configuration options
+ * Size of the map can be modified using the `maps.zoom`, `maps.width` and `maps.height` configuration options
  * Requires a valid Google Maps API key - see the README for more information
  *
  * Created by Matt Dyson
@@ -8,7 +8,8 @@
  */
 DataItemProvider.register("map", {
   onDataUpdate(data) {
-    if (this.config.googleMapApiKey === "") {
+    if (!this.hasApiKey()) {
+      this.display = true;
       this.icon = `<span class="zmdi zmdi-alert-octagon sentry zmdi-hc-fw"></span>`;
       this.field = "MAP ERROR!";
       this.value = "Missing Google Maps API Key";
@@ -26,21 +27,32 @@ DataItemProvider.register("map", {
   },
 
   isExcluded: function (locale) {
-    const excludeLocationsUpper = this.config.excludeLocations.map((location) =>
+    if (typeof this.config.maps.exclude !== "object") {
+      return false;
+    }
+
+    const excludeLocationsUpper = this.config.maps.exclude.map((location) =>
       location.toUpperCase()
     );
     return excludeLocationsUpper.includes(locale.toUpperCase());
   },
 
+  hasApiKey: function () {
+    return (
+      typeof this.config.maps.apiKey === "string" &&
+      this.config.maps.apiKey !== ""
+    );
+  },
+
   getMap: function (lat, lng) {
-    if (this.config.googleMapApiKey !== "") {
+    if (this.hasApiKey()) {
       const options = {
         center: [lat, lng],
-        zoom: this.config.mapZoom,
-        key: this.config.googleMapApiKey,
+        zoom: this.config.maps.zoom,
+        key: this.config.maps.apiKey,
         marker: [lat, lng]
       };
-      return `https://maps.googleapis.com/maps/api/staticmap?size=${this.config.mapWidth}x${this.config.mapHeight}&center=${options.center}&markers=${options.marker}&key=${options.key}&zoom=${options.zoom}&size=tiny`;
+      return `https://maps.googleapis.com/maps/api/staticmap?size=${this.config.maps.width}x${this.config.maps.height}&center=${options.center}&markers=${options.marker}&key=${options.key}&zoom=${options.zoom}&size=tiny`;
     }
   }
 });
