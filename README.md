@@ -36,21 +36,20 @@ You can then use the various configuration options below to customise how the mo
 
 ## Config Options
 
-| Option           | Details                                                                                                               | Example                                             |
-| ---------------- | --------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
-| apiKey           | **Required** - The API key from [TeslaFi.com](https://teslafi.com/api.php)                                            | `4de3736a68714869d3e2fbda1f1b83ff`                  |
-| refreshInterval  | The time interval (in milliseconds) at which the module contents will be updated locally                              | `1000 * 60`                                         |
-| updateInterval   | The time interval (in milliseconds) at which fresh data will be gathered from TeslaFi                                 | `1000 * 60 * 5`                                     |
-| batteryDanger    | The percentage below which your battery level will highlight in red                                                   | `40`                                                |
-| batteryWarning   | The percentage below which your battery level will highlight in orange                                                | `60`                                                |
-| precision        | How many decimal places to round values (such as mileage and energy) to. Defaults to 1                                | `2`                                                 |
-| apiBase          | The URL to use for the TeslaFi API                                                                                    | `https://www.teslafi.com/feed.php?token=`           |
-| apiQuery         | Extra parameters to add on to the end of the TeslaFi API call                                                         | `&command=lastGoodTemp`                             |
-| unitTemperature  | The unit to use for displaying temperature. Options are 'f' (Farenheight) or 'c' (Celcius). Defaults to 'c'           | `f`                                                 |
-| unitDistance     | The unit to use for displaying distance. Options are 'miles' or 'km'. Defaults to 'miles'                             | `km`                                                |
-| items            | The rows of data you want the module to show. See list [below](#available-fields). By default will show all available | `['battery','range-estimated','locked','odometer']` |
-| initialLoadDelay | How many seconds to delay initial API call                                                                            | `10`                                                |
-| dataTimeout      | How old data must be in seconds before 'data-time' is displayed. Use 0 to always show                                 | `0`                                                 |
+| Option          | Details                                                                                                               | Example                                             |
+| --------------- | --------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
+| apiKey          | **Required** - The API key from [TeslaFi.com](https://teslafi.com/api.php)                                            | `4de3736a68714869d3e2fbda1f1b83ff`                  |
+| refreshInterval | The time interval (in milliseconds) at which the module contents will be updated locally                              | `1000 * 60`                                         |
+| updateInterval  | The time interval (in milliseconds) at which fresh data will be gathered from TeslaFi                                 | `1000 * 60 * 5`                                     |
+| batteryDanger   | The percentage below which your battery level will highlight in red                                                   | `40`                                                |
+| batteryWarning  | The percentage below which your battery level will highlight in orange                                                | `60`                                                |
+| precision       | How many decimal places to round values (such as mileage and energy) to. Defaults to 1                                | `2`                                                 |
+| apiBase         | The URL to use for the TeslaFi API                                                                                    | `https://www.teslafi.com/feed.php?token=`           |
+| apiQuery        | Extra parameters to add on to the end of the TeslaFi API call                                                         | `&command=lastGoodTemp`                             |
+| unitTemperature | The unit to use for displaying temperature. Options are 'f' (Farenheight) or 'c' (Celcius). Defaults to 'c'           | `f`                                                 |
+| unitDistance    | The unit to use for displaying distance. Options are 'miles' or 'km'. Defaults to 'miles'                             | `km`                                                |
+| items           | The rows of data you want the module to show. See list [below](#available-fields). By default will show all available | `['battery','range-estimated','locked','odometer']` |
+| dataTimeout     | How old data must be in seconds before 'data-time' is displayed. Use 0 to always show                                 | `0`                                                 |
 
 ### Maps Configuration
 
