@@ -51,6 +51,7 @@ Module.register("MMM-TeslaFi", {
     return [
       "https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.min.js",
       "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js",
+      this.file("node_modules/build-url/src/build-url.js"),
       "moment.js",
       this.file("DataItemProvider.js"),
       this.file("dataitems/battery.js"),
