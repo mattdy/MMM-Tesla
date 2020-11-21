@@ -53,8 +53,7 @@ You can then use the various configuration options below to customise how the mo
 | batteryDanger   | The percentage below which your battery level will highlight in red                                                   | `40`                                                |
 | batteryWarning  | The percentage below which your battery level will highlight in orange                                                | `60`                                                |
 | precision       | How many decimal places to round values (such as mileage and energy) to. Defaults to 1                                | `2`                                                 |
-| apiBase         | The URL to use for the TeslaFi API                                                                                    | `https://www.teslafi.com/feed.php?token=`           |
-| apiQuery        | Extra parameters to add on to the end of the TeslaFi API call                                                         | `&command=lastGoodTemp`                             |
+| apiCommand      | The command parameter for the TeslaFi API query. See [TeslaFi](https://teslafi.com/api.php) for possible values       | `lastGoodTemp`                                      |
 | unitTemperature | The unit to use for displaying temperature. Options are 'f' (Farenheight) or 'c' (Celcius). Defaults to 'c'           | `f`                                                 |
 | unitDistance    | The unit to use for displaying distance. Options are 'miles' or 'km'. Defaults to 'miles'                             | `km`                                                |
 | items           | The rows of data you want the module to show. See list [below](#available-fields). By default will show all available | `['battery','range-estimated','locked','odometer']` |
@@ -99,7 +98,7 @@ See [Map section](#map) below for more information
 
 - Some fields (charge-time, charge-added, charge-power) are only enabled if the vehicle is plugged in
 - Some fields (version, speed, heading) are only enabled if the vehicle is not driving
-- The temperature field may not be populated if you use TeslaFi's sleep mode, which will stop this row from showing entirely. You may need to use `apiQuery: "&command=lastGoodTemp"` if this fails to show
+- The temperature field may not be populated if you use TeslaFi's sleep mode, which will stop this row from showing entirely. You may need to use `apiCommand: "lastGoodTemp"` if this fails to show
 - For details on TeslaFi's 'location' tags, see [TeslaFi Locations](https://teslafi.com/locations.php)
 
 ## Map
