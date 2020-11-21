@@ -12,6 +12,7 @@
 const NodeHelper = require("node_helper");
 var request = require("request");
 const Log = require("../../js/logger");
+const buildUrl = require("build-url");
 
 module.exports = NodeHelper.create({
   start: function () {
@@ -21,11 +22,19 @@ module.exports = NodeHelper.create({
 
   getData: function () {
     var self = this;
-    var myUrl = this.config.apiBase + this.config.apiKey + this.config.apiQuery;
+
+    var url = buildUrl("https://www.teslafi.com", {
+      path: "feed.php",
+      queryParams: {
+        token: self.config.apiKey,
+        command: self.config.apiCommand
+      }
+    });
+
     Log.info("TeslaFi sending request");
     request(
       {
-        url: myUrl,
+        url: url,
         method: "GET",
         headers: { TeslaFi_API_TOKEN: this.config.apiKey }
       },

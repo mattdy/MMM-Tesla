@@ -68,15 +68,22 @@ DataItemProvider.register("map", {
   },
 
   getMap: function (lat, lng) {
-    if (this.hasApiKey()) {
-      const options = {
-        center: [lat, lng],
-        zoom: this.zoom,
-        key: this.config.maps.apiKey,
-        marker: [lat, lng]
-      };
-      return `https://maps.googleapis.com/maps/api/staticmap?size=${this.width}x${this.height}&center=${options.center}&markers=${options.marker}&key=${options.key}&zoom=${options.zoom}&size=tiny`;
+    if (!this.hasApiKey()) {
+      return "";
     }
+
+    var self = this;
+
+    return buildUrl("https://maps.googleapis.com", {
+      path: "maps/api/staticmap",
+      queryParams: {
+        size: self.width + "x" + self.height,
+        center: [lat, lng],
+        markers: [lat, lng],
+        key: self.config.maps.apiKey,
+        zoom: self.zoom
+      }
+    });
   }
 });
 
