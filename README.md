@@ -87,7 +87,7 @@ See [Map section](#map) below for more information
 | state                  | Vehicle State (Idling/Driving/Sentry)                                                                                            |
 | speed                  | Vehicle speed in preferred units                                                                                                 |
 | heading                | Vehicle heading                                                                                                                  |
-| map                    | Displays current location on a map - Dims if not 'Driving'. See the [Map section](#map) for details on how to configure          |
+| map                    | Displays current location on a map. See the [Map section](#map) for details on how to configure                                  |
 
 - Some fields (charge-time, charge-added, charge-power) are only enabled if the vehicle is plugged in
 - Some fields (version, speed, heading) are only enabled if the vehicle is not driving
