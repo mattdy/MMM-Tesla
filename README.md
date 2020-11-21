@@ -74,7 +74,7 @@ You can then use the various configuration options below to customise how the mo
 | data&#x2011;time       | How long ago the data was collected by TeslaFi                                                                                   |
 | location               | Displays the current location as tagged in TeslaFi. Not shown if the vehicle is driving, or if the current location isn't tagged |
 | version                | Current version installed                                                                                                        |
-| newVersion             | Display new version if available - hidden if no new version is available                                                         |
+| version&#x2011;new     | Display new version if available - hidden if no new version is available                                                         |
 | state                  | Vehicle State (Idling/Driving/Sentry)                                                                                            |
 | speed                  | Vehicle speed in preferred units                                                                                                 |
 | heading                | Vehicle heading                                                                                                                  |

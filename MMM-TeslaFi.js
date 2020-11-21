@@ -46,7 +46,7 @@ Module.register("MMM-TeslaFi", {
       "temperature",
       "map",
       "version",
-      "newVersion",
+      "version-new",
       "location",
       "data-time"
     ]
@@ -56,7 +56,16 @@ Module.register("MMM-TeslaFi", {
     return [
       "https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.min.js",
       "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js",
-      "moment.js"
+      "moment.js",
+      this.file("DataItemProvider.js"),
+      this.file("dataitems/battery.js"),
+      this.file("dataitems/charge.js"),
+      this.file("dataitems/driving.js"),
+      this.file("dataitems/location.js"),
+      this.file("dataitems/range.js"),
+      this.file("dataitems/software.js"),
+      this.file("dataitems/state.js"),
+      this.file("dataitems/temperature.js")
     ];
   },
   getStyles: function () {
@@ -69,6 +78,13 @@ Module.register("MMM-TeslaFi", {
     Log.info("Starting module: " + this.name);
     this.loaded = false;
     this.sendSocketNotification("CONFIG", this.config);
+    this.providers = [];
+
+    for (var identifier in DataItemProvider.providers) {
+      this.providers[identifier] = new DataItemProvider.providers[identifier](
+        this
+      );
+    }
 
     this.resetDomUpdate();
   },
@@ -100,17 +116,6 @@ Module.register("MMM-TeslaFi", {
     }
     var t = this.data;
     var content = document.createElement("div");
-    const getBatteryLevelClass = function (bl, warn, danger) {
-      if (bl < danger) {
-        return "danger";
-      }
-      if (bl < warn) {
-        return "warning";
-      }
-      if (bl >= warn) {
-        return "ok";
-      }
-    };
 
     content.innerHTML = "";
     var table = `
@@ -118,300 +123,48 @@ Module.register("MMM-TeslaFi", {
       <table class="small">
 		`;
 
-    for (var field in this.config.items) {
-      switch (this.config.items[field]) {
-        case "battery":
-          table += `
-            <tr>
-              <td class="icon"><span class="zmdi zmdi-battery zmdi-hc-fw"></span></td>
-              <td class="field">Battery</td>
-              <td class="value">
-                <span class="battery-level-${getBatteryLevelClass(
-                  t.usable_battery_level,
-                  this.config.batteryWarning,
-                  this.config.batteryDanger
-                )}">${t.usable_battery_level}%</span>
-                /
-                <span class="battery-level-${getBatteryLevelClass(
-                  t.charge_limit_soc,
-                  this.config.batteryWarning,
-                  this.config.batteryDanger
-                )}">${t.charge_limit_soc}%</span>
-              </td>
-            </tr>
-          `;
-          break;
+    for (var index in this.config.items) {
+      dataItem = this.config.items[index];
 
-        case "range":
-          table += `
-            <tr>
-              <td class="icon"><span class="zmdi zmdi-gas-station zmdi-hc-fw"></span></td>
-              <td class="field">Range</td>
-              <td class="value">${this.convertDistance(
-                t.ideal_battery_range
-              )}</td>
-            </tr>
-          `;
-          break;
+      if (!this.providers.hasOwnProperty(dataItem)) {
+        Log.error("Could not find " + dataItem + " in list of valid providers");
+        continue;
+      }
 
-        case "range-estimated":
-          table += `
-            <tr>
-              <td class="icon"><span class="zmdi zmdi-gas-station zmdi-hc-fw"></span></td>
-              <td class="field">Range</td>
-              <td class="value">${this.convertDistance(
-                t.est_battery_range
-              )} (estimated)</td>
-            </tr>
-          `;
-          break;
+      if (!this.providers[dataItem].display) {
+        // This provider doesn't want us to display it right now, so skip
+        Log.info(
+          "Provider " + dataItem + " doesn't want to be shown right now"
+        );
+        continue;
+      }
 
-        case "charge-time":
-          if (!t.charging_state || t.time_to_full_charge === "0.0") {
-            break;
-          }
+      var icon = this.providers[dataItem].icon;
+      var field = this.providers[dataItem].field;
+      var value = this.providers[dataItem].value;
 
-          table += `
-            <tr>
-              <td class="icon"><span class="zmdi zmdi-battery-flash zmdi-hc-fw"></span></td>
-              <td class="field">Charging</td>
-              <td class="value">Done ${moment()
-                .add(t.time_to_full_charge, "hours")
-                .fromNow()}</td>
-            </tr>
-          `;
-          break;
+      if (field === null && value === null) {
+        table += `
+          <tr>
+            <td class="icon" colspan="3">${icon}</td>
+          </tr>
+        `;
+      } else {
+        var colspan = 1;
+        if (value === null) {
+          colspan = 2;
+        }
 
-        case "charge-added":
-          if (!t.charging_state || t.charging_state === "Disconnected") {
-            break;
-          }
-
-          table += `
-            <tr>
-              <td class="icon"><span class="zmdi zmdi-flash zmdi-hc-fw"></span></td>
-              <td class="field">Charge Added</td>
-              <td class="value">${this.numberFormat(
-                t.charge_energy_added
-              )} kWh</td>
-            </tr>
-          `;
-          break;
-
-        case "locked":
-          if (t.locked) {
-            table += `
-              <tr>
-                <td class="icon"><span class="zmdi zmdi-lock-outline zmdi-hc-fw"></span></td>
-                <td class="field" colspan="2">Locked</td>
-              </tr>
-            `;
-          } else {
-            table += `
-              <tr>
-                <td class="icon"><span class="zmdi zmdi-lock-open zmdi-hc-fw"></span></td>
-                <td class="field" colspan="2">Unlocked</td>
-              </tr>
-            `;
-          }
-          break;
-
-        case "odometer":
-          table += `
-            <tr>
-              <td class="icon"><span class="zmdi zmdi-globe zmdi-hc-fw"></span></td>
-              <td class="field">Odometer</td>
-              <td class="value">${this.convertDistance(t.odometer)}</td>
-            </tr>
-          `;
-          break;
-
-        case "temperature":
-          if (!t.outside_temp || !t.inside_temp) {
-            break;
-          }
-
-          var outside = this.convertTemperature(t.outside_temp);
-          var inside = this.convertTemperature(t.inside_temp);
-
-          table += `
-            <tr>
-              <td class="icon"><span class="zmdi zmdi-sun zmdi-hc-fw"></span></td>
-              <td class="field">Temperature</td>
-              <td class="value">${outside} / ${inside}</td>
-            </tr>
-          `;
-          break;
-
-        case "power-connected":
-          if (!t.charging_state) {
-            break;
-          }
-
-          if (t.charging_state !== "Disconnected") {
-            var displayVal = t.charging_state;
-            if (t.scheduled_charging_pending === "1") {
-              displayVal =
-                "Scheduled " +
-                moment(t.scheduled_charging_start_time).fromNow();
-            }
-
-            table += `
-              <tr>
-                <td class="icon"><span class="zmdi zmdi-input-power zmdi-hc-fw"></span></td>
-                <td class="field">Connected</td>
-                <td class="value">${displayVal}</td>
-              </tr>
-            `;
-          } else {
-            table += `
-              <tr>
-                <td class="icon"><span class="zmdi zmdi-input-power zmdi-hc-fw"></span></td>
-                <td class="field" colspan="2">Disconnected</td>
-              </tr>
-            `;
-          }
-          break;
-
-        case "data-time":
-          var secondsPassed = moment().diff(moment(t.Date), "seconds");
-          if (secondsPassed > this.config.dataTimeout) {
-            table += `
-            <tr>
-              <td class="icon"><span class="zmdi zmdi-time zmdi-hc-fw"></span></td>
-              <td class="field" colspan="2">${moment(t.Date).fromNow()}</td>
-            </tr>
-            `;
-          }
-          break;
-
-        //static map - GoogleAPI needed and is only used if vehicle is not at tagged locations
-        case "map":
-          if (this.config.googleMapApiKey !== "") {
-            if (!this.isExcluded(t.location) || t.carState === "Driving") {
-              table += `
-              <tr>
-                <td class="icon ${
-                  t.carState !== "Driving" ? "dim" : ""
-                }" colspan="3">
-                  <img alt="map" class="map" src="${this.getMap(
-                    t.latitude,
-                    t.longitude
-                  )}" />
-                </td>
-              </tr>
-              `;
-            }
-          } else {
-            table += `
-            <tr>
-            <td class="icon"><span class="zmdi zmdi-alert-octagon sentry zmdi-hc-fw"></span></td>
-              <td class="field">MAP ERROR!</td>
-              <td class="value">Missing GoogleMaps API Key</td>
-            </tr>
-            `;
-          }
-          break;
-
-        case "state":
-          var icon;
-          switch (t.carState) {
-            case "Sentry":
-              icon = "zmdi-dot-circle sentry";
-              break;
-            case "Idling":
-              icon = "zmdi-parking";
-              break;
-            case "Driving":
-              icon = "zmdi-car";
-              break;
-          }
-          table += `
-            <tr>
-              <td class="icon"><span class="zmdi zmdi-hc-fw ${icon}"></span></td>
-              <td class="field">State</td>
-              <td class="value">${t.carState}</td>
-            </tr>
-          `;
-          break;
-
-        case "speed":
-          if (t.carState === "Driving") {
-            table += `
-              <tr>
-                <td class="icon"><span class="zmdi zmdi-time-countdown zmdi-hc-fw"></span></td>
-                <td class="field">Speed</td>
-                <td class="value">${this.convertSpeed(t.speed)}</td>
-              </tr>
-            `;
-          }
-          break;
-
-        case "heading":
-          if (t.carState === "Driving") {
-            table += `
-              <tr>
-                <td class="icon"><span class="zmdi zmdi-compass zmdi-hc-fw"></span></td>
-                <td class="field">Heading</td>
-                <td class="value">${this.convertHeading(t.heading)}</td>
-              </tr>
-            `;
-          }
-          break;
-
-        case "newVersion":
-          if (t.newVersionStatus !== "") {
-            table += `
-              <tr>
-                <td class="icon"><span class="zmdi zmdi-download zmdi-hc-fw newVersion"></span></td>
-                <td class="field newVersion">NEW Version Available!</td>
-                <td class="value newVersion">${t.newVersion}</td>
-              </tr>
-            `;
-          }
-          break;
-
-        //shows vehicle's location IF not driving and IF location is tagged - otherwise, it's hidden
-        case "location":
-          if (
-            t.carState !== "Driving" &&
-            t.location !== "No Tagged Location Found"
-          ) {
-            table += `
-              <tr>
-                <td class="icon"><span class="zmdi zmdi-pin zmdi-hc-fw"></span></td>
-                <td class="field">Location</td>
-                <td class="value">${t.location}</td>
-              </tr>
-            `;
-          }
-          break;
-
-        case "version":
-          if (t.carState !== "Driving") {
-            table += `
-              <tr>
-                <td class="icon"><span class="zmdi zmdi-download zmdi-hc-fw"></span></td>
-                <td class="field">Version</td>
-                <td class="value">${t.car_version.split(" ")[0]}</td>
-              </tr>
-            `;
-          }
-          break;
-
-        case "charge-power":
-          if (!t.charging_state || t.charging_state === "Disconnected") {
-            break;
-          }
-          table += `
-            <tr>
-              <td class="icon"><span class="zmdi zmdi-flash zmdi-hc-fw"></span></td>
-              <td class="field">Charger Power</td>
-              <td class="value">${this.numberFormat(t.charger_power)} kW</td>
-            </tr>
-          `;
-          break;
-      } // switch
+        table += `
+          <tr>
+            <td class="icon">${icon}</td>
+            <td class="field" colspan="${colspan}">${field}</td>
+        `;
+        if (value !== null) {
+          table += `<td class="value">${value}</td>`;
+        }
+        table += `</tr>`;
+      }
     } // end foreach loop of items
 
     table += "</table>";
@@ -435,6 +188,12 @@ Module.register("MMM-TeslaFi", {
       }
       this.data = data;
       this.loaded = true;
+
+      // Tell all of our data item providers about the new data
+      for (var identifier in this.providers) {
+        this.providers[identifier].onDataUpdate(data);
+      }
+
       this.updateDom(this.config.animationSpeed);
       this.resetDomUpdate();
     }
@@ -463,27 +222,6 @@ Module.register("MMM-TeslaFi", {
     } else {
       return this.numberFormat(valueMiles) + " miles";
     }
-  },
-
-  // Gets Static map as picture
-  getMap: function (lat, lng) {
-    if (this.config.googleMapApiKey !== "") {
-      const options = {
-        center: [lat, lng],
-        zoom: this.config.mapZoom,
-        key: this.config.googleMapApiKey,
-        marker: [lat, lng]
-      };
-      return `https://maps.googleapis.com/maps/api/staticmap?size=${this.config.mapWidth}x${this.config.mapHeight}&center=${options.center}&markers=${options.marker}&key=${options.key}&zoom=${options.zoom}&size=tiny`;
-    }
-  },
-
-  // Checks exclusion list returns bool
-  isExcluded: function (locale) {
-    const excludeLocationsUpper = this.config.excludeLocations.map((location) =>
-      location.toUpperCase()
-    );
-    return excludeLocationsUpper.includes(locale.toUpperCase());
   },
 
   // Converts given speed (assumes miles input) to configured output with approprate units appened

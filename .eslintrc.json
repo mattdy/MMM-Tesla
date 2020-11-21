@@ -6,6 +6,7 @@
   },
   "globals": {
     "config": true,
+    "DataItemProvider": true,
     "Log": true,
     "MM": true,
     "Module": true,
