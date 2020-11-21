@@ -56,6 +56,14 @@ DataItemProvider.register("state", {
       case "Driving":
         this.icon = `<span class="zmdi zmdi-hc-fw zmdi-car"></span>`;
         break;
+
+      case "Charging":
+        this.icon = `<span class="zmdi zmdi-hc-fw zmdi-input-power"></span>`;
+        break;
+
+      default:
+        this.icon = `&nbsp;`;
+        break;
     }
   }
 });
