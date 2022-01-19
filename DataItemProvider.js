@@ -32,7 +32,6 @@ DataItemProvider.providers = [];
 
 // Register a new DataItemProvider with the module
 DataItemProvider.register = function (identifier, details) {
-  DataItemProvider.providers[
-    identifier.toLowerCase()
-  ] = DataItemProvider.extend(details);
+  DataItemProvider.providers[identifier.toLowerCase()] =
+    DataItemProvider.extend(details);
 };
