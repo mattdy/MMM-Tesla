@@ -61,6 +61,10 @@ DataItemProvider.register("state", {
         this.icon = `<span class="zmdi zmdi-hc-fw zmdi-input-power"></span>`;
         break;
 
+      case "Sleeping":
+        this.icon = `<span class="zmdi zmdi-hc-fw zmdi-power"></span>`;
+        break;
+
       default:
         this.icon = `&nbsp;`;
         break;
