@@ -30,7 +30,8 @@
     "trailingComma": "none"
   },
   "dependencies": {
-    "build-url": "^6.0.1"
+    "build-url": "^6.0.1",
+    "request": "^2.88.2"
   },
   "devDependencies": {
     "eslint": "^7.9.0",
