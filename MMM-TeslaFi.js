@@ -102,12 +102,12 @@ Module.register("MMM-TeslaFi", {
       wrapper.className = "dimmed light small";
       return wrapper;
     }
-    if (!this.data) {
+    if (!this.teslafiData) {
       wrapper.innerHTML = "No data";
       wrapper.className = "dimmed light small";
       return wrapper;
     }
-    var t = this.data;
+    var t = this.teslafiData;
     var content = document.createElement("div");
 
     content.innerHTML = "";
@@ -179,7 +179,7 @@ Module.register("MMM-TeslaFi", {
       if (!data) {
         return;
       }
-      this.data = data;
+      this.teslafiData = data
       this.loaded = true;
 
       // Tell all of our data item providers about the new data
