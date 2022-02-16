@@ -179,7 +179,7 @@ Module.register("MMM-TeslaFi", {
       if (!data) {
         return;
       }
-      this.teslafiData = data
+      this.teslafiData = data;
       this.loaded = true;
 
       // Tell all of our data item providers about the new data
