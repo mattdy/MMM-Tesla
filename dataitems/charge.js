@@ -89,7 +89,9 @@ DataItemProvider.register("power-connected", {
       this.value = data.charging_state;
       if (data.scheduled_charging_pending === "1") {
         this.value = "Scheduled ";
-        this.value += moment(parseInt(data.scheduled_charging_start_time)).fromNow();
+        this.value += moment(
+          parseInt(data.scheduled_charging_start_time)
+        ).fromNow();
       }
     } else {
       this.field = "Disconnected";
