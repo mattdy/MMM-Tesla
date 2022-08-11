@@ -50,10 +50,19 @@ Module.register("MMM-TeslaFi", {
     return [
       "moment.js",
       this.file("node_modules/build-url/src/build-url.js"),
+      
       this.file("DataItemProvider.js"),
+      this.file("dataitems/battery.js"),
+      this.file("dataitems/charge.js"),
+      this.file("dataitems/driving.js"),
+      this.file("dataitems/location.js"),
+      this.file("dataitems/range.js"),
+      this.file("dataitems/software.js"),
+      this.file("dataitems/state.js"),
+      this.file("dataitems/temperature.js"),
+      
       this.file("DataSource.js"),
-      this.file("dataitems/*.js"),
-      this.file("datasources/*.js")
+      this.file("datasources/teslafi.js")
     ];
   },
   getStyles: function () {
