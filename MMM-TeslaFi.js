@@ -85,7 +85,7 @@ Module.register("MMM-TeslaFi", {
     }
     
     if (DataSource.providers[this.config.source.name]) {
-      this.dataSource = new DataSource.providers[this.config.source.name](this);
+      this.dataSource = new DataSource.providers[this.config.source.name](this.config.source);
       try {
         this.dataSource.start();
         this.sendSocketNotification("SOURCE", this.dataSource);

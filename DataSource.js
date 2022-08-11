@@ -3,13 +3,11 @@
  */
 
 var DataSource = Class.extend({
-  config: null, // Copy of the module configuration
-  context: null, // Reference to the module itself, for any function access
+  config: null, // Copy of the provider configuration
 
-  // Called when this provider is loaded, provides a copy of the configuration of the module
-  init: function (context) {
-    this.config = context.config;
-    this.context = context;
+  // Called when this provider is loaded, provides a copy of the configuration of this provider only
+  init: function (config) {
+    this.config = config;
     this.helper = null;
   },
   

@@ -6,23 +6,21 @@
 DataSource.register("teslafi", {
   
   start() {
-    if(this.config.source.apiCommand === null || this.config.source.apiCommand === "") {
-      this.config.source.apiCommand = "lastGood";
+    if(this.config.apiCommand === null || this.config.apiCommand === "") {
+      this.config.apiCommand = "lastGood";
     }
     
-    if(!this.config.source.apiKey) {
+    if(!this.config.apiKey) {
       throw new Exception("You must specify a TeslaFi API key");
     }
   },
   
   fetchData(helper) {
-    var self = this;
-
-    var url = buildUrl("https://www.teslafi.com", {
+     var url = buildUrl("https://www.teslafi.com", {
       path: "feed.php",
       queryParams: {
-        token: self.config.source.apiKey,
-        command: self.config.source.apiCommand
+        token: this.config.apiKey,
+        command: this.config.apiCommand
       }
     });
 
@@ -31,7 +29,7 @@ DataSource.register("teslafi", {
       {
         url: url,
         method: "GET",
-        headers: { TeslaFi_API_TOKEN: this.config.source.apiKey }
+        headers: { TeslaFi_API_TOKEN: this.config.apiKey }
       },
       function (error, response, body) {
         Log.info("TeslaFi response was " + response.statusCode);
