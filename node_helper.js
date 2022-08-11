@@ -22,6 +22,9 @@ module.exports = NodeHelper.create({
   },
 
   getData: function () {
+    
+    if(!this.started) { return; }
+    
     Log.info("TeslaFi fetching data from source");
     this.source.fetchData();
     
@@ -36,6 +39,10 @@ module.exports = NodeHelper.create({
   },
 
   socketNotificationReceived: function (notification, payload) {
+    if(payload === null) {
+      return;
+    }
+    
     switch(notification) {
     case "CONFIG":
       Log.info("TeslaFi received configuration");
@@ -43,7 +50,7 @@ module.exports = NodeHelper.create({
       break;
       
     case "SOURCE":
-      Log.info("TeslaFi received data source");
+      Log.info("TeslaFi received data source: " + payload.config.name);
       this.source = payload;
       this.source.setHelper(this);
       break;
@@ -52,8 +59,8 @@ module.exports = NodeHelper.create({
     if(this.config !== null && this.source !== null && !this.started) {
       Log.info("TeslaFi helper starting");
       this.sendSocketNotification("STARTED", true);
-      this.getData();
       this.started = true;
+      this.getData();
     }
   }
 });
