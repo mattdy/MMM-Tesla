@@ -3,12 +3,6 @@
  *
  * Created by Matt Dyson
  */
-
-const NodeHelper = require("node_helper");
-var request = require("request");
-const Log = require("../../js/logger");
-const buildUrl = require("build-url");
-
 DataSource.register("teslafi", {
   
   start() {
