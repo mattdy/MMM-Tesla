@@ -50,6 +50,7 @@ module.exports = NodeHelper.create({
     }
     
     if(this.config !== null && this.source !== null && !this.started) {
+      Log.info("TeslaFi helper starting");
       this.sendSocketNotification("STARTED", true);
       this.getData();
       this.started = true;
