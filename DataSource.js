@@ -8,11 +8,12 @@ var DataSource = Class.extend({
   // Called when this provider is loaded, provides a copy of the configuration of this provider only
   init: function (config) {
     this.config = config;
-    this.helper = null;
+    this.callback = null;
   },
   
-  setHelper: function (helper) {
-    this.helper = helper;
+  setCallback: function (callback) {
+    Log.info("Received callback function: " + callback)
+    this.callback = callback;
   },
 
   // Called when the main module is started
@@ -21,7 +22,6 @@ var DataSource = Class.extend({
 
   // Called when we want to get new data from TeslaFi
   // This should be overridden in any sub-classes
-  // 'helper' is a copy of the node_helper object for sending data back
   fetchData: function () {}
 });
 

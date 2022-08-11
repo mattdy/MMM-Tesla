@@ -57,7 +57,7 @@ module.exports = NodeHelper.create({
       
       Log.info("TeslaFi received data source: " + payload.config.name);
       this.source = payload;
-      this.source.setHelper(this);
+      this.source.setCallback(this.sendData);
       break;
     }
     

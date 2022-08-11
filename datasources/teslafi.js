@@ -16,6 +16,8 @@ DataSource.register("teslafi", {
   },
   
   fetchData() {
+    var self =  this;
+    
      var url = buildUrl("https://www.teslafi.com", {
       path: "feed.php",
       queryParams: {
@@ -34,7 +36,7 @@ DataSource.register("teslafi", {
       function (error, response, body) {
         Log.info("TeslaFi response was " + response.statusCode);
         if (!error && response.statusCode === 200) {
-          helper.sendData(body);
+          self.callback(body);
         }
       }
     );
