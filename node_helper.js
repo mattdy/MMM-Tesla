@@ -22,10 +22,11 @@ module.exports = NodeHelper.create({
   },
 
   getData: function () {
+    var self = this;
     
     if(!this.started) { return; }
     
-    Log.info("TeslaFi fetching data from source");
+    Log.info("TeslaFi fetching data from source: " + this.source.config.name);
     this.source.fetchData();
     
     setTimeout(function () {
