@@ -15,6 +15,7 @@ Module.register("MMM-TeslaFi", {
     batteryDanger: 30,
     batteryWarning: 50,
     dataTimeout: 0,
+    source: {},
     maps: {
       apiKey: "",
       width: 300,
@@ -23,7 +24,6 @@ Module.register("MMM-TeslaFi", {
       exclude: []
     },
     precision: 1, // How many decimal places to round values to
-    apiCommand: "lastGood",
     items: [
       "state",
       "speed",
@@ -51,14 +51,9 @@ Module.register("MMM-TeslaFi", {
       "moment.js",
       this.file("node_modules/build-url/src/build-url.js"),
       this.file("DataItemProvider.js"),
-      this.file("dataitems/battery.js"),
-      this.file("dataitems/charge.js"),
-      this.file("dataitems/driving.js"),
-      this.file("dataitems/location.js"),
-      this.file("dataitems/range.js"),
-      this.file("dataitems/software.js"),
-      this.file("dataitems/state.js"),
-      this.file("dataitems/temperature.js")
+      this.file("DataSource.js"),
+      this.file("dataitems/*.js"),
+      this.file("datasources/*.js")
     ];
   },
   getStyles: function () {
@@ -72,15 +67,30 @@ Module.register("MMM-TeslaFi", {
     this.loaded = false;
     this.sendSocketNotification("CONFIG", this.config);
     this.providers = [];
+    this.dataSource = null;
 
     for (var identifier in DataItemProvider.providers) {
       this.providers[identifier] = new DataItemProvider.providers[identifier](
         this
       );
     }
+    
+    if (DataSource.providers[this.config.source.name]) {
+      this.dataSource = new DataSource.providers[this.config.source.name](this);
+      try {
+        this.dataSource.start();
+        this.sendSocketNotification("SOURCE", this.dataSource);
+      } catch(exception) {
+        Log.error("There was an error starting data source '" + this.config.source + "' - the module will not run:");
+        Log.error(exception);
+        this.dataSource = null;
+      }
+      
+    }
 
     this.resetDomUpdate();
   },
+  
   resetDomUpdate: function () {
     var self = this;
     // Reset any previously allocated timer to avoid double-refreshes
@@ -90,6 +100,7 @@ Module.register("MMM-TeslaFi", {
       self.updateDom(self.config.animationSpeed);
     }, this.config.refreshInterval);
   },
+  
   getDom: function () {
     var wrapper = document.createElement("div");
     if (!this.loaded) {
@@ -97,8 +108,8 @@ Module.register("MMM-TeslaFi", {
       wrapper.className = "dimmed light small";
       return wrapper;
     }
-    if (this.config.apiKey === "") {
-      wrapper.innerHTML = "No Tesla Fi <i>apiKey</i> set in config file.";
+    if (!this.dataSource) {
+      wrapper.innerHTML = "No data source configured";
       wrapper.className = "dimmed light small";
       return wrapper;
     }

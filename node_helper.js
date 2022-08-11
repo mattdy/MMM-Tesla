@@ -18,44 +18,38 @@ module.exports = NodeHelper.create({
   start: function () {
     this.started = false;
     this.config = null;
+    this.source = null;
   },
 
   getData: function () {
-    var self = this;
-
-    var url = buildUrl("https://www.teslafi.com", {
-      path: "feed.php",
-      queryParams: {
-        token: self.config.apiKey,
-        command: self.config.apiCommand
-      }
-    });
-
-    Log.info("TeslaFi sending request");
-    request(
-      {
-        url: url,
-        method: "GET",
-        headers: { TeslaFi_API_TOKEN: this.config.apiKey }
-      },
-      function (error, response, body) {
-        Log.info("TeslaFi response was " + response.statusCode);
-        if (!error && response.statusCode === 200) {
-          Log.info("TeslaFi sending data");
-          self.sendSocketNotification("DATA", body);
-        }
-      }
-    );
-
+    Log.info("TeslaFi fetching data from source");
+    this.source.fetchData();
+    
     setTimeout(function () {
       self.getData();
     }, this.config.updateInterval);
   },
+  
+  sendData: function (data) {
+    Log.info("TeslaFi sending data");
+    this.sendSocketNotification("DATA", data);
+  },
 
   socketNotificationReceived: function (notification, payload) {
-    if (notification === "CONFIG" && this.started === false) {
+    switch(notification) {
+    case "CONFIG":
       Log.info("TeslaFi received configuration");
       this.config = payload;
+      break;
+      
+    case "SOURCE":
+      Log.info("TeslaFi received data source");
+      this.source = payload;
+      this.source.setHelper(this);
+      break;
+    }
+    
+    if(this.config !== null && this.source !== null && !this.started) {
       this.sendSocketNotification("STARTED", true);
       this.getData();
       this.started = true;
