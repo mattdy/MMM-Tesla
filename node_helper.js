@@ -45,11 +45,15 @@ module.exports = NodeHelper.create({
     
     switch(notification) {
     case "CONFIG":
+      if(this.config !== null) { return; }
+      
       Log.info("TeslaFi received configuration");
       this.config = payload;
       break;
       
     case "SOURCE":
+      if(this.source !== null) { return; }
+      
       Log.info("TeslaFi received data source: " + payload.config.name);
       this.source = payload;
       this.source.setHelper(this);

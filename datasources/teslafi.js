@@ -15,7 +15,7 @@ DataSource.register("teslafi", {
     }
   },
   
-  fetchData(helper) {
+  fetchData() {
      var url = buildUrl("https://www.teslafi.com", {
       path: "feed.php",
       queryParams: {
