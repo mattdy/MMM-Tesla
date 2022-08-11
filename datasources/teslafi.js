@@ -10,7 +10,7 @@ DataSource.register("teslafi", {
       this.config.source.apiCommand = "lastGood";
     }
     
-    if(!this.config.teslafi.apiKey) {
+    if(!this.config.source.apiKey) {
       throw new Exception("You must specify a TeslaFi API key");
     }
   },
