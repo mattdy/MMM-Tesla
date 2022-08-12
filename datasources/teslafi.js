@@ -5,7 +5,7 @@
  */
 
 var request = require("request");
-const Log = require("../../js/logger");
+const Log = require("../../../js/logger");
 const buildUrl = require("build-url");
 
 class TeslaFi extends DataSource {
