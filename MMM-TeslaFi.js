@@ -103,11 +103,6 @@ Module.register("MMM-TeslaFi", {
       wrapper.className = "dimmed light small";
       return wrapper;
     }
-    if (!this.dataSource) {
-      wrapper.innerHTML = "No data source configured";
-      wrapper.className = "dimmed light small";
-      return wrapper;
-    }
     if (!this.teslafiData) {
       wrapper.innerHTML = "No data";
       wrapper.className = "dimmed light small";
