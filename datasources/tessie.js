@@ -21,8 +21,6 @@ class Tessie extends DataSource {
       throw new Exception("You must specify the VIN of your vehicle");
     }
     
-    sdk.auth(this.config.apiKey);
-    
   }
   
   fetchData(callback) {
