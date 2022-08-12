@@ -3,6 +3,11 @@
  *
  * Created by Matt Dyson
  */
+
+var request = require("request");
+const Log = require("../../js/logger");
+const buildUrl = require("build-url");
+
 class TeslaFi extends DataSource {
   constructor(config) {
     super(config);
@@ -43,3 +48,5 @@ class TeslaFi extends DataSource {
     );
   }
 }
+
+module.exports = TeslaFi;

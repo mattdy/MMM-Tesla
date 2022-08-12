@@ -17,3 +17,5 @@ class DataSource {
   // This should be overridden in any sub-classes
   fetchData() {}
 }
+
+module.exports = DataSource;
