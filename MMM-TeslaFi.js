@@ -59,10 +59,7 @@ Module.register("MMM-TeslaFi", {
       this.file("dataitems/range.js"),
       this.file("dataitems/software.js"),
       this.file("dataitems/state.js"),
-      this.file("dataitems/temperature.js"),
-      
-      this.file("DataSource.js"),
-      this.file("datasources/teslafi.js")
+      this.file("dataitems/temperature.js")
     ];
   },
   getStyles: function () {
