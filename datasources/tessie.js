@@ -47,19 +47,14 @@ class Tessie extends DataSource {
        function (error, response, body) {
          Log.info("Tessie response was " + response.statusCode);
          if (!error && response.statusCode === 200) {
-           Log.info("Body: " + body);
-           
-           var vehicle = body.results[0]['last_state'];
-           Log.info("Vehicle found: " + vehicle);
-           
            var parsed = {};
            
            var headers = ['charge_state', 'climate_state', 'drive_state', 'gui_settings', 'vehicle_config', 'vehicle_state']
            for(var header in headers) {
              Log.info("Entering " + headers[header]);
-             for(var entry in vehicle[headers[header]]) {
-               Log.info( " - " + entry + " => " + vehicle[headers[header]][entry]);
-               parsed[entry] = vehicle[headers[header]][entry];
+             for(var entry in body[headers[header]]) {
+               Log.info( " - " + entry + " => " + body[headers[header]][entry]);
+               parsed[entry] = body[headers[header]][entry];
              }
            }
            
