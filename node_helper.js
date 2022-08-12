@@ -14,7 +14,7 @@ var request = require("request");
 const Log = require("../../js/logger");
 const buildUrl = require("build-url");
 
-const DataSource = require("DataSource");
+const DataSource = require("./DataSource");
 const TeslaFi = require("./datasources/teslafi");
 
 module.exports = NodeHelper.create({
