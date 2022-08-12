@@ -50,11 +50,12 @@ class Tessie extends DataSource {
            
            var parsed = {};
            
-           for(var header in ['charge_state', 'climate_state', 'drive_state', 'gui_settings', 'vehicle_config', 'vehicle_state']) {
-             Log.info("Entering " + header);
-             for(var entry in response.results[0].last_state[header]) {
-               Log.info( " - " + entry + " => " + response.results[0].last_state[header][entry]);
-               parsed[entry] = response.results[0].last_state[header][entry];
+           var headers = ['charge_state', 'climate_state', 'drive_state', 'gui_settings', 'vehicle_config', 'vehicle_state']
+           for(var header in headers) {
+             Log.info("Entering " + headers[header]);
+             for(var entry in response.results[0].last_state[headers[header]]) {
+               Log.info( " - " + entry + " => " + response.results[0].last_state[headers[header]][entry]);
+               parsed[entry] = response.results[0].last_state[headers[header]][entry];
              }
            }
            
