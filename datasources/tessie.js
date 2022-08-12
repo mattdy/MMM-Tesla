@@ -48,20 +48,20 @@ class Tessie extends DataSource {
          Log.info("TeslaFi response was " + response.statusCode);
          if (!error && response.statusCode === 200) {
            
-           var json = JSON.parse(result);
-           var response = {};
+           var json = JSON.parse(response);
+           var parsed = {};
            
            for(header in ['charge_state', 'climate_state', 'drive_state', 'gui_settings', 'vehicle_config', 'vehicle_state']) {
              Log.info("Entering " + header);
              for(entry in json.results[0].last_state[header]) {
                Log.info( " - " + entry + " => " + json.results[0].last_state[header][entry]);
-               response[entry] = json.results[0].last_state[header][entry];
+               parsed[entry] = json.results[0].last_state[header][entry];
              }
            }
            
-           Log.info("Final response from Tessie:" + response);
+           Log.info("Final response from Tessie:" + parsed);
            
-           self.callback(response);
+           self.callback(parsed);
          }
        }
      );
