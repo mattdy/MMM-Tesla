@@ -14,6 +14,9 @@ var request = require("request");
 const Log = require("../../js/logger");
 const buildUrl = require("build-url");
 
+const DataSource = require("DataSource");
+const TeslaFi = require("./datasources/teslafi");
+
 module.exports = NodeHelper.create({
   start: function () {
     this.started = false;
@@ -50,15 +53,18 @@ module.exports = NodeHelper.create({
       
       Log.info("TeslaFi received configuration");
       this.config = payload;
-      break;
       
-    case "SOURCE":
-      if(this.source !== null) { return; }
-      
-      Log.info("TeslaFi received data source: " + payload.config.name);
-      this.source = payload;
-      this.source.setCallback(this.sendData);
-      break;
+      switch(this.config.source.name.toLowerCase()) {
+      case "teslafi":
+        this.source = new TeslaFi(this.config.source);
+        break;
+        
+      default:
+        Log.error("Unknown source provided for Tesla data: " + this.config.source.name);
+        break;
+      }
+
+      break; // End CONFIG notification
     }
     
     if(this.config !== null && this.source !== null && !this.started) {

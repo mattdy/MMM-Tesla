@@ -76,25 +76,11 @@ Module.register("MMM-TeslaFi", {
     this.loaded = false;
     this.sendSocketNotification("CONFIG", this.config);
     this.providers = [];
-    this.dataSource = null;
 
     for (var identifier in DataItemProvider.providers) {
       this.providers[identifier] = new DataItemProvider.providers[identifier](
         this
       );
-    }
-    
-    if (DataSource.providers[this.config.source.name]) {
-      this.dataSource = new DataSource.providers[this.config.source.name](this.config.source);
-      try {
-        this.dataSource.start();
-        this.sendSocketNotification("SOURCE", this.dataSource);
-      } catch(exception) {
-        Log.error("There was an error starting data source '" + this.config.source + "' - the module will not run:");
-        Log.error(exception);
-        this.dataSource = null;
-      }
-      
     }
 
     this.resetDomUpdate();

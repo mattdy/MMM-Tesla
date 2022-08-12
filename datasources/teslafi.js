@@ -3,9 +3,10 @@
  *
  * Created by Matt Dyson
  */
-DataSource.register("teslafi", {
-  
-  start() {
+class TeslaFi extends DataSource {
+  constructor(config) {
+    super(config);
+    
     if(this.config.apiCommand === null || this.config.apiCommand === "") {
       this.config.apiCommand = "lastGood";
     }
@@ -13,7 +14,7 @@ DataSource.register("teslafi", {
     if(!this.config.apiKey) {
       throw new Exception("You must specify a TeslaFi API key");
     }
-  },
+  }
   
   fetchData() {
     var self =  this;
@@ -41,4 +42,4 @@ DataSource.register("teslafi", {
       }
     );
   }
-});
+}
