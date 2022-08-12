@@ -45,30 +45,25 @@ class Tessie extends DataSource {
          }
        },
        function (error, response, body) {
-         Log.info("Tessie response was code " + response.statusCode + ": " + body);
+         Log.info("Tessie response was code " + response.statusCode);
          if (!error && response.statusCode === 200) {
            
            body = JSON.parse(body);
            
            var parsed = {};
            
-           for(var header in body) {
-             Log.info("Entering " + header + ", which is a " + typeof header);
-             
+           // Flatten Tessie response into one-dimensional object
+           for(var header in body) {             
              if(typeof body[header] === "object") {
                for(var entry in body[header]) {
-                 Log.info( " - " + entry + " => " + body[header][entry]);
                  parsed[entry] = body[header][entry];
                }  
              } else {
-               Log.info(" - " + header + " => " + body[header]);
                parsed[header] = body[header];
              }
            }
            
            var json = JSON.stringify(parsed);
-           
-           Log.info("Final response from Tessie:" + json);
            
            self.callback(json);
          }
