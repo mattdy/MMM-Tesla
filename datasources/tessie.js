@@ -47,6 +47,7 @@ class Tessie extends DataSource {
        function (error, response, body) {
          Log.info("Tessie response was " + response.statusCode);
          if (!error && response.statusCode === 200) {
+           Log.info("Body: " + body);
            
            var vehicle = body.results[0]['last_state'];
            Log.info("Vehicle found: " + vehicle);
