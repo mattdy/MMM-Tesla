@@ -8,7 +8,6 @@ var request = require("request");
 const Log = require("../../../js/logger");
 const buildUrl = require("build-url");
 const DataSource = require("../DataSource");
-const sdk = require('api')('@tessie/v2.0#3vnlia9l48orn1r');
 
 class Tessie extends DataSource {
   constructor(config) {
@@ -28,29 +27,46 @@ class Tessie extends DataSource {
   
   fetchData(callback) {
      var self =  this;
-     self.callback = callback
+     self.callback = callback;
      
+     var url = buildUrl("https://api.tessie.com", {
+       path: "/" + this.config.vin + "/state",
+       queryParams: {
+         use_cache: true
+       }
+     });
+
      Log.info("Sending request to Tessie");
-     sdk.getState({use_cache: 'true', vin: this.config.vin})
-     .then(function(result) {
-       Log.info("Tessie response received");
-       
-       var json = JSON.parse(result);
-       var response = {};
-       
-       for(header in ['charge_state', 'climate_state', 'drive_state', 'gui_settings', 'vehicle_config', 'vehicle_state']) {
-         Log.info("Entering " + header);
-         for(entry in json.results[0].last_state[header]) {
-           Log.info( " - " + entry + " => " + json.results[0].last_state[header][entry]);
-           response[entry] = json.results[0].last_state[header][entry];
+     request(
+       {
+         url: url,
+         method: "GET",
+         headers: {
+           "Authorization": "Bearer " + this.config.apiKey,
+           "Accept": ""
+         }
+       },
+       function (error, response, body) {
+         Log.info("TeslaFi response was " + response.statusCode);
+         if (!error && response.statusCode === 200) {
+           
+           var json = JSON.parse(result);
+           var response = {};
+           
+           for(header in ['charge_state', 'climate_state', 'drive_state', 'gui_settings', 'vehicle_config', 'vehicle_state']) {
+             Log.info("Entering " + header);
+             for(entry in json.results[0].last_state[header]) {
+               Log.info( " - " + entry + " => " + json.results[0].last_state[header][entry]);
+               response[entry] = json.results[0].last_state[header][entry];
+             }
+           }
+           
+           Log.info("Final response from Tessie:" + response);
+           
+           self.callback(response);
          }
        }
-       
-       Log.info("Final response from Tessie:" + response);
-       
-       self.callback(response);
-     })
-     .catch(err => Log.error(err));
+     );
   }
 }
 
