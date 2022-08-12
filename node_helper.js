@@ -16,6 +16,7 @@ const buildUrl = require("build-url");
 
 const DataSource = require("./DataSource");
 const TeslaFi = require("./datasources/teslafi");
+const Tessie = require("./datasources/tessie");
 
 module.exports = NodeHelper.create({
   start: function () {
@@ -55,6 +56,10 @@ module.exports = NodeHelper.create({
       switch(this.config.source.name.toLowerCase()) {
       case "teslafi":
         this.source = new TeslaFi(this.config.source);
+        break;
+        
+      case "tessie":
+        this.source = new Tessie(this.config.source);
         break;
         
       default:
