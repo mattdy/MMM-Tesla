@@ -32,7 +32,7 @@ module.exports = NodeHelper.create({
     Log.info("TeslaFi fetching data from source: " + this.source.config.name);
     this.source.fetchData(function(response) {
       Log.info("Received data: " + response);
-      self.sendSocketNotification("DATA", data);
+      self.sendSocketNotification("DATA", response);
     });
     
     setTimeout(function () {
