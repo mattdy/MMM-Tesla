@@ -22,8 +22,9 @@ class TeslaFi extends DataSource {
     }
   }
   
-  fetchData() {
-    var self =  this;
+  fetchData(callback) {
+     var self =  this;
+     self.callback = callback
     
      var url = buildUrl("https://www.teslafi.com", {
       path: "feed.php",

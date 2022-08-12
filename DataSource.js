@@ -15,7 +15,7 @@ class DataSource {
 
   // Called when we want to get new data from TeslaFi
   // This should be overridden in any sub-classes
-  fetchData() {}
+  fetchData(callback) {}
 }
 
 module.exports = DataSource;
