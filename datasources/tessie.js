@@ -45,7 +45,7 @@ class Tessie extends DataSource {
          }
        },
        function (error, response, body) {
-         Log.info("Tessie response was " + response.statusCode);
+         Log.info("Tessie response was code " + response.statusCode + ": " + body);
          if (!error && response.statusCode === 200) {
            var parsed = {};
            
