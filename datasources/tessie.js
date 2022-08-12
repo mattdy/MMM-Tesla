@@ -58,9 +58,11 @@ class Tessie extends DataSource {
              }
            }
            
-           Log.info("Final response from Tessie:" + parsed);
+           var json = JSON.stringify(parsed);
            
-           self.callback(parsed);
+           Log.info("Final response from Tessie:" + json);
+           
+           self.callback(json);
          }
        }
      );
