@@ -8,7 +8,7 @@ class DataSource {
     this.config = config;
     this.callback = null;
   }
-  
+
   // Called when the main module is started
   // Throws an exception if the configuration is not correct
   start() {}

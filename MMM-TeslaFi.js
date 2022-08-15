@@ -50,7 +50,7 @@ Module.register("MMM-TeslaFi", {
     return [
       "moment.js",
       this.file("node_modules/build-url/src/build-url.js"),
-      
+
       this.file("DataItemProvider.js"),
       this.file("dataitems/battery.js"),
       this.file("dataitems/charge.js"),
@@ -82,7 +82,7 @@ Module.register("MMM-TeslaFi", {
 
     this.resetDomUpdate();
   },
-  
+
   resetDomUpdate: function () {
     var self = this;
     // Reset any previously allocated timer to avoid double-refreshes
@@ -92,7 +92,7 @@ Module.register("MMM-TeslaFi", {
       self.updateDom(self.config.animationSpeed);
     }, this.config.refreshInterval);
   },
-  
+
   getDom: function () {
     var wrapper = document.createElement("div");
     if (!this.loaded) {

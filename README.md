@@ -37,7 +37,10 @@ modules: [
     module: "MMM-TeslaFi",
     position: "top_left",
     config: {
-      apiKey: "ENTER YOUR KEY HERE"
+      source: {
+        name: "teslafi",
+        apiKey: "ENTER YOUR KEY HERE"
+      }
     }
   }
 ];
@@ -50,7 +53,7 @@ You can then use the various configuration options below to customise how the mo
 
 | Option          | Details                                                                                                               | Example                                             |
 | --------------- | --------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
-| apiKey          | **Required** - The API key from [TeslaFi.com](https://teslafi.com/api.php)                                            | `4de3736a68714869d3e2fbda1f1b83ff`                  |
+| source          | **Required** - The source from which to pull Tesla data. See [Data Source](#data-source) below for more information   | [See below](#data-source)                           |
 | refreshInterval | The time interval (in milliseconds) at which the module contents will be updated locally                              | `1000 * 60`                                         |
 | updateInterval  | The time interval (in milliseconds) at which fresh data will be gathered from TeslaFi                                 | `1000 * 60 * 5`                                     |
 | batteryDanger   | The percentage below which your battery level will highlight in red                                                   | `40`                                                |
@@ -61,6 +64,49 @@ You can then use the various configuration options below to customise how the mo
 | unitDistance    | The unit to use for displaying distance. Options are 'miles' or 'km'. Defaults to 'miles'                             | `km`                                                |
 | items           | The rows of data you want the module to show. See list [below](#available-fields). By default will show all available | `['battery','range-estimated','locked','odometer']` |
 | dataTimeout     | How old data must be in seconds before 'data-time' is displayed. Use 0 to always show                                 | `0`                                                 |
+
+### Data Source
+
+The `source` configuration option defines which data source you want to use to pull Tesla data from. At the moment there are two available options, which are configured as shown below. Note that some data fields may not be available from some data sources due to API differences.
+
+#### TeslaFi
+
+You should obtain your API key from [TeslaFi.com](https://teslafi.com/api.php) and configure the module as follows:
+
+```javascript
+modules: [
+  {
+    module: "MMM-TeslaFi",
+    position: "top_left",
+    config: {
+      source: {
+        name: "teslafi",
+        apiKey: "ENTER YOUR KEY HERE"
+      }
+    }
+  }
+];
+```
+
+#### Tessie
+
+You should obtain your access token from (Tessie.com)[https://my.tessie.com/settings/api], as well as the VIN code of the vehicle you wish to display, and configure the module as follows
+
+```javascript
+modules: [
+  {
+    module: "MMM-TeslaFi",
+    position: "top_left",
+    config: {
+      source: {
+        name: "tessie",
+        apiKey: "ENTER YOUR ACCESS TOKEN HERE",
+        vin: "ENTER YOUR VIN HERE"
+      }
+    }
+  }
+];
+```
 
 ### Maps Configuration
 

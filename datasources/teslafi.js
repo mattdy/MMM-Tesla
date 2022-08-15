@@ -12,21 +12,21 @@ const DataSource = require("../DataSource");
 class TeslaFi extends DataSource {
   constructor(config) {
     super(config);
-    
-    if(this.config.apiCommand === null || this.config.apiCommand === "") {
+
+    if (this.config.apiCommand === null || this.config.apiCommand === "") {
       this.config.apiCommand = "lastGood";
     }
-    
-    if(!this.config.apiKey) {
+
+    if (!this.config.apiKey) {
       throw new Exception("You must specify a TeslaFi API key");
     }
   }
-  
+
   fetchData(callback) {
-     var self =  this;
-     self.callback = callback
-    
-     var url = buildUrl("https://www.teslafi.com", {
+    var self = this;
+    self.callback = callback;
+
+    var url = buildUrl("https://www.teslafi.com", {
       path: "feed.php",
       queryParams: {
         token: this.config.apiKey,

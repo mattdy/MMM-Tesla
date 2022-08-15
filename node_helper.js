@@ -27,50 +27,57 @@ module.exports = NodeHelper.create({
 
   getData: function () {
     var self = this;
-    
-    if(!this.started) { return; }
-    
+
+    if (!this.started) {
+      return;
+    }
+
     Log.info("TeslaFi fetching data from source: " + this.source.config.name);
-    this.source.fetchData(function(response) {
+    this.source.fetchData(function (response) {
       Log.info("Received data: " + response);
       self.sendSocketNotification("DATA", response);
     });
-    
+
     setTimeout(function () {
       self.getData();
     }, this.config.updateInterval);
   },
 
   socketNotificationReceived: function (notification, payload) {
-    if(payload === null) {
+    if (payload === null) {
       return;
     }
-    
-    switch(notification) {
-    case "CONFIG":
-      if(this.config !== null) { return; }
-      
-      Log.info("TeslaFi received configuration");
-      this.config = payload;
-      
-      switch(this.config.source.name.toLowerCase()) {
-      case "teslafi":
-        this.source = new TeslaFi(this.config.source);
-        break;
-        
-      case "tessie":
-        this.source = new Tessie(this.config.source);
-        break;
-        
-      default:
-        Log.error("Unknown source provided for Tesla data: " + this.config.source.name);
-        break;
-      }
 
-      break; // End CONFIG notification
+    switch (notification) {
+      case "CONFIG":
+        if (this.config !== null) {
+          return;
+        }
+
+        Log.info("TeslaFi received configuration");
+        this.config = payload;
+
+        switch (this.config.source.name.toLowerCase()) {
+          case "teslafi":
+            this.source = new TeslaFi(this.config.source);
+            break;
+
+          case "tessie":
+            this.source = new Tessie(this.config.source);
+            break;
+
+          default:
+            Log.error(
+              "Unknown source provided for Tesla data: " +
+                this.config.source.name
+            );
+            break;
+        }
+
+        break; // End CONFIG notification
     }
-    
-    if(this.config !== null && this.source !== null && !this.started) {
+
+    if (this.config !== null && this.source !== null && !this.started) {
       Log.info("TeslaFi helper starting");
       this.sendSocketNotification("STARTED", true);
       this.started = true;
