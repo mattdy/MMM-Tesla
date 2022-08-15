@@ -90,7 +90,7 @@ modules: [
 
 #### Tessie
 
-You should obtain your access token from (Tessie.com)[https://my.tessie.com/settings/api], as well as the VIN code of the vehicle you wish to display, and configure the module as follows
+You should obtain your access token from [Tessie.com](https://my.tessie.com/settings/api), as well as the VIN code of the vehicle you wish to display, and configure the module as follows
 
 ```javascript
 modules: [
