@@ -63,6 +63,24 @@ class Tessie extends DataSource {
              }
            }
            
+           
+           // Attempt to recreate the useful TeslaFi 'carState' variable
+           var carState = null;
+           
+           if(parsed['charging_state'] === "Complete") {
+             carState = "Idling";
+           } else if(parsed['charging_state'] === "Charging") {
+             carState = "Charging";
+           } else if(parsed['shift_state'] === "D") {
+             carState = "Driving";
+           } else if(parsed['sentry_mode'] === true) {
+             carState = "Sentry";
+           }
+           
+           if(carState !== null) {
+             parsed['carState'] = carState;  
+           }
+           
            var json = JSON.stringify(parsed);
            
            self.callback(json);
