@@ -147,8 +147,9 @@ See [Map section](#map) below for more information
 | heading                | Vehicle heading                                                                                                                  |
 | map                    | Displays current location on a map. See the [Map section](#map) for details on how to configure                                  |
 
+- Some fields may not work with certain data sources. For example - location, version and version-new will only work with TeslaFi
 - Some fields (charge-time, charge-added, charge-power) are only enabled if the vehicle is plugged in
-- Some fields (version, speed, heading) are only enabled if the vehicle is not driving
+- Some fields (version, speed, heading) are only enabled if the vehicle is (or is not) driving
 - The temperature field may not be populated if you use TeslaFi's sleep mode, which will stop this row from showing entirely. You may need to use `apiCommand: "lastGoodTemp"` if this fails to show
 - For details on TeslaFi's 'location' tags, see [TeslaFi Locations](https://teslafi.com/locations.php)
 
