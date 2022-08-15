@@ -59,7 +59,6 @@ You can then use the various configuration options below to customise how the mo
 | batteryDanger   | The percentage below which your battery level will highlight in red                                                   | `40`                                                |
 | batteryWarning  | The percentage below which your battery level will highlight in orange                                                | `60`                                                |
 | precision       | How many decimal places to round values (such as mileage and energy) to. Defaults to 1                                | `2`                                                 |
-| apiCommand      | The command parameter for the TeslaFi API query. See [TeslaFi](https://teslafi.com/api.php) for possible values       | `lastGoodTemp`                                      |
 | unitTemperature | The unit to use for displaying temperature. Options are 'f' (Farenheight) or 'c' (Celcius). Defaults to 'c'           | `f`                                                 |
 | unitDistance    | The unit to use for displaying distance. Options are 'miles' or 'km'. Defaults to 'miles'                             | `km`                                                |
 | items           | The rows of data you want the module to show. See list [below](#available-fields). By default will show all available | `['battery','range-estimated','locked','odometer']` |
@@ -81,12 +80,15 @@ modules: [
     config: {
       source: {
         name: "teslafi",
-        apiKey: "ENTER YOUR KEY HERE"
+        apiKey: "ENTER YOUR KEY HERE",
+        apiCommand: `lastGoodTemp`
       }
     }
   }
 ];
 ```
+
+The `apiCommand` configuration variable is optional, see [TeslaFi](https://teslafi.com/api.php) for possible values.
 
 #### Tessie
 
