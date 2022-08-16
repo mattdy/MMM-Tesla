@@ -18,7 +18,7 @@ class TeslaFi extends DataSource {
     }
 
     if (!this.config.apiKey) {
-      throw new Exception("You must specify a TeslaFi API key");
+      throw new Error("You must specify a TeslaFi API key");
     }
   }
 

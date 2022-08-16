@@ -14,11 +14,11 @@ class Tessie extends DataSource {
     super(config);
 
     if (!this.config.apiKey) {
-      throw new Exception("You must specify a Tessie API key");
+      throw new Error("You must specify a Tessie API key");
     }
 
     if (!this.config.vin) {
-      throw new Exception("You must specify the VIN of your vehicle");
+      throw new Error("You must specify the VIN of your vehicle");
     }
   }
 
