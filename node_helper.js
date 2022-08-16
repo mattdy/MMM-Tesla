@@ -14,38 +14,29 @@ var request = require("request");
 const Log = require("../../js/logger");
 const buildUrl = require("build-url");
 
+const DataSource = require("./DataSource");
+const TeslaFi = require("./datasources/teslafi");
+const Tessie = require("./datasources/tessie");
+
 module.exports = NodeHelper.create({
   start: function () {
     this.started = false;
     this.config = null;
+    this.source = null;
   },
 
   getData: function () {
     var self = this;
 
-    var url = buildUrl("https://www.teslafi.com", {
-      path: "feed.php",
-      queryParams: {
-        token: self.config.apiKey,
-        command: self.config.apiCommand
-      }
-    });
+    if (!this.started) {
+      return;
+    }
 
-    Log.info("TeslaFi sending request");
-    request(
-      {
-        url: url,
-        method: "GET",
-        headers: { TeslaFi_API_TOKEN: this.config.apiKey }
-      },
-      function (error, response, body) {
-        Log.info("TeslaFi response was " + response.statusCode);
-        if (!error && response.statusCode === 200) {
-          Log.info("TeslaFi sending data");
-          self.sendSocketNotification("DATA", body);
-        }
-      }
-    );
+    Log.info("TeslaFi fetching data from source: " + this.source.config.name);
+    this.source.fetchData(function (response) {
+      Log.info("Received data: " + response);
+      self.sendSocketNotification("DATA", response);
+    });
 
     setTimeout(function () {
       self.getData();
@@ -53,12 +44,44 @@ module.exports = NodeHelper.create({
   },
 
   socketNotificationReceived: function (notification, payload) {
-    if (notification === "CONFIG" && this.started === false) {
-      Log.info("TeslaFi received configuration");
-      this.config = payload;
+    if (payload === null) {
+      return;
+    }
+
+    switch (notification) {
+      case "CONFIG":
+        if (this.config !== null) {
+          return;
+        }
+
+        Log.info("TeslaFi received configuration");
+        this.config = payload;
+
+        switch (this.config.source.name.toLowerCase()) {
+          case "teslafi":
+            this.source = new TeslaFi(this.config.source);
+            break;
+
+          case "tessie":
+            this.source = new Tessie(this.config.source);
+            break;
+
+          default:
+            Log.error(
+              "Unknown source provided for Tesla data: " +
+                this.config.source.name
+            );
+            break;
+        }
+
+        break; // End CONFIG notification
+    }
+
+    if (this.config !== null && this.source !== null && !this.started) {
+      Log.info("TeslaFi helper starting");
       this.sendSocketNotification("STARTED", true);
-      this.getData();
       this.started = true;
+      this.getData();
     }
   }
 });

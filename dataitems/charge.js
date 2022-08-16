@@ -9,7 +9,8 @@ DataItemProvider.register("charge-time", {
   field: "Charging",
 
   onDataUpdate(data) {
-    if (!data.charging_state || data.time_to_full_charge === "0.0") {
+    var timeLeft = parseInt(data.time_to_full_charge);
+    if (!data.charging_state || timeLeft === 0) {
       this.display = false;
       return;
     } else {
@@ -55,7 +56,8 @@ DataItemProvider.register("charge-power", {
   field: "Charger Power",
 
   onDataUpdate(data) {
-    if (data.charger_power === "0") {
+    var power = parseInt(data.charger_power);
+    if (power === 0) {
       this.display = false;
       return;
     } else {

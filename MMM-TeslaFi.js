@@ -15,6 +15,7 @@ Module.register("MMM-TeslaFi", {
     batteryDanger: 30,
     batteryWarning: 50,
     dataTimeout: 0,
+    source: {},
     maps: {
       apiKey: "",
       width: 300,
@@ -23,7 +24,6 @@ Module.register("MMM-TeslaFi", {
       exclude: []
     },
     precision: 1, // How many decimal places to round values to
-    apiCommand: "lastGood",
     items: [
       "state",
       "speed",
@@ -50,6 +50,7 @@ Module.register("MMM-TeslaFi", {
     return [
       "moment.js",
       this.file("node_modules/build-url/src/build-url.js"),
+
       this.file("DataItemProvider.js"),
       this.file("dataitems/battery.js"),
       this.file("dataitems/charge.js"),
@@ -81,6 +82,7 @@ Module.register("MMM-TeslaFi", {
 
     this.resetDomUpdate();
   },
+
   resetDomUpdate: function () {
     var self = this;
     // Reset any previously allocated timer to avoid double-refreshes
@@ -90,15 +92,11 @@ Module.register("MMM-TeslaFi", {
       self.updateDom(self.config.animationSpeed);
     }, this.config.refreshInterval);
   },
+
   getDom: function () {
     var wrapper = document.createElement("div");
     if (!this.loaded) {
       wrapper.innerHTML = this.translate("LOADING");
-      wrapper.className = "dimmed light small";
-      return wrapper;
-    }
-    if (this.config.apiKey === "") {
-      wrapper.innerHTML = "No Tesla Fi <i>apiKey</i> set in config file.";
       wrapper.className = "dimmed light small";
       return wrapper;
     }
