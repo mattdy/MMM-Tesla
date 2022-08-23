@@ -1,4 +1,4 @@
-# MMM-TeslaFi
+# MMM-Tesla
 
 This an extension for the [MagicMirror](https://github.com/MichMich/MagicMirror).
 
@@ -6,7 +6,7 @@ With this module, you can display the status of your Tesla vehicle from [TeslaFi
 
 This is a partial re-write of the original MMM-TeslaFi by [f00d4tehg0dz](https://github.com/f00d4tehg0dz), which can be found [here](https://github.com/f00d4tehg0dz/MMM-TeslaFi). I have chosen to not merge this version back in as it breaks some functionality of the original module.
 
-I am happy to accept any [bug reports](https://github.com/mattdy/MMM-TeslaFi/issues) or [pull requests](https://github.com/mattdy/MMM-TeslaFi/pulls) for new features or fixes.
+I am happy to accept any [bug reports](https://github.com/mattdy/MMM-Tesla/issues) or [pull requests](https://github.com/mattdy/MMM-Tesla/pulls) for new features or fixes.
 
 ## Screenshot
 
@@ -17,15 +17,15 @@ I am happy to accept any [bug reports](https://github.com/mattdy/MMM-TeslaFi/iss
 Open a terminal session, navigate to your MagicMirror's `modules` folder and execute the following commands:
 
 ```console
-$ git clone https://github.com/mattdy/MMM-TeslaFi.git
-$ cd MMM-TeslaFi
+$ git clone https://github.com/mattdy/MMM-Tesla.git
+$ cd MMM-Tesla
 $ npm install
 ```
 
 Alternatively, you can install automatically using the excellent [Magic Mirror Package Manager](https://github.com/Bee-Mar/mmpm)
 
 ```console
-$ mmpm -i MMM-TeslaFi
+$ mmpm -i MMM-Tesla
 ```
 
 Once installed, you should then activate the module by adding it to the config.js file as shown here:
@@ -33,7 +33,7 @@ Once installed, you should then activate the module by adding it to the config.j
 ```javascript
 modules: [
   {
-    module: "MMM-TeslaFi",
+    module: "MMM-Tesla",
     position: "top_left",
     config: {
       source: {
@@ -54,7 +54,7 @@ You can then use the various configuration options below to customise how the mo
 | --------------- | --------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
 | source          | **Required** - The source from which to pull Tesla data. See [Data Source](#data-source) below for more information   | [See below](#data-source)                           |
 | refreshInterval | The time interval (in milliseconds) at which the module contents will be updated locally                              | `1000 * 60`                                         |
-| updateInterval  | The time interval (in milliseconds) at which fresh data will be gathered from TeslaFi                                 | `1000 * 60 * 5`                                     |
+| updateInterval  | The time interval (in milliseconds) at which fresh data will be gathered from your chosen source                      | `1000 * 60 * 5`                                     |
 | batteryDanger   | The percentage below which your battery level will highlight in red                                                   | `40`                                                |
 | batteryWarning  | The percentage below which your battery level will highlight in orange                                                | `60`                                                |
 | precision       | How many decimal places to round values (such as mileage and energy) to. Defaults to 1                                | `2`                                                 |
@@ -74,7 +74,7 @@ You should obtain your API key from [TeslaFi.com](https://teslafi.com/api.php) a
 ```javascript
 modules: [
   {
-    module: "MMM-TeslaFi",
+    module: "MMM-Tesla",
     position: "top_left",
     config: {
       source: {
@@ -96,7 +96,7 @@ You should obtain your access token from [Tessie.com](https://my.tessie.com/sett
 ```javascript
 modules: [
   {
-    module: "MMM-TeslaFi",
+    module: "MMM-Tesla",
     position: "top_left",
     config: {
       source: {
@@ -137,7 +137,7 @@ See [Map section](#map) below for more information
 | locked                 | Whether or not the vehicle is locked                                                                                             |
 | odometer               | Total mileage of the vehicle (rounded to 2 decimal places)                                                                       |
 | temperature            | Temperature outside and inside the vehicle (see note below)                                                                      |
-| data&#x2011;time       | How long ago the data was collected by TeslaFi                                                                                   |
+| data&#x2011;time       | How long ago the data was collected                                                                                              |
 | location               | Displays the current location as tagged in TeslaFi. Not shown if the vehicle is driving, or if the current location isn't tagged |
 | version                | Current version installed                                                                                                        |
 | version&#x2011;new     | Display new version if available - hidden if no new version is available                                                         |
@@ -161,10 +161,13 @@ This will show a non-interactive map of the vehicles location. The size of this 
 ```
 modules: [
   {
-    module: "MMM-TeslaFi",
+    module: "MMM-Tesla",
     position: "top_left",
     config: {
-      apiKey: "ENTER YOUR TESLAFI KEY HERE",
+      source: {
+        name: "teslafi",
+        apiKey: "ENTER YOUR KEY HERE"
+      }
       maps: {
         apiKey: "ENTER YOUR GOOGLE MAPS KEY HERE",
         zoom: 12,
@@ -179,8 +182,8 @@ modules: [
 
 ## Contributing
 
-If you have an idea for an additional field, then please raise an [issue](https://github.com/mattdy/MMM-TeslaFi/issues) with the `enhancement` label. Alternatively, please feel free to develop the new functionality yourself and submit a
-[pull request](https://github.com/mattdy/MMM-TeslaFi/pulls) - I'd be delighted to incorporate any new fields.
+If you have an idea for an additional field, then please raise an [issue](https://github.com/mattdy/MMM-Tesla/issues) with the `enhancement` label. Alternatively, please feel free to develop the new functionality yourself and submit a
+[pull request](https://github.com/mattdy/MMM-Tesla/pulls) - I'd be delighted to incorporate any new fields.
 
 In order to keep the code as accessible as possible, there are Github Actions defined to run `eslint` (JS & CSS) and `prettier` checks against all Pull Requests. Additionally, `prettier` is automatically run on merges to the `master` branch.
 
