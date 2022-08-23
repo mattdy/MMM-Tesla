@@ -110,7 +110,7 @@ Module.register("MMM-Tesla", {
 
     content.innerHTML = "";
     var table = `
-      <h2 class="mqtt-title"><span class="zmdi zmdi-car zmdi-hc-1x icon"></span> ${t.display_name}</h2>
+      <h2 class="title"><span class="zmdi zmdi-car zmdi-hc-1x icon"></span> ${t.display_name}</h2>
       <table class="small">
 		`;
 

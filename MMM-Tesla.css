@@ -1,3 +1,13 @@
+.mqtt-title {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+  font-size: 1.5rem;
+  text-align: left;
+  border-bottom: 1px solid #666;
+  line-height: 2rem;
+}
+
 .icon {
   color: #fff;
 }
