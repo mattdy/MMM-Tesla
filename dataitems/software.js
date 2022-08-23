@@ -21,7 +21,7 @@ DataItemProvider.register("version", {
  * Adapted from original code by Justyn R
  */
 DataItemProvider.register("version-new", {
-  icon: `<span class="zmdi zmdi-download zmdi-hc-fw newVersion">`,
+  icon: `<span class="zmdi zmdi-download zmdi-hc-fw new-version">`,
   field: "New Version Available",
 
   onDataUpdate(data) {

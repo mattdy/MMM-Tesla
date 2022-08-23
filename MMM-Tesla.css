@@ -1,28 +1,4 @@
-.delay {
-  color: #f00;
-}
-
-.lineinfo {
-  text-align: right;
-  padding: 0 5px 0 5px;
-}
-
-.loading {
-  text-align: center;
-  font-size: 2rem;
-}
-
-.mqtt-title {
-  margin-bottom: 0;
-  padding-bottom: 0;
-  margin-top: 0;
-  font-size: 1.5rem;
-  text-align: left;
-  border-bottom: 1px solid #666;
-  line-height: 2rem;
-}
-
-.mqtt-title .icon {
+.icon {
   color: #fff;
 }
 
@@ -34,21 +10,6 @@
 
 .value {
   text-align: right;
-}
-
-.mattributes {
-  list-style: none;
-  margin: 0;
-  list-style-position: inside;
-  padding: 0;
-}
-
-.mattributes .mattribute {
-  text-align: left;
-  font-size: 1.2rem;
-  line-height: 2rem;
-  color: #fff;
-  opacity: 0.75;
 }
 
 .battery-level-ok {
@@ -63,10 +24,6 @@
   color: lightcoral;
 }
 
-.mattributes .mattribute .name::after {
-  content: ": ";
-}
-
 .dim {
   opacity: 0.6;
 }
@@ -79,6 +36,6 @@
   color: #f55;
 }
 
-.newVersion {
+.new-version {
   color: lightgreen;
 }
