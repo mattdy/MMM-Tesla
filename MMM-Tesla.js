@@ -1,15 +1,15 @@
 /* Magic Mirror
- * Module: MMM-TeslaFi
+ * Module: MMM-Tesla
  *
  * Originally By Adrian Chrysanthou
  * Updated by Matt Dyson
  * MIT Licensed.
  */
-Module.register("MMM-TeslaFi", {
+Module.register("MMM-Tesla", {
   defaults: {
     animationSpeed: 1000,
     refreshInterval: 1000 * 60, // Refresh DOM every 60 seconds
-    updateInterval: 1000 * 60 * 5, // Load TeslaFi data every 5 minutes
+    updateInterval: 1000 * 60 * 5, // Load data every 5 minutes
     unitDistance: "miles",
     unitTemperature: "c",
     batteryDanger: 30,
@@ -65,7 +65,7 @@ Module.register("MMM-TeslaFi", {
   getStyles: function () {
     return [
       "https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css",
-      "MMM-TeslaFi.css"
+      "MMM-Tesla.css"
     ];
   },
   start: function () {
@@ -100,12 +100,12 @@ Module.register("MMM-TeslaFi", {
       wrapper.className = "dimmed light small";
       return wrapper;
     }
-    if (!this.teslafiData) {
+    if (!this.parsedData) {
       wrapper.innerHTML = "No data";
       wrapper.className = "dimmed light small";
       return wrapper;
     }
-    var t = this.teslafiData;
+    var t = this.parsedData;
     var content = document.createElement("div");
 
     content.innerHTML = "";
@@ -171,13 +171,13 @@ Module.register("MMM-TeslaFi", {
       // If the node_helper socket has only just opened, refresh the DOM to make sure we're displaying a loading message
       this.updateDom();
     } else if (notification === "DATA") {
-      Log.info("TeslaFi recevied new data");
-      // We've received data from TeslaFi, so parse and display it
+      Log.info("Tesla received new data");
+      // We've received data, so parse and display it
       var data = JSON.parse(payload);
       if (!data) {
         return;
       }
-      this.teslafiData = data;
+      this.parsedData = data;
       this.loaded = true;
 
       // Tell all of our data item providers about the new data

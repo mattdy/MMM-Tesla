@@ -1,25 +1,26 @@
 {
-  "name": "Magic-Mirror-Module-TeslaFi",
-  "version": "3.0.0",
+  "name": "Magic-Mirror-Module-Tesla",
+  "version": "4.0.0",
   "description": "MagicMirror2 Module to display Tesla Stats.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mattdy/MMM-TeslaFi"
+    "url": "git+https://github.com/mattdy/MMM-Tesla"
   },
   "keywords": [
     "magic mirror",
     "smart mirror",
     "tesla",
     "teslafi",
+    "tessie",
     "module"
   ],
-  "author": "Matt Dyson / Adrian Chrysanthou",
-  "contributors": "https://github.com/mattdy/MMM-TeslaFi/graphs/contributors",
+  "author": "Matt Dyson",
+  "contributors": "https://github.com/mattdy/MMM-Tesla/graphs/contributors",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mattdy/MMM-TeslaFI/issues"
+    "url": "https://github.com/mattdy/MMM-Tesla/issues"
   },
-  "homepage": "https://github.com/mattdy/MMM-TeslaFi#readme",
+  "homepage": "https://github.com/mattdy/MMM-Tesla#readme",
   "scripts": {
     "prettier": "prettier --write **/*.{js,css,json,md,yml}",
     "test:prettier": "prettier --check **/*.{js,css,json,md,yml}",
