@@ -80,7 +80,7 @@ modules: [
       source: {
         name: "teslafi",
         apiKey: "ENTER YOUR KEY HERE",
-        apiCommand: `lastGoodTemp`
+        apiCommand: "lastGoodTemp"
       }
     }
   }
