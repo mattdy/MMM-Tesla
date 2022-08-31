@@ -8,6 +8,7 @@
     "buildUrl": true,
     "config": true,
     "DataItemProvider": true,
+    "empty": true,
     "Log": true,
     "MM": true,
     "Module": true,
