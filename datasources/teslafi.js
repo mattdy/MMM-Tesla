@@ -8,16 +8,17 @@ var request = require("request");
 const Log = require("../../../js/logger");
 const buildUrl = require("build-url");
 const DataSource = require("../DataSource");
+const empty = require('is-empty');
 
 class TeslaFi extends DataSource {
   constructor(config) {
     super(config);
 
-    if (this.config.apiCommand === null || this.config.apiCommand === "") {
+    if (empty(this.config.apiCommand)) {
       this.config.apiCommand = "lastGood";
     }
 
-    if (!this.config.apiKey) {
+    if (empty(this.config.apiKey)) {
       throw new Error("You must specify a TeslaFi API key");
     }
   }
