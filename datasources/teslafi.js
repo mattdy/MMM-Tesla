@@ -8,7 +8,7 @@ var request = require("request");
 const Log = require("../../../js/logger");
 const buildUrl = require("build-url");
 const DataSource = require("../DataSource");
-const empty = require('is-empty');
+const empty = require("is-empty");
 
 class TeslaFi extends DataSource {
   constructor(config) {
