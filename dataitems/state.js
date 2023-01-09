@@ -7,7 +7,7 @@
 
 DataItemProvider.register("locked", {
   onDataUpdate(data) {
-    if (data.locked === "1") {
+    if (data.locked === "1" || data.locked === true) {
       this.icon = `<span class="zmdi zmdi-lock-outline zmdi-hc-fw"></span>`;
       this.field = "Locked";
     } else {
