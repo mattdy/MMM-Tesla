@@ -28,7 +28,6 @@ jobs:
         with:
           commit_message: Apply formatting changes
           branch: ${{ github.head_ref }}
-          token: ${{ secrets.WORKFLOW_TOKEN }}
       - name: CheckJS
         run: |
           npm run test:js
