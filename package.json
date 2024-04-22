@@ -24,7 +24,7 @@
   "scripts": {
     "prettier": "prettier --write **/*.{js,css,json,md,yml}",
     "test:prettier": "prettier --check **/*.{js,css,json,md,yml}",
-    "test:js": "eslint **/*.js --config .eslintrc.json",
+    "test:js": "eslint **/*.js --config eslint.config.js",
     "test:css": "stylelint **/*.css --config .stylelintrc.json"
   },
   "prettier": {
@@ -36,7 +36,7 @@
     "request": "^2.88.2"
   },
   "devDependencies": {
-    "eslint": "^8.22.0",
+    "eslint": "^9.1.0",
     "prettier": "^3.2.5",
     "stylelint": "^16.2.1",
     "stylelint-config-standard": "^36.0.0"
