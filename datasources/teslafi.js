@@ -4,52 +4,52 @@
  * Created by Matt Dyson
  */
 
-var request = require("request");
-const Log = require("../../../js/logger");
-const buildUrl = require("build-url");
-const DataSource = require("../DataSource");
-const empty = require("is-empty");
+const request = require('request')
+const Log = require('../../../js/logger')
+const buildUrl = require('build-url')
+const DataSource = require('../DataSource')
+const empty = require('is-empty')
 
 class TeslaFi extends DataSource {
-  constructor(config) {
-    super(config);
+  constructor (config) {
+    super(config)
 
     if (empty(this.config.apiCommand)) {
-      this.config.apiCommand = "lastGood";
+      this.config.apiCommand = 'lastGood'
     }
 
     if (empty(this.config.apiKey)) {
-      throw new Error("You must specify a TeslaFi API key");
+      throw new Error('You must specify a TeslaFi API key')
     }
   }
 
-  fetchData(callback) {
-    var self = this;
-    self.callback = callback;
+  fetchData (callback) {
+    const self = this
+    self.callback = callback
 
-    var url = buildUrl("https://www.teslafi.com", {
-      path: "feed.php",
+    const url = buildUrl('https://www.teslafi.com', {
+      path: 'feed.php',
       queryParams: {
         token: this.config.apiKey,
         command: this.config.apiCommand
       }
-    });
+    })
 
-    Log.info("Sending request to TeslaFi");
+    Log.info('Sending request to TeslaFi')
     request(
       {
-        url: url,
-        method: "GET",
+        url,
+        method: 'GET',
         headers: { TeslaFi_API_TOKEN: this.config.apiKey }
       },
       function (error, response, body) {
-        Log.info("TeslaFi response was " + response.statusCode);
+        Log.info('TeslaFi response was ' + response.statusCode)
         if (!error && response.statusCode === 200) {
-          self.callback(body);
+          self.callback(body)
         }
       }
-    );
+    )
   }
 }
 
-module.exports = TeslaFi;
+module.exports = TeslaFi
