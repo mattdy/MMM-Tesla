@@ -22,10 +22,10 @@
   },
   "homepage": "https://github.com/mattdy/MMM-Tesla#readme",
   "scripts": {
-    "prettier": "prettier --write **/*.{js,css,json,md,yml,mjs}",
-    "test:prettier": "prettier --check **/*.{js,css,json,md,yml,mjs}",
-    "test:js": "eslint **/*.js",
+    "prettier": "prettier --write **/*.{css,json,md,yml}",
+    "test:prettier": "prettier --check **/*.{css,json,md,yml}",
     "jslint": "eslint **/*.js --fix",
+    "test:js": "eslint **/*.js",
     "test:css": "stylelint **/*.css --config .stylelintrc.json"
   },
   "prettier": {
