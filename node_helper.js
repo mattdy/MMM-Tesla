@@ -17,6 +17,7 @@ const buildUrl = require("build-url");
 const DataSource = require("./DataSource");
 const TeslaFi = require("./datasources/teslafi");
 const Tessie = require("./datasources/tessie");
+const TeslaMate = require("./datasources/teslamate");
 
 module.exports = NodeHelper.create({
   start: function () {
@@ -64,6 +65,10 @@ module.exports = NodeHelper.create({
 
           case "tessie":
             this.source = new Tessie(this.config.source);
+            break;
+
+          case "teslamate":
+            this.source = new TeslaMate(this.config.source);
             break;
 
           default:

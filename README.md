@@ -2,7 +2,7 @@
 
 This an extension for the [MagicMirror](https://github.com/MichMich/MagicMirror).
 
-With this module, you can display the status of your Tesla vehicle from [TeslaFi](https://www.teslafi.com/signup.php?referred=warlrus) or [Tessie](https://tessie.com/). Many different pieces of data can be shown, such as the battery level, temperature, lock status and plenty more!
+With this module, you can display the status of your Tesla vehicle from [TeslaFi](https://www.teslafi.com/signup.php?referred=warlrus), [Tessie](https://tessie.com/) or [TeslaMate](https://github.com/teslamate-org/teslamate). Many different pieces of data can be shown, such as the battery level, temperature, lock status and plenty more!
 
 This is a partial re-write of the original MMM-TeslaFi by [f00d4tehg0dz](https://github.com/f00d4tehg0dz), which can be found [here](https://github.com/f00d4tehg0dz/MMM-TeslaFi). I have chosen to not merge this version back in as it breaks some functionality of the original module.
 
@@ -65,7 +65,7 @@ You can then use the various configuration options below to customise how the mo
 
 ### Data Source
 
-The `source` configuration option defines which data source you want to use to pull Tesla data from. At the moment there are two available options, which are configured as shown below. Note that some data fields may not be available from some data sources due to API differences.
+The `source` configuration option defines which data source you want to use to pull Tesla data from. At the moment there are three available options, which are configured as shown below. Note that some data fields may not be available from some data sources due to API differences.
 
 #### TeslaFi
 
@@ -109,6 +109,39 @@ modules: [
 ];
 ```
 
+#### TeslaMate
+
+If you run your own [TeslaMate](https://github.com/teslamate-org/teslamate) instance, the module can read vehicle data from the MQTT server that TeslaMate publishes to. Configure the module as follows:
+
+```javascript
+modules: [
+  {
+    module: "MMM-Tesla",
+    position: "top_left",
+    config: {
+      source: {
+        name: "teslamate",
+        url: "mqtt://your_mqtt_server:1883",
+        username: "OPTIONAL MQTT USERNAME",
+        password: "OPTIONAL MQTT PASSWORD",
+        carId: 1,
+        topicPrefix: "teslamate"
+      }
+    }
+  }
+];
+```
+
+| Option      | Details                                                                                                       | Default     |
+| ----------- | ------------------------------------------------------------------------------------------------------------- | ----------- |
+| url         | **Required** - URL of your MQTT server. Use `mqtts://` for TLS or `ws://` for websockets                      |             |
+| username    | Username for the MQTT server, if required                                                                     |             |
+| password    | Password for the MQTT server, if required                                                                     |             |
+| carId       | The TeslaMate ID of the car to display                                                                        | `1`         |
+| topicPrefix | The topic namespace TeslaMate publishes under. Only change this if you have set `MQTT_NAMESPACE` in TeslaMate | `teslamate` |
+
+The module keeps a connection open to the MQTT server and caches the latest values, so you can use a much lower `updateInterval` (such as `1000 * 30`) than with the other sources without generating any additional load. The `location` field will display the name of the TeslaMate geofence the car is currently in.
+
 ### Maps Configuration
 
 The `maps` configuration option takes the following sub-options, which allow you to configure a static Google Maps display of the vehicles current location.
@@ -146,7 +179,7 @@ See [Map section](#map) below for more information
 | heading                | Vehicle heading                                                                                                                  |
 | map                    | Displays current location on a map. See the [Map section](#map) for details on how to configure                                  |
 
-- Some fields may not work with certain data sources. For example - location, version and version-new will only work with TeslaFi
+- Some fields may not work with certain data sources. For example - location, version and version-new will only work with TeslaFi and TeslaMate
 - Some fields (charge-time, charge-added, charge-power) are only enabled if the vehicle is plugged in
 - Some fields (version, speed, heading) are only enabled if the vehicle is (or is not) driving
 - The temperature field may not be populated if you use TeslaFi's sleep mode, which will stop this row from showing entirely. You may need to use `apiCommand: "lastGoodTemp"` if this fails to show
