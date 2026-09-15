@@ -1,32 +1,32 @@
 import globals from 'globals'
-
-import path from 'path'
-import { fileURLToPath } from 'url'
-import { FlatCompat } from '@eslint/eslintrc'
-import pluginJs from '@eslint/js'
-
-// mimic CommonJS variables -- not needed if using CommonJS
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
-const compat = new FlatCompat({ baseDirectory: __dirname, recommendedConfig: pluginJs.configs.recommended })
+import neostandard from 'neostandard'
 
 export default [
+  ...neostandard(),
+
+  // Front-end files, loaded into the browser by MagicMirror as plain scripts
   {
-    files: ['**/*.js'],
+    files: ['MMM-Tesla.js', 'DataItemProvider.js', 'dataitems/**/*.js'],
     languageOptions: {
-      sourceType: 'commonjs',
+      sourceType: 'script',
       globals: {
-        buildUrl: "readonly",
-        config: "readonly",
-        DataItemProvider: "readonly",
-        empty: "readonly",
-        Log: "readonly",
-        MM: "readonly",
-        module: "readonly",
-        moment: "readonly"
-      },
+        ...globals.browser,
+        buildUrl: 'readonly',
+        Class: 'readonly',
+        DataItemProvider: 'readonly',
+        Log: 'readonly',
+        MM: 'readonly',
+        Module: 'readonly',
+        moment: 'readonly'
+      }
     }
   },
-  { languageOptions: { globals: globals.browser } },
-  ...compat.extends('standard')
+
+  // Back-end files, run by MagicMirror within Node.js
+  {
+    files: ['node_helper.js', 'DataSource.js', 'datasources/**/*.js'],
+    languageOptions: {
+      sourceType: 'commonjs'
+    }
+  }
 ]

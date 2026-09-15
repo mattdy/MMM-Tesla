@@ -1,4 +1,4 @@
-"use strict";
+'use strict'
 
 /* Magic Mirror
  * Module: MMM-Tesla
@@ -9,84 +9,81 @@
  * MIT Licensed.
  */
 
-const NodeHelper = require("node_helper");
-var request = require("request");
-const Log = require("../../js/logger");
-const buildUrl = require("build-url");
+const NodeHelper = require('node_helper')
+const Log = require('../../js/logger')
 
-const DataSource = require("./DataSource");
-const TeslaFi = require("./datasources/teslafi");
-const Tessie = require("./datasources/tessie");
-const TeslaMate = require("./datasources/teslamate");
+const TeslaFi = require('./datasources/teslafi')
+const Tessie = require('./datasources/tessie')
+const TeslaMate = require('./datasources/teslamate')
 
 module.exports = NodeHelper.create({
   start: function () {
-    this.started = false;
-    this.config = null;
-    this.source = null;
+    this.started = false
+    this.config = null
+    this.source = null
   },
 
   getData: function () {
-    var self = this;
+    const self = this
 
     if (!this.started) {
-      return;
+      return
     }
 
-    Log.info("Tesla fetching data from source: " + this.source.config.name);
+    Log.info('Tesla fetching data from source: ' + this.source.config.name)
     this.source.fetchData(function (response) {
-      Log.info("Received data: " + response);
-      self.sendSocketNotification("DATA", response);
-    });
+      Log.info('Received data: ' + response)
+      self.sendSocketNotification('DATA', response)
+    })
 
     setTimeout(function () {
-      self.getData();
-    }, this.config.updateInterval);
+      self.getData()
+    }, this.config.updateInterval)
   },
 
   socketNotificationReceived: function (notification, payload) {
     if (payload === null) {
-      return;
+      return
     }
 
     switch (notification) {
-      case "CONFIG":
+      case 'CONFIG':
         if (this.config !== null) {
-          return;
+          return
         }
 
-        Log.info("Tesla received configuration");
-        this.config = payload;
+        Log.info('Tesla received configuration')
+        this.config = payload
 
         switch (this.config.source.name.toLowerCase()) {
-          case "teslafi":
-            this.source = new TeslaFi(this.config.source);
-            break;
+          case 'teslafi':
+            this.source = new TeslaFi(this.config.source)
+            break
 
-          case "tessie":
-            this.source = new Tessie(this.config.source);
-            break;
+          case 'tessie':
+            this.source = new Tessie(this.config.source)
+            break
 
-          case "teslamate":
-            this.source = new TeslaMate(this.config.source);
-            break;
+          case 'teslamate':
+            this.source = new TeslaMate(this.config.source)
+            break
 
           default:
             Log.error(
-              "Unknown source provided for Tesla data: " +
+              'Unknown source provided for Tesla data: ' +
                 this.config.source.name
-            );
-            break;
+            )
+            break
         }
 
-        break; // End CONFIG notification
+        break // End CONFIG notification
     }
 
     if (this.config !== null && this.source !== null && !this.started) {
-      Log.info("Tesla helper starting");
-      this.sendSocketNotification("STARTED", true);
-      this.started = true;
-      this.getData();
+      Log.info('Tesla helper starting')
+      this.sendSocketNotification('STARTED', true)
+      this.started = true
+      this.getData()
     }
   }
-});
+})

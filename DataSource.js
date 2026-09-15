@@ -4,18 +4,18 @@
 
 class DataSource {
   // Called when this provider is loaded, provides a copy of the configuration of this provider only
-  constructor(config) {
-    this.config = config;
-    this.callback = null;
+  constructor (config) {
+    this.config = config
+    this.callback = null
   }
 
   // Called when the main module is started
   // Throws an exception if the configuration is not correct
-  start() {}
+  start () {}
 
   // Called when we want to get new data from TeslaFi
   // This should be overridden in any sub-classes
-  fetchData(callback) {}
+  fetchData (callback) {}
 }
 
-module.exports = DataSource;
+module.exports = DataSource

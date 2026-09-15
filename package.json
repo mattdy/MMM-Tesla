@@ -24,11 +24,11 @@
   },
   "homepage": "https://github.com/mattdy/MMM-Tesla#readme",
   "scripts": {
-    "prettier": "prettier --write **/*.{css,json,md,yml}",
-    "test:prettier": "prettier --check **/*.{css,json,md,yml}",
-    "jslint": "eslint **/*.js --fix",
-    "test:js": "eslint **/*.js",
-    "test:css": "stylelint **/*.css --config .stylelintrc.json"
+    "prettier": "prettier --write \"**/*.{css,json,md,yml}\"",
+    "test:prettier": "prettier --check \"**/*.{css,json,md,yml}\"",
+    "jslint": "eslint --fix",
+    "test:js": "eslint",
+    "test:css": "stylelint \"**/*.css\" --config .stylelintrc.json"
   },
   "prettier": {
     "trailingComma": "none"
@@ -36,15 +36,12 @@
   "dependencies": {
     "build-url": "^6.0.1",
     "is-empty": "^1.2.0",
-    "mqtt": "^5.15.2",
-    "request": "^2.88.2"
+    "mqtt": "^5.15.2"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.0.2",
-    "@eslint/js": "^9.1.1",
-    "eslint-config-recommended": "^4.1.0",
-    "eslint-config-standard": "^17.1.0",
-    "globals": "^15.0.0",
+    "eslint": "^9.39.5",
+    "globals": "^17.12.0",
+    "neostandard": "^0.13.0",
     "prettier": "^3.2.5",
     "stylelint": "^16.2.1",
     "stylelint-config-standard": "^36.0.0"
