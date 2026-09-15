@@ -12,7 +12,6 @@ export default [
       globals: {
         ...globals.browser,
         buildUrl: 'readonly',
-        Class: 'readonly',
         DataItemProvider: 'readonly',
         Log: 'readonly',
         MM: 'readonly',
