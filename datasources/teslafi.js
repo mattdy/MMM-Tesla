@@ -4,7 +4,6 @@
  * Created by Matt Dyson
  */
 
-const request = require('request')
 const Log = require('../../../js/logger')
 const buildUrl = require('build-url')
 const DataSource = require('../DataSource')
@@ -36,19 +35,23 @@ class TeslaFi extends DataSource {
     })
 
     Log.info('Sending request to TeslaFi')
-    request(
-      {
-        url,
-        method: 'GET',
-        headers: { TeslaFi_API_TOKEN: this.config.apiKey }
-      },
-      function (error, response, body) {
-        Log.info('TeslaFi response was ' + response.statusCode)
-        if (!error && response.statusCode === 200) {
-          self.callback(body)
+    fetch(url, {
+      method: 'GET',
+      headers: { TeslaFi_API_TOKEN: this.config.apiKey }
+    })
+      .then(function (response) {
+        Log.info('TeslaFi response was ' + response.status)
+        if (response.status !== 200) {
+          return
         }
-      }
-    )
+
+        return response.text().then(function (body) {
+          self.callback(body)
+        })
+      })
+      .catch(function (error) {
+        Log.error('Error fetching data from TeslaFi: ' + error)
+      })
   }
 }
 

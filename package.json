@@ -33,8 +33,7 @@
   },
   "dependencies": {
     "build-url": "^6.0.1",
-    "is-empty": "^1.2.0",
-    "request": "^2.88.2"
+    "is-empty": "^1.2.0"
   },
   "devDependencies": {
     "eslint": "^9.39.5",
