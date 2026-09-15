@@ -4,7 +4,6 @@
  * Created by Matt Dyson
  */
 
-const request = require('request')
 const Log = require('../../../js/logger')
 const buildUrl = require('build-url')
 const DataSource = require('../DataSource')
@@ -34,20 +33,20 @@ class Tessie extends DataSource {
     })
 
     Log.info('Sending request to Tessie')
-    request(
-      {
-        url,
-        method: 'GET',
-        headers: {
-          Authorization: 'Bearer ' + this.config.apiKey,
-          Accept: ''
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + this.config.apiKey,
+        Accept: ''
+      }
+    })
+      .then(function (response) {
+        Log.info('Tessie response was code ' + response.status)
+        if (response.status !== 200) {
+          return
         }
-      },
-      function (error, response, body) {
-        Log.info('Tessie response was code ' + response.statusCode)
-        if (!error && response.statusCode === 200) {
-          body = JSON.parse(body)
 
+        return response.json().then(function (body) {
           const parsed = {}
 
           // Flatten Tessie response into one-dimensional object
@@ -79,9 +78,11 @@ class Tessie extends DataSource {
           const json = JSON.stringify(parsed)
 
           self.callback(json)
-        }
-      }
-    )
+        })
+      })
+      .catch(function (error) {
+        Log.error('Error fetching data from Tessie: ' + error)
+      })
   }
 }
 
