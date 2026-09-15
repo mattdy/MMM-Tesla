@@ -10,24 +10,22 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
-          ref: ${{ github.head_ref }}
-          token: ${{ secrets.WORKFLOW_TOKEN }}
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "20.x"
+          node-version: "24.x"
       - name: Install
         run: |
-          npm install
+          npm ci
       - name: Prettier
         run: |
           npm run prettier
       - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: Apply formatting changes
-          branch: ${{ github.head_ref }}
+          # GITHUB_TOKEN is never allowed to push changes to workflow files
+          file_pattern: ". :!.github/workflows"
       - name: CheckJS
         run: |
           npm run test:js
