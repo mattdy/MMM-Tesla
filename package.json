@@ -36,13 +36,13 @@
   "dependencies": {
     "build-url": "^6.0.1",
     "is-empty": "^1.2.0",
-    "mqtt": "^5.15.2"
+    "mqtt": "^5.16.0"
   },
   "devDependencies": {
     "eslint": "^9.39.5",
     "globals": "^17.12.0",
     "neostandard": "^0.13.0",
-    "prettier": "^3.2.5",
+    "prettier": "^3.9.8",
     "stylelint": "^17.15.0",
     "stylelint-config-standard": "^40.0.0"
   }
