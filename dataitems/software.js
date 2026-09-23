@@ -9,7 +9,12 @@ DataItemProvider.register('version', {
   field: 'Version',
 
   onDataUpdate (data) {
-    this.display = data.carState !== 'Driving'
+    // Not every source reports a version, so hide the row rather than showing an empty value
+    this.display = data.carState !== 'Driving' && !!data.car_version
+    if (!this.display) {
+      return
+    }
+
     this.value = data.car_version.split(' ')[0]
   }
 })
@@ -25,7 +30,7 @@ DataItemProvider.register('version-new', {
   field: 'New Version Available',
 
   onDataUpdate (data) {
-    this.display = data.newVersionStatus !== ''
+    this.display = !!data.newVersionStatus
     this.value = data.newVersion
   }
 })

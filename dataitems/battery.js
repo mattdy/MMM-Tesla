@@ -10,15 +10,22 @@ DataItemProvider.register('battery', {
   field: 'Battery',
 
   onDataUpdate (data) {
-    this.value = '<span class="battery-level-'
-    this.value += this.getBatteryLevelClass(data.usable_battery_level)
-    this.value += '">'
-    this.value += data.usable_battery_level
-    this.value += '%</span> / <span class="battery-level-'
-    this.value += this.getBatteryLevelClass(data.charge_limit_soc)
-    this.value += '">'
-    this.value += data.charge_limit_soc
-    this.value += '%</span>'
+    this.display = data.usable_battery_level !== undefined
+    if (!this.display) {
+      return
+    }
+
+    this.value = this.formatLevel(data.usable_battery_level)
+
+    // The charge limit isn't given by every source, so only show it if we have it
+    if (data.charge_limit_soc !== undefined) {
+      this.value += ' / ' + this.formatLevel(data.charge_limit_soc)
+    }
+  },
+
+  formatLevel: function (level) {
+    const levelClass = this.getBatteryLevelClass(level)
+    return `<span class="battery-level-${levelClass}">${level}%</span>`
   },
 
   getBatteryLevelClass: function (bl) {

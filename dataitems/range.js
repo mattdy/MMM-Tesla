@@ -9,7 +9,15 @@ DataItemProvider.register('range', {
   field: 'Range',
 
   onDataUpdate (data) {
-    this.value = this.context.convertDistance(data.ideal_battery_range)
+    const range = parseFloat(data.ideal_battery_range)
+
+    // Hide the row rather than displaying 'NaN' if the source gave us no range
+    this.display = !isNaN(range)
+    if (!this.display) {
+      return
+    }
+
+    this.value = this.context.convertDistance(range)
   }
 })
 
@@ -24,7 +32,14 @@ DataItemProvider.register('range-estimated', {
   field: 'Range',
 
   onDataUpdate (data) {
-    this.value = this.context.convertDistance(data.est_battery_range)
+    const range = parseFloat(data.est_battery_range)
+
+    this.display = !isNaN(range)
+    if (!this.display) {
+      return
+    }
+
+    this.value = this.context.convertDistance(range)
     this.value += ' (estimated)'
   }
 })
