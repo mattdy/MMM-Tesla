@@ -21,6 +21,7 @@ module.exports = NodeHelper.create({
     this.started = false
     this.config = null
     this.source = null
+    this.lastResponse = null
   },
 
   getData: function () {
@@ -33,6 +34,8 @@ module.exports = NodeHelper.create({
     Log.info('Tesla fetching data from source: ' + this.source.config.name)
     this.source.fetchData(function (response) {
       Log.info('Received data: ' + response)
+      // Held on to so that a frontend reconnecting mid-interval can be given it straight away
+      self.lastResponse = response
       self.sendSocketNotification('DATA', response)
     })
 
@@ -49,6 +52,18 @@ module.exports = NodeHelper.create({
     switch (notification) {
       case 'CONFIG':
         if (this.config !== null) {
+          // We are already running, so this is a frontend that has reconnected (after a browser
+          // reload, for instance) and lost its data. Hand it what we already have, rather than
+          // leaving it showing 'Loading' until the next poll comes round
+          if (this.started) {
+            this.sendSocketNotification('STARTED', true)
+
+            if (this.lastResponse !== null) {
+              Log.info('Tesla sending cached data to reconnected frontend')
+              this.sendSocketNotification('DATA', this.lastResponse)
+            }
+          }
+
           return
         }
 
