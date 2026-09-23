@@ -109,8 +109,12 @@ Module.register('MMM-Tesla', {
     const content = document.createElement('div')
 
     content.innerHTML = ''
+
+    // The name is missing if the source never reported one, so leave it out rather than
+    // rendering 'undefined' next to the icon
+    const name = t.display_name ? ` ${t.display_name}` : ''
     let table = `
-      <h2 class="car-name"><span class="zmdi zmdi-car zmdi-hc-1x icon"></span> ${t.display_name}</h2>
+      <h2 class="car-name"><span class="zmdi zmdi-car zmdi-hc-1x icon"></span>${name}</h2>
       <table class="small">
     `
 
