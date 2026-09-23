@@ -11,6 +11,17 @@ const DataSource = require('../DataSource')
 
 const KM_PER_MILE = 1.60934
 
+// Retained messages arrive in a burst on subscribe. Rather than guessing how long that takes,
+// we send once they stop arriving - but cap the wait, as a car that is awake publishes
+// continuously and would otherwise never give us a gap
+const BURST_SETTLE_MS = 2000
+const BURST_MAX_WAIT_MS = 15000
+
+// TeslaMate only publishes a topic when its value changes, so these rarely-changing ones are
+// only ever seen as retained messages. If the broker has lost its retained state (a restart
+// without persistence, for instance) they never arrive and the fields they fill stay empty
+const RETAINED_ONLY_TOPICS = ['display_name', 'version', 'charge_limit_soc']
+
 class TeslaMate extends DataSource {
   constructor (config) {
     super(config)
@@ -30,9 +41,13 @@ class TeslaMate extends DataSource {
     this.state = {}
     this.lastUpdate = null
     this.waitingForData = false
+    this.burstTimer = null
+    this.burstDeadline = null
     this.topic = this.config.topicPrefix + '/cars/' + this.config.carId + '/'
 
-    const options = {}
+    // A clean session makes the broker resend every retained topic each time we connect, which
+    // is the only way we see the values that TeslaMate publishes once and then leaves alone
+    const options = { clean: true }
     if (this.config.username) {
       options.username = this.config.username
     }
@@ -41,7 +56,8 @@ class TeslaMate extends DataSource {
     }
 
     // MQTT is push-based, so we hold a persistent connection and cache the latest value of each
-    // topic. TeslaMate retains its messages, so we receive the full vehicle state on subscribe.
+    // topic. TeslaMate publishes a topic only when its value changes, so the cache is seeded
+    // from the retained messages the broker replays to us when we subscribe.
     this.client = mqtt.connect(this.config.url, options)
 
     this.client.on('connect', () => {
@@ -74,18 +90,47 @@ class TeslaMate extends DataSource {
     this.lastUpdate = new Date()
 
     if (this.waitingForData) {
-      this.waitingForData = false
-      // Retained messages arrive in a burst on subscribe, so let them all land before sending
-      setTimeout(() => this.sendData(), 2000)
+      // Hold off until the burst goes quiet, so our first update is a complete picture
+      clearTimeout(this.burstTimer)
+      this.burstTimer = setTimeout(() => this.finishBurst(), BURST_SETTLE_MS)
+
+      if (this.burstDeadline === null) {
+        this.burstDeadline = setTimeout(() => this.finishBurst(), BURST_MAX_WAIT_MS)
+      }
     }
+  }
+
+  // The initial burst of retained messages has finished, so we can send what we have
+  finishBurst () {
+    if (!this.waitingForData) {
+      return
+    }
+
+    this.waitingForData = false
+    clearTimeout(this.burstTimer)
+    clearTimeout(this.burstDeadline)
+    this.burstTimer = null
+    this.burstDeadline = null
+
+    const missing = RETAINED_ONLY_TOPICS.filter((topic) => this.state[topic] === undefined)
+    if (missing.length > 0) {
+      Log.warn(
+        'TeslaMate did not send the topics: ' + missing.join(', ') + '. These are only ' +
+          'published when they change, so they are missing from the retained messages on your ' +
+          'MQTT server - restart TeslaMate to make it publish them again'
+      )
+    }
+
+    this.sendData()
   }
 
   fetchData (callback) {
     this.callback = callback
 
-    if (this.lastUpdate === null) {
-      // Nothing received yet - send as soon as it arrives rather than waiting for the next poll
-      Log.info('No data received from TeslaMate yet')
+    if (this.waitingForData || this.lastUpdate === null) {
+      // Either nothing has arrived yet, or we are still collecting the opening burst - in both
+      // cases we send as soon as we have the data, rather than waiting for the next poll
+      Log.info('Waiting for data from TeslaMate')
       this.waitingForData = true
       return
     }
