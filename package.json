@@ -41,7 +41,7 @@
   "devDependencies": {
     "eslint": "^9.39.5",
     "globals": "^17.13.0",
-    "neostandard": "^0.14.0",
+    "neostandard": "^0.14.1",
     "prettier": "^3.9.10",
     "stylelint": "^17.16.0",
     "stylelint-config-standard": "^40.0.0"
